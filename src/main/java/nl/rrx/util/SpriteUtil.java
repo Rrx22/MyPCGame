@@ -1,4 +1,4 @@
-package nl.rrx.utils;
+package nl.rrx.util;
 
 import java.io.Serial;
 import java.io.Serializable;

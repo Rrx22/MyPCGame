@@ -1,24 +1,24 @@
-package nl.rrx.utils;
+package nl.rrx.util;
 
 public class FpsUtil {
+
+    public static final int ONE_SECOND_IN_NANOSECONDS = 1_000_000_000;
 
     private final double interval;
 
     private long lastTime = System.nanoTime();
-    private double delta = 0L;
 
     public FpsUtil(int fps) {
-        interval = (double) 1000000000 / fps; // 1 second divided by FPS
+        interval = (double) ONE_SECOND_IN_NANOSECONDS / fps;
     }
 
     public boolean canLoadNextFrame() {
         long currentTime = System.nanoTime();
-        delta += (currentTime - lastTime) / interval;
-        lastTime = currentTime;
+        long elapsedTime = currentTime - lastTime;
+        boolean canLoadNextFrame = elapsedTime >= interval;
 
-        boolean canLoadNextFrame = delta >= 1;
         if (canLoadNextFrame) {
-            delta--;
+            lastTime = currentTime;
         }
         return canLoadNextFrame;
     }

@@ -1,4 +1,4 @@
-package nl.rrx.utils;
+package nl.rrx.entity;
 
 public enum Direction {
     UP,

@@ -1,8 +1,7 @@
 package nl.rrx.entity;
 
-import nl.rrx.KeyHandler;
-import nl.rrx.utils.Direction;
-import nl.rrx.utils.SpriteUtil;
+import nl.rrx.config.KeyHandler;
+import nl.rrx.util.SpriteUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
@@ -11,14 +10,15 @@ import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
 
-import static nl.rrx.utils.Direction.*;
+import static nl.rrx.config.ScreenSettings.getTileSize;
+import static nl.rrx.entity.Direction.*;
 
-public class Player extends Entity implements Serializable {
+public class Player extends Sprite implements Serializable {
     @Serial
     private static final long serialVersionUID = 2L;
 
-    private KeyHandler keyH;
-    private SpriteUtil spriteUtil;
+    private final KeyHandler keyH;
+    private final SpriteUtil spriteUtil;
 
     public Player(KeyHandler keyH) {
         this.keyH = keyH;
@@ -49,17 +49,17 @@ public class Player extends Entity implements Serializable {
         move();
     }
 
-    public void draw(Graphics2D g2, int tileSize) {
+    public void draw(Graphics2D g2) {
 
         boolean useNewImage = spriteUtil.useNewImage();
-        
+
         BufferedImage image = switch (direction) {
             case UP -> useNewImage ? up1 : up2;
             case DOWN -> useNewImage ? down1 : down2;
             case LEFT -> useNewImage ? left1 : left2;
             case RIGHT -> useNewImage ? right1 : right2;
         };
-        g2.drawImage(image, x, y, tileSize, tileSize, null);
+        g2.drawImage(image, x, y, getTileSize(), getTileSize(), null);
     }
 
     private void move() {
@@ -67,8 +67,7 @@ public class Player extends Entity implements Serializable {
             moveInDirection(UP);
         } else if (keyH.downPressed) {
             moveInDirection(DOWN);
-        }
-        if (keyH.leftPressed) {
+        } else if (keyH.leftPressed) {
             moveInDirection(LEFT);
         } else if (keyH.rightPressed) {
             moveInDirection(RIGHT);

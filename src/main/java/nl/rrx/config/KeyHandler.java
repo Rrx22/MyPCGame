@@ -1,4 +1,4 @@
-package nl.rrx;
+package nl.rrx.config;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
