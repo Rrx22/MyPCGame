@@ -1,7 +1,5 @@
 package nl.rrx.tile;
 
-import nl.rrx.GamePanel;
-
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
@@ -20,12 +18,10 @@ public class TileManager implements Serializable {
     @Serial
     private static final long serialVersionUID = 0L;
 
-    private final GamePanel gp;
     private final List<Tile> tiles = new ArrayList<>();
     private final int[][] parsedMapOfNumbers = new int[MAX_SCREEN_COL][MAX_SCREEN_ROW];
 
-    public TileManager(GamePanel gp) {
-        this.gp = gp;
+    public TileManager() {
         loadTileImages();
         loadMap("/maps/map01.txt");
     }
@@ -45,47 +41,31 @@ public class TileManager implements Serializable {
 
     }
 
-    public void loadMap(String filePath) {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(filePath)))) {
-            int col = 0;
-            int row = 0;
-
-            while (col < MAX_SCREEN_COL && row < MAX_SCREEN_ROW) {
-                String line = reader.readLine();
-                String[] numbers = line.split(" ");
-                while (col < MAX_SCREEN_COL) {
-                    int num = Integer.parseInt(numbers[col]);
-                    parsedMapOfNumbers[col][row] = num;
-                    col++;
-                }
-                col = 0;
-                row++;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void draw(Graphics2D g2) {
-
-        int col = 0;
-        int row = 0;
         int x = 0;
         int y = 0;
 
-        while (col < MAX_SCREEN_COL && row < MAX_SCREEN_ROW) {
-            int parsedTileNumber = parsedMapOfNumbers[col][row];
-
-            g2.drawImage(tiles.get(parsedTileNumber).image, x, y, TILE_SIZE, TILE_SIZE, null);
-            col++;
-            x += TILE_SIZE;
-
-            if (col == MAX_SCREEN_COL) {
-                col = 0;
-                x = 0;
-                row++;
+        for (int col = 0; col < MAX_SCREEN_COL; col++) {
+            for (int row = 0; row < MAX_SCREEN_ROW; row++) {
+                int parsedTileNumber = parsedMapOfNumbers[col][row];
+                g2.drawImage(tiles.get(parsedTileNumber).image, x, y, TILE_SIZE, TILE_SIZE, null);
                 y += TILE_SIZE;
             }
+            x += TILE_SIZE;
+            y = 0;
+        }
+    }
+
+    private void loadMap(String filePath) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(filePath)))) {
+            for (int row = 0; row < MAX_SCREEN_ROW; row++) {
+                String[] parsedTileNumbers = reader.readLine().split(" ");
+                for (int col = 0; col < MAX_SCREEN_COL; col++) {
+                    parsedMapOfNumbers[col][row] = Integer.parseInt(parsedTileNumbers[col]);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
