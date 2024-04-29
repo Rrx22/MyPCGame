@@ -4,11 +4,11 @@ import java.awt.image.BufferedImage;
 
 public abstract class Sprite {
 
-    protected int x;
-    protected int y;
-    protected int speed;
+    protected int x = 100;
+    protected int y = 100;
+    protected int speed = 4;
 
-    protected Direction direction;
+    protected Direction direction = Direction.DOWN;
 
     protected BufferedImage up1;
     protected BufferedImage up2;

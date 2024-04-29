@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
 
-import static nl.rrx.config.ScreenSettings.getTileSize;
+import static nl.rrx.config.ScreenSettings.TILE_SIZE;
 import static nl.rrx.entity.Direction.*;
 
 public class Player extends Sprite implements Serializable {
@@ -23,18 +23,10 @@ public class Player extends Sprite implements Serializable {
     public Player(KeyHandler keyH) {
         this.keyH = keyH;
         spriteUtil = new SpriteUtil();
-        setupPlayerDefaults();
-        setupPlayerImages();
+        loadPlayerImages();
     }
 
-    private void setupPlayerDefaults() {
-        x = 100;
-        y = 100;
-        speed = 4;
-        direction = DOWN;
-    }
-
-    public void setupPlayerImages() {
+    public void loadPlayerImages() {
         try {
             up1 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-up-1.png"));
             up2 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-up-2.png"));
@@ -60,7 +52,7 @@ public class Player extends Sprite implements Serializable {
             case LEFT -> spriteUtil.isNewDirection() ? left1 : left2;
             case RIGHT -> spriteUtil.isNewDirection() ? right1 : right2;
         };
-        g2.drawImage(image, x, y, getTileSize(), getTileSize(), null);
+        g2.drawImage(image, x, y, TILE_SIZE, TILE_SIZE, null);
     }
 
     private void move() {

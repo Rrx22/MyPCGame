@@ -5,7 +5,7 @@ import nl.rrx.config.ScreenSettings;
 public class FpsUtil {
 
     private static final int ONE_SECOND_IN_NANOSECONDS = 1_000_000_000;
-    private static final double INTERVAL = (double) ONE_SECOND_IN_NANOSECONDS / ScreenSettings.getFps();
+    private static final double INTERVAL = (double) ONE_SECOND_IN_NANOSECONDS / ScreenSettings.FPS;
 
     private long lastTime = System.nanoTime();
 
