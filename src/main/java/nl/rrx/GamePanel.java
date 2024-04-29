@@ -10,7 +10,6 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-import static nl.rrx.config.ScreenSettings.getFps;
 import static nl.rrx.config.ScreenSettings.getScreenSize;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -33,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        var fpsUtil = new FpsUtil(getFps());
+        var fpsUtil = new FpsUtil();
         while (gameThread != null) {
             if (fpsUtil.canLoadNextFrame()) {
                 update();

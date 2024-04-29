@@ -18,7 +18,7 @@ public class SpriteUtil implements Serializable {
         }
     }
 
-    public boolean useNewImage() {
+    public boolean isNewDirection() {
         return spriteNum == 1;
     }
 }

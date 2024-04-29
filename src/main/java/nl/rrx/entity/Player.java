@@ -23,14 +23,18 @@ public class Player extends Sprite implements Serializable {
     public Player(KeyHandler keyH) {
         this.keyH = keyH;
         spriteUtil = new SpriteUtil();
+        setupPlayerDefaults();
+        setupPlayerImages();
+    }
+
+    private void setupPlayerDefaults() {
         x = 100;
         y = 100;
         speed = 4;
         direction = DOWN;
-        getPlayerImage();
     }
 
-    public void getPlayerImage() {
+    public void setupPlayerImages() {
         try {
             up1 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-up-1.png"));
             up2 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-up-2.png"));
@@ -50,14 +54,11 @@ public class Player extends Sprite implements Serializable {
     }
 
     public void draw(Graphics2D g2) {
-
-        boolean useNewImage = spriteUtil.useNewImage();
-
         BufferedImage image = switch (direction) {
-            case UP -> useNewImage ? up1 : up2;
-            case DOWN -> useNewImage ? down1 : down2;
-            case LEFT -> useNewImage ? left1 : left2;
-            case RIGHT -> useNewImage ? right1 : right2;
+            case UP -> spriteUtil.isNewDirection() ? up1 : up2;
+            case DOWN -> spriteUtil.isNewDirection() ? down1 : down2;
+            case LEFT -> spriteUtil.isNewDirection() ? left1 : left2;
+            case RIGHT -> spriteUtil.isNewDirection() ? right1 : right2;
         };
         g2.drawImage(image, x, y, getTileSize(), getTileSize(), null);
     }
