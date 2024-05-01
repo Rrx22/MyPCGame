@@ -37,8 +37,6 @@ public class TileManager implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public void draw(Graphics2D g2) {
