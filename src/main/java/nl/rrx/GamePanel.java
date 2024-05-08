@@ -15,15 +15,17 @@ import static nl.rrx.config.ScreenSettings.SCREEN_SIZE;
 
 public class GamePanel extends JPanel implements Runnable {
     private transient Thread gameThread;
-    private final KeyHandler keyH = new KeyHandler();
-    private final TileManager tileM = new TileManager(this);
-    public final Player player = new Player(keyH);
+
+    private final KeyHandler keyHandler = new KeyHandler();
+    private final TileManager tileManager = new TileManager(this);
+
+    public final Player player = new Player(keyHandler, tileManager);
 
     public GamePanel() {
         this.setPreferredSize(SCREEN_SIZE);
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
-        this.addKeyListener(keyH);
+        this.addKeyListener(keyHandler);
         this.setFocusable(true);
     }
 
@@ -52,7 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
-        tileM.draw(g2);
+        tileManager.draw(g2);
         player.draw(g2);
         g2.dispose();
     }

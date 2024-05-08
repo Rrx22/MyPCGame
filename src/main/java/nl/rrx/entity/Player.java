@@ -1,15 +1,21 @@
 package nl.rrx.entity;
 
 import nl.rrx.config.KeyHandler;
+import nl.rrx.tile.TileManager;
+import nl.rrx.util.CollisionUtil;
 import nl.rrx.util.SpriteUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
 
+import static nl.rrx.config.ScreenSettings.PLAYER_RECT_WIDTH_HEIGHT;
+import static nl.rrx.config.ScreenSettings.PLAYER_RECT_X;
+import static nl.rrx.config.ScreenSettings.PLAYER_RECT_Y;
 import static nl.rrx.config.ScreenSettings.SCREEN_HEIGHT;
 import static nl.rrx.config.ScreenSettings.SCREEN_WIDTH;
 import static nl.rrx.config.ScreenSettings.TILE_SIZE;
@@ -20,25 +26,25 @@ public class Player extends Sprite implements Serializable {
     private static final long serialVersionUID = 2L;
 
     private final KeyHandler keyH;
+    private final CollisionUtil collisionUtil;
     private final SpriteUtil spriteUtil;
 
     private final int screenX;
     private final int screenY;
 
-    public Player(KeyHandler keyH) {
+    public Player(KeyHandler keyH, TileManager tileManager) {
         this.keyH = keyH;
+        collisionUtil = new CollisionUtil(tileManager);
         spriteUtil = new SpriteUtil();
-        setDefaultValues();
-        screenX = SCREEN_WIDTH / 2 - (TILE_SIZE / 2);
-        screenY = SCREEN_HEIGHT / 2 - (TILE_SIZE / 2);
-        loadPlayerImages();
-    }
-
-    private void setDefaultValues() {
+        // PLAYER SETTINGS
         worldX = TILE_SIZE * 23;
         worldY = TILE_SIZE * 21;
         speed = 4;
         direction = Direction.DOWN;
+        solidArea = new Rectangle(PLAYER_RECT_X, PLAYER_RECT_Y, PLAYER_RECT_WIDTH_HEIGHT, PLAYER_RECT_WIDTH_HEIGHT);
+        screenX = SCREEN_WIDTH / 2 - (TILE_SIZE / 2);
+        screenY = SCREEN_HEIGHT / 2 - (TILE_SIZE / 2);
+        loadPlayerImages();
     }
 
     public void loadPlayerImages() {
@@ -84,8 +90,11 @@ public class Player extends Sprite implements Serializable {
 
     private void moveInDirection(Direction direction) {
         this.direction = direction;
-        worldX += direction.moveX(speed);
-        worldY += direction.moveY(speed);
+
+        if (!collisionUtil.check(this)) {
+            worldX += direction.moveX(speed);
+            worldY += direction.moveY(speed);
+        }
         spriteUtil.updateSprite();
     }
 

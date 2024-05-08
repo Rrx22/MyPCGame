@@ -1,5 +1,6 @@
 package nl.rrx.entity;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public abstract class Sprite {
@@ -9,6 +10,7 @@ public abstract class Sprite {
     protected int speed;
 
     protected Direction direction;
+    protected Rectangle solidArea;
 
     protected BufferedImage up1;
     protected BufferedImage up2;
@@ -25,5 +27,17 @@ public abstract class Sprite {
 
     public int getWorldY() {
         return worldY;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public Rectangle getSolidArea() {
+        return solidArea;
     }
 }

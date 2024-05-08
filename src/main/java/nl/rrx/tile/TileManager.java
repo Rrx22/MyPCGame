@@ -77,4 +77,13 @@ public class TileManager implements Serializable {
             e.printStackTrace();
         }
     }
+
+    public int getTileNum(int x, int y) {
+        return mapTileNum[x][y];
+    }
+
+    public Tile getTile(int tileNum) {
+        return tiles.get(tileNum);
+    }
+
 }
