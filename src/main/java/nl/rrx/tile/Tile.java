@@ -2,8 +2,5 @@ package nl.rrx.tile;
 
 import java.awt.image.BufferedImage;
 
-public class Tile {
-
-    public BufferedImage image;
-    public boolean collision;
+public record Tile(BufferedImage image, boolean collision) {
 }

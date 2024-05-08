@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import static nl.rrx.config.ScreenSettings.MAX_WORLD_COL;
 import static nl.rrx.config.ScreenSettings.MAX_WORLD_ROW;
@@ -20,7 +20,7 @@ public class TileManager implements Serializable {
     @Serial
     private static final long serialVersionUID = 0L;
 
-    private final List<Tile> tiles = new ArrayList<>();
+    private final Map<Integer, Tile> tiles = new HashMap<>();
     private final int[][] mapTileNum = new int[MAX_WORLD_COL][MAX_WORLD_ROW];
     private final GamePanel gamePanel;
 
@@ -34,9 +34,8 @@ public class TileManager implements Serializable {
 
         try {
             for (var type : TileType.values()) {
-                var tile = new Tile();
-                tile.image = ImageIO.read(getClass().getResourceAsStream(type.getImageUri()));
-                tiles.add(tile);
+                var image = ImageIO.read(getClass().getResourceAsStream(type.imageUri));
+                tiles.put(type.mapId, new Tile(image, type.collision));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,20 +44,25 @@ public class TileManager implements Serializable {
 
     public void draw(Graphics2D g2) {
         for (int worldCol = 0; worldCol < MAX_WORLD_COL; worldCol++) {
-            int screenX = getScreenX(worldCol);
+            int worldX = worldCol * TILE_SIZE;
+            int screenX = worldX - gamePanel.player.getWorldX() + gamePanel.player.getScreenX();
             for (int worldRow = 0; worldRow < MAX_WORLD_ROW; worldRow++) {
-                int screenY = getScreenY(worldRow);
-                int tileNum = mapTileNum[worldCol][worldRow];
-                g2.drawImage(tiles.get(tileNum).image, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
+                int worldY = worldRow * TILE_SIZE;
+                int screenY = worldY - gamePanel.player.getWorldY() + gamePanel.player.getScreenY();
+
+                if (isWithinScreenBoundary(worldX, worldY)) {
+                    int tileNum = mapTileNum[worldCol][worldRow];
+                    g2.drawImage(tiles.get(tileNum).image(), screenX, screenY, TILE_SIZE, TILE_SIZE, null);
+                }
             }
         }
     }
 
-    private int getScreenX(int worldCol) {
-        return (worldCol * TILE_SIZE) - gamePanel.player.getWorldX() + gamePanel.player.getScreenX();
-    }
-    private int getScreenY(int worldRow) {
-        return (worldRow * TILE_SIZE) - gamePanel.player.getWorldY() + gamePanel.player.getScreenY();
+    private boolean isWithinScreenBoundary(int worldX, int worldY) {
+        return worldX > gamePanel.player.getWorldX() - gamePanel.player.getScreenX() - TILE_SIZE
+            && worldX < gamePanel.player.getWorldX() + gamePanel.player.getScreenX() + TILE_SIZE
+            && worldY > gamePanel.player.getWorldY() - gamePanel.player.getScreenY() - TILE_SIZE
+            && worldY < gamePanel.player.getWorldY() + gamePanel.player.getScreenY() + TILE_SIZE;
     }
 
     private void loadMap(String filePath) {
