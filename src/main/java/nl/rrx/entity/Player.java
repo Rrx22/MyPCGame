@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
 
+import static nl.rrx.config.ScreenSettings.SCREEN_HEIGHT;
+import static nl.rrx.config.ScreenSettings.SCREEN_WIDTH;
 import static nl.rrx.config.ScreenSettings.TILE_SIZE;
 import static nl.rrx.entity.Direction.*;
 
@@ -20,10 +22,23 @@ public class Player extends Sprite implements Serializable {
     private final KeyHandler keyH;
     private final SpriteUtil spriteUtil;
 
+    private final int screenX;
+    private final int screenY;
+
     public Player(KeyHandler keyH) {
         this.keyH = keyH;
         spriteUtil = new SpriteUtil();
+        setDefaultValues();
+        screenX = SCREEN_WIDTH / 2 - (TILE_SIZE / 2);
+        screenY = SCREEN_HEIGHT / 2 - (TILE_SIZE / 2);
         loadPlayerImages();
+    }
+
+    private void setDefaultValues() {
+        worldX = TILE_SIZE * 23;
+        worldY = TILE_SIZE * 21;
+        speed = 4;
+        direction = Direction.DOWN;
     }
 
     public void loadPlayerImages() {
@@ -52,7 +67,7 @@ public class Player extends Sprite implements Serializable {
             case LEFT -> spriteUtil.isNewDirection() ? left1 : left2;
             case RIGHT -> spriteUtil.isNewDirection() ? right1 : right2;
         };
-        g2.drawImage(image, x, y, TILE_SIZE, TILE_SIZE, null);
+        g2.drawImage(image, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
     }
 
     private void move() {
@@ -69,10 +84,16 @@ public class Player extends Sprite implements Serializable {
 
     private void moveInDirection(Direction direction) {
         this.direction = direction;
-        x += direction.moveX(speed);
-        y += direction.moveY(speed);
+        worldX += direction.moveX(speed);
+        worldY += direction.moveY(speed);
         spriteUtil.updateSprite();
     }
 
+    public int getScreenX() {
+        return screenX;
+    }
 
+    public int getScreenY() {
+        return screenY;
+    }
 }

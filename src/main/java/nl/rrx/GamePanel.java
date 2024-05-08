@@ -16,8 +16,8 @@ import static nl.rrx.config.ScreenSettings.SCREEN_SIZE;
 public class GamePanel extends JPanel implements Runnable {
     private transient Thread gameThread;
     private final KeyHandler keyH = new KeyHandler();
-    private final TileManager tileM = new TileManager();
-    private final Player player = new Player(keyH);
+    private final TileManager tileM = new TileManager(this);
+    public final Player player = new Player(keyH);
 
     public GamePanel() {
         this.setPreferredSize(SCREEN_SIZE);
