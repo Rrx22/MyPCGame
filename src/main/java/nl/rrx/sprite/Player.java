@@ -1,7 +1,7 @@
-package nl.rrx.entity;
+package nl.rrx.sprite;
 
 import nl.rrx.config.DependencyManager;
-import nl.rrx.config.SpriteSettings;
+import nl.rrx.config.settings.SpriteSettings;
 import nl.rrx.util.SpriteUtil;
 
 import javax.imageio.ImageIO;
@@ -9,20 +9,16 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.Serial;
-import java.io.Serializable;
 
-import static nl.rrx.config.ScreenSettings.TILE_SIZE;
-import static nl.rrx.entity.Direction.*;
+import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
+import static nl.rrx.sprite.Direction.*;
 
-public class Player extends Sprite implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 2L;
+public class Player extends Sprite {
 
     private final int screenX;
     private final int screenY;
 
-    private final transient DependencyManager dm;
+    private final DependencyManager dm;
     private final SpriteUtil spriteUtil;
 
 

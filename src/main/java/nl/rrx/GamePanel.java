@@ -1,7 +1,7 @@
 package nl.rrx;
 
 import nl.rrx.config.DependencyManager;
-import nl.rrx.util.FpsUtil;
+import nl.rrx.config.FpsHandler;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,12 +9,12 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-import static nl.rrx.config.ScreenSettings.SCREEN_SIZE;
+import static nl.rrx.config.settings.ScreenSettings.SCREEN_SIZE;
 
 public class GamePanel extends JPanel implements Runnable {
-    private transient Thread gameThread;
 
     private final transient DependencyManager dm = new DependencyManager();
+    private transient Thread gameThread;
 
     public GamePanel() {
         this.setPreferredSize(SCREEN_SIZE);
@@ -31,9 +31,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        var fpsUtil = new FpsUtil();
+        var fpsHandler = new FpsHandler();
         while (gameThread != null) {
-            if (fpsUtil.canLoadNextFrame()) {
+            if (fpsHandler.canLoadNextFrame()) {
                 update();
                 repaint();
             }

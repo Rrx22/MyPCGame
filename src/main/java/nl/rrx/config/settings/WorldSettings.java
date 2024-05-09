@@ -1,8 +1,8 @@
-package nl.rrx.config;
+package nl.rrx.config.settings;
 
-import static nl.rrx.config.ScreenSettings.MAX_SCREEN_COL;
-import static nl.rrx.config.ScreenSettings.MAX_SCREEN_ROW;
-import static nl.rrx.config.ScreenSettings.TILE_SIZE;
+import static nl.rrx.config.settings.ScreenSettings.MAX_SCREEN_COL;
+import static nl.rrx.config.settings.ScreenSettings.MAX_SCREEN_ROW;
+import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
 public class WorldSettings {
 

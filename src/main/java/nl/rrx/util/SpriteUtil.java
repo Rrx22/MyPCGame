@@ -3,7 +3,7 @@ package nl.rrx.util;
 import java.io.Serial;
 import java.io.Serializable;
 
-import static nl.rrx.config.SpriteSettings.SPRITE_REFRESH_RATE;
+import static nl.rrx.config.settings.SpriteSettings.SPRITE_REFRESH_RATE;
 
 public class SpriteUtil implements Serializable {
     @Serial

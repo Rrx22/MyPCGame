@@ -1,18 +1,13 @@
 package nl.rrx.util;
 
 import nl.rrx.config.DependencyManager;
-import nl.rrx.entity.Sprite;
+import nl.rrx.sprite.Sprite;
 
-import java.io.Serial;
-import java.io.Serializable;
+import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
-import static nl.rrx.config.ScreenSettings.TILE_SIZE;
+public class CollisionUtil {
 
-public class CollisionUtil implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 4L;
-
-    private final transient DependencyManager dm;
+    private final DependencyManager dm;
 
     public CollisionUtil(DependencyManager dm) {
         this.dm = dm;

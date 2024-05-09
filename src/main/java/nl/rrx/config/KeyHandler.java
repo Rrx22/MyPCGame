@@ -2,12 +2,8 @@ package nl.rrx.config;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.Serial;
-import java.io.Serializable;
 
-public class KeyHandler implements KeyListener, Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class KeyHandler implements KeyListener {
 
     public boolean upPressed;
     public boolean downPressed;

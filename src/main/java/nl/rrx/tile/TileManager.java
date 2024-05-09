@@ -7,22 +7,19 @@ import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import static nl.rrx.config.ScreenSettings.TILE_SIZE;
-import static nl.rrx.config.WorldSettings.MAX_WORLD_COL;
-import static nl.rrx.config.WorldSettings.MAX_WORLD_ROW;
+import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
+import static nl.rrx.config.settings.WorldSettings.MAX_WORLD_COL;
+import static nl.rrx.config.settings.WorldSettings.MAX_WORLD_ROW;
 
-public class TileManager implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 0L;
+public class TileManager {
+
+    private final DependencyManager dm;
 
     private final Map<Integer, Tile> tiles = new HashMap<>();
     private final int[][] mapTileNum = new int[MAX_WORLD_COL][MAX_WORLD_ROW];
-    private final transient DependencyManager dm;
 
     public TileManager(DependencyManager dm) {
         this.dm = dm;
@@ -34,7 +31,7 @@ public class TileManager implements Serializable {
         try {
             for (var type : TileType.values()) {
                 var image = ImageIO.read(getClass().getResourceAsStream(type.imageUri));
-                tiles.put(type.mapId, new Tile(image, type.collision));
+                tiles.put(type.mapId, new Tile(image, type.isCollision));
             }
         } catch (IOException e) {
             e.printStackTrace();

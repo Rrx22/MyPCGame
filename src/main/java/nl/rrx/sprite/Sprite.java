@@ -1,4 +1,4 @@
-package nl.rrx.entity;
+package nl.rrx.sprite;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;

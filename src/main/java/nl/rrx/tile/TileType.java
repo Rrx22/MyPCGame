@@ -9,12 +9,12 @@ public enum TileType {
     TREE  (5, true, "/images/tiles/tree.png");
 
     public final int mapId;
-    public final boolean collision;
+    public final boolean isCollision;
     public final String imageUri;
 
-    TileType(int mapId, boolean collision, String imageUri) {
+    TileType(int mapId, boolean isCollision, String imageUri) {
         this.mapId = mapId;
-        this.collision = collision;
+        this.isCollision = isCollision;
         this.imageUri = imageUri;
     }
 }

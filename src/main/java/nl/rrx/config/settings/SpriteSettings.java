@@ -1,10 +1,10 @@
-package nl.rrx.config;
+package nl.rrx.config.settings;
 
-import nl.rrx.entity.Direction;
+import nl.rrx.sprite.Direction;
 
-import static nl.rrx.config.ScreenSettings.SCREEN_HEIGHT;
-import static nl.rrx.config.ScreenSettings.SCREEN_WIDTH;
-import static nl.rrx.config.ScreenSettings.TILE_SIZE;
+import static nl.rrx.config.settings.ScreenSettings.SCREEN_HEIGHT;
+import static nl.rrx.config.settings.ScreenSettings.SCREEN_WIDTH;
+import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
 public class SpriteSettings {
 

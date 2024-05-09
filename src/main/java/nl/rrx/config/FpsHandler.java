@@ -1,8 +1,8 @@
-package nl.rrx.util;
+package nl.rrx.config;
 
-import nl.rrx.config.ScreenSettings;
+import nl.rrx.config.settings.ScreenSettings;
 
-public class FpsUtil {
+public class FpsHandler {
 
     private static final int ONE_SECOND_IN_NANOSECONDS = 1_000_000_000;
     private static final double INTERVAL = (double) ONE_SECOND_IN_NANOSECONDS / ScreenSettings.FPS;

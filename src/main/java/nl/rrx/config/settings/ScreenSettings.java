@@ -1,4 +1,4 @@
-package nl.rrx.config;
+package nl.rrx.config.settings;
 
 import java.awt.Dimension;
 
