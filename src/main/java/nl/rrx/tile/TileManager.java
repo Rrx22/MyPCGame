@@ -12,9 +12,9 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import static nl.rrx.config.ScreenSettings.MAX_WORLD_COL;
-import static nl.rrx.config.ScreenSettings.MAX_WORLD_ROW;
 import static nl.rrx.config.ScreenSettings.TILE_SIZE;
+import static nl.rrx.config.WorldSettings.MAX_WORLD_COL;
+import static nl.rrx.config.WorldSettings.MAX_WORLD_ROW;
 
 public class TileManager implements Serializable {
     @Serial
@@ -85,5 +85,4 @@ public class TileManager implements Serializable {
     public Tile getTile(int tileNum) {
         return tiles.get(tileNum);
     }
-
 }

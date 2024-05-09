@@ -24,10 +24,10 @@ public class CollisionUtil implements Serializable {
      * @return true if a collision will be hit
      */
     public boolean check(Sprite sprite) {
-        int spriteLeftWorldX = sprite.getWorldX() + sprite.getSolidArea().x;
-        int spriteRightWorldX = sprite.getWorldX() + sprite.getSolidArea().x + sprite.getSolidArea().width;
-        int spriteTopWorldY = sprite.getWorldY() + sprite.getSolidArea().y;
-        int spriteBottomWorldY = sprite.getWorldY() + sprite.getSolidArea().y + sprite.getSolidArea().height;
+        int spriteLeftWorldX = sprite.getWorldX() + sprite.getCollisionArea().x;
+        int spriteRightWorldX = sprite.getWorldX() + sprite.getCollisionArea().x + sprite.getCollisionArea().width;
+        int spriteTopWorldY = sprite.getWorldY() + sprite.getCollisionArea().y;
+        int spriteBottomWorldY = sprite.getWorldY() + sprite.getCollisionArea().y + sprite.getCollisionArea().height;
 
         int spriteLeftCol = spriteLeftWorldX / TILE_SIZE;
         int spriteRightCol = spriteRightWorldX / TILE_SIZE;

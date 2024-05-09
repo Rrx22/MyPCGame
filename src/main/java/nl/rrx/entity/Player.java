@@ -1,6 +1,7 @@
 package nl.rrx.entity;
 
 import nl.rrx.config.KeyHandler;
+import nl.rrx.config.SpriteSettings;
 import nl.rrx.tile.TileManager;
 import nl.rrx.util.CollisionUtil;
 import nl.rrx.util.SpriteUtil;
@@ -13,11 +14,6 @@ import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
 
-import static nl.rrx.config.ScreenSettings.PLAYER_RECT_WIDTH_HEIGHT;
-import static nl.rrx.config.ScreenSettings.PLAYER_RECT_X;
-import static nl.rrx.config.ScreenSettings.PLAYER_RECT_Y;
-import static nl.rrx.config.ScreenSettings.SCREEN_HEIGHT;
-import static nl.rrx.config.ScreenSettings.SCREEN_WIDTH;
 import static nl.rrx.config.ScreenSettings.TILE_SIZE;
 import static nl.rrx.entity.Direction.*;
 
@@ -36,14 +32,19 @@ public class Player extends Sprite implements Serializable {
         this.keyH = keyH;
         collisionUtil = new CollisionUtil(tileManager);
         spriteUtil = new SpriteUtil();
-        // PLAYER SETTINGS
-        worldX = TILE_SIZE * 23;
-        worldY = TILE_SIZE * 21;
-        speed = 4;
-        direction = Direction.DOWN;
-        solidArea = new Rectangle(PLAYER_RECT_X, PLAYER_RECT_Y, PLAYER_RECT_WIDTH_HEIGHT, PLAYER_RECT_WIDTH_HEIGHT);
-        screenX = SCREEN_WIDTH / 2 - (TILE_SIZE / 2);
-        screenY = SCREEN_HEIGHT / 2 - (TILE_SIZE / 2);
+        worldX = SpriteSettings.INIT_WORLD_X;
+        worldY = SpriteSettings.INIT_WORLD_Y;
+        screenX = SpriteSettings.INIT_SCREEN_X;
+        screenY = SpriteSettings.INIT_SCREEN_Y;
+        speed = SpriteSettings.INIT_SPEED;
+        direction = SpriteSettings.INIT_DIRECTION;
+
+        collisionArea = new Rectangle();
+        collisionArea.x = SpriteSettings.PLAYER_RECT_X;
+        collisionArea.y = SpriteSettings.PLAYER_RECT_Y;
+        collisionArea.width = SpriteSettings.PLAYER_RECT_WIDTH_HEIGHT;
+        collisionArea.height = SpriteSettings.PLAYER_RECT_WIDTH_HEIGHT;
+
         loadPlayerImages();
     }
 

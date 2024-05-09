@@ -10,7 +10,7 @@ public abstract class Sprite {
     protected int speed;
 
     protected Direction direction;
-    protected Rectangle solidArea;
+    protected Rectangle collisionArea;
 
     protected BufferedImage up1;
     protected BufferedImage up2;
@@ -37,7 +37,7 @@ public abstract class Sprite {
         return direction;
     }
 
-    public Rectangle getSolidArea() {
-        return solidArea;
+    public Rectangle getCollisionArea() {
+        return collisionArea;
     }
 }
