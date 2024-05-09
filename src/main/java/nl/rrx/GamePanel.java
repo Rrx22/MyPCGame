@@ -1,8 +1,6 @@
 package nl.rrx;
 
-import nl.rrx.config.KeyHandler;
-import nl.rrx.entity.Player;
-import nl.rrx.tile.TileManager;
+import nl.rrx.config.DependencyManager;
 import nl.rrx.util.FpsUtil;
 
 import java.awt.Color;
@@ -16,16 +14,13 @@ import static nl.rrx.config.ScreenSettings.SCREEN_SIZE;
 public class GamePanel extends JPanel implements Runnable {
     private transient Thread gameThread;
 
-    private final KeyHandler keyHandler = new KeyHandler();
-    private final TileManager tileManager = new TileManager(this);
-
-    public final Player player = new Player(keyHandler, tileManager);
+    private final transient DependencyManager dm = new DependencyManager();
 
     public GamePanel() {
         this.setPreferredSize(SCREEN_SIZE);
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
-        this.addKeyListener(keyHandler);
+        this.addKeyListener(dm.keyHandler);
         this.setFocusable(true);
     }
 
@@ -46,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void update() {
-        player.update();
+        dm.player.update();
     }
 
     @Override
@@ -54,8 +49,8 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
-        tileManager.draw(g2);
-        player.draw(g2);
+        dm.tileManager.draw(g2);
+        dm.player.draw(g2);
         g2.dispose();
     }
 }

@@ -1,9 +1,7 @@
 package nl.rrx.entity;
 
-import nl.rrx.config.KeyHandler;
+import nl.rrx.config.DependencyManager;
 import nl.rrx.config.SpriteSettings;
-import nl.rrx.tile.TileManager;
-import nl.rrx.util.CollisionUtil;
 import nl.rrx.util.SpriteUtil;
 
 import javax.imageio.ImageIO;
@@ -21,16 +19,15 @@ public class Player extends Sprite implements Serializable {
     @Serial
     private static final long serialVersionUID = 2L;
 
-    private final KeyHandler keyH;
-    private final CollisionUtil collisionUtil;
-    private final SpriteUtil spriteUtil;
-
     private final int screenX;
     private final int screenY;
 
-    public Player(KeyHandler keyH, TileManager tileManager) {
-        this.keyH = keyH;
-        collisionUtil = new CollisionUtil(tileManager);
+    private final transient DependencyManager dm;
+    private final SpriteUtil spriteUtil;
+
+
+    public Player(DependencyManager dm) {
+        this.dm = dm;
         spriteUtil = new SpriteUtil();
         worldX = SpriteSettings.INIT_WORLD_X;
         worldY = SpriteSettings.INIT_WORLD_Y;
@@ -78,13 +75,13 @@ public class Player extends Sprite implements Serializable {
     }
 
     private void move() {
-        if (keyH.upPressed) {
+        if (dm.keyHandler.upPressed) {
             moveInDirection(UP);
-        } else if (keyH.downPressed) {
+        } else if (dm.keyHandler.downPressed) {
             moveInDirection(DOWN);
-        } else if (keyH.leftPressed) {
+        } else if (dm.keyHandler.leftPressed) {
             moveInDirection(LEFT);
-        } else if (keyH.rightPressed) {
+        } else if (dm.keyHandler.rightPressed) {
             moveInDirection(RIGHT);
         }
     }
@@ -92,7 +89,7 @@ public class Player extends Sprite implements Serializable {
     private void moveInDirection(Direction direction) {
         this.direction = direction;
 
-        if (!collisionUtil.check(this)) {
+        if (!dm.collisionUtil.check(this)) {
             worldX += direction.moveX(speed);
             worldY += direction.moveY(speed);
         }

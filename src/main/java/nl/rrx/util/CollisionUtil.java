@@ -1,7 +1,7 @@
 package nl.rrx.util;
 
+import nl.rrx.config.DependencyManager;
 import nl.rrx.entity.Sprite;
-import nl.rrx.tile.TileManager;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -12,10 +12,10 @@ public class CollisionUtil implements Serializable {
     @Serial
     private static final long serialVersionUID = 4L;
 
-    private final TileManager tileManager;
+    private final transient DependencyManager dm;
 
-    public CollisionUtil(TileManager tileManager) {
-        this.tileManager = tileManager;
+    public CollisionUtil(DependencyManager dm) {
+        this.dm = dm;
     }
 
     /**
@@ -37,27 +37,27 @@ public class CollisionUtil implements Serializable {
         return switch (sprite.getDirection()) {
             case UP -> {
                 spriteTopRow = (spriteTopWorldY - sprite.getSpeed()) / TILE_SIZE;
-                int tileUpperLeft = tileManager.getTileNum(spriteLeftCol, spriteTopRow);
-                int tileUpperRight = tileManager.getTileNum(spriteRightCol, spriteTopRow);
-                yield tileManager.getTile(tileUpperLeft).isCollision() || tileManager.getTile(tileUpperRight).isCollision();
+                int tileUpperLeft = dm.tileManager.getTileNum(spriteLeftCol, spriteTopRow);
+                int tileUpperRight = dm.tileManager.getTileNum(spriteRightCol, spriteTopRow);
+                yield dm.tileManager.getTile(tileUpperLeft).isCollision() || dm.tileManager.getTile(tileUpperRight).isCollision();
             }
             case DOWN -> {
                 spriteBottomRow = (spriteBottomWorldY + sprite.getSpeed()) / TILE_SIZE;
-                int tileLowerLeft = tileManager.getTileNum(spriteLeftCol, spriteBottomRow);
-                int tileLowerRight = tileManager.getTileNum(spriteRightCol, spriteBottomRow);
-                yield tileManager.getTile(tileLowerLeft).isCollision() || tileManager.getTile(tileLowerRight).isCollision();
+                int tileLowerLeft = dm.tileManager.getTileNum(spriteLeftCol, spriteBottomRow);
+                int tileLowerRight = dm.tileManager.getTileNum(spriteRightCol, spriteBottomRow);
+                yield dm.tileManager.getTile(tileLowerLeft).isCollision() || dm.tileManager.getTile(tileLowerRight).isCollision();
             }
             case LEFT -> {
                 spriteLeftCol = (spriteLeftWorldX - sprite.getSpeed()) / TILE_SIZE;
-                int tileUpperLeft = tileManager.getTileNum(spriteLeftCol, spriteTopRow);
-                int tileLowerLeft = tileManager.getTileNum(spriteLeftCol, spriteBottomRow);
-                yield tileManager.getTile(tileUpperLeft).isCollision() || tileManager.getTile(tileLowerLeft).isCollision();
+                int tileUpperLeft = dm.tileManager.getTileNum(spriteLeftCol, spriteTopRow);
+                int tileLowerLeft = dm.tileManager.getTileNum(spriteLeftCol, spriteBottomRow);
+                yield dm.tileManager.getTile(tileUpperLeft).isCollision() || dm.tileManager.getTile(tileLowerLeft).isCollision();
             }
             case RIGHT -> {
                 spriteRightCol = (spriteRightWorldX + sprite.getSpeed()) / TILE_SIZE;
-                int tileUpperRight = tileManager.getTileNum(spriteRightCol, spriteTopRow);
-                int tileLowerRight = tileManager.getTileNum(spriteRightCol, spriteBottomRow);
-                yield tileManager.getTile(tileUpperRight).isCollision() || tileManager.getTile(tileLowerRight).isCollision();
+                int tileUpperRight = dm.tileManager.getTileNum(spriteRightCol, spriteTopRow);
+                int tileLowerRight = dm.tileManager.getTileNum(spriteRightCol, spriteBottomRow);
+                yield dm.tileManager.getTile(tileUpperRight).isCollision() || dm.tileManager.getTile(tileLowerRight).isCollision();
             }
         };
     }

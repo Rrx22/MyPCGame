@@ -1,6 +1,6 @@
 package nl.rrx.tile;
 
-import nl.rrx.GamePanel;
+import nl.rrx.config.DependencyManager;
 
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
@@ -22,16 +22,15 @@ public class TileManager implements Serializable {
 
     private final Map<Integer, Tile> tiles = new HashMap<>();
     private final int[][] mapTileNum = new int[MAX_WORLD_COL][MAX_WORLD_ROW];
-    private final GamePanel gamePanel;
+    private final transient DependencyManager dm;
 
-    public TileManager(GamePanel gamePanel) {
-        this.gamePanel = gamePanel;
+    public TileManager(DependencyManager dm) {
+        this.dm = dm;
         loadTileImages();
         loadMap("/maps/map02.txt");
     }
 
-    public void loadTileImages() {
-
+    private void loadTileImages() {
         try {
             for (var type : TileType.values()) {
                 var image = ImageIO.read(getClass().getResourceAsStream(type.imageUri));
@@ -40,29 +39,6 @@ public class TileManager implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void draw(Graphics2D g2) {
-        for (int worldCol = 0; worldCol < MAX_WORLD_COL; worldCol++) {
-            int worldX = worldCol * TILE_SIZE;
-            int screenX = worldX - gamePanel.player.getWorldX() + gamePanel.player.getScreenX();
-            for (int worldRow = 0; worldRow < MAX_WORLD_ROW; worldRow++) {
-                int worldY = worldRow * TILE_SIZE;
-                int screenY = worldY - gamePanel.player.getWorldY() + gamePanel.player.getScreenY();
-
-                if (isWithinScreenBoundary(worldX, worldY)) {
-                    int tileNum = mapTileNum[worldCol][worldRow];
-                    g2.drawImage(tiles.get(tileNum).image(), screenX, screenY, TILE_SIZE, TILE_SIZE, null);
-                }
-            }
-        }
-    }
-
-    private boolean isWithinScreenBoundary(int worldX, int worldY) {
-        return worldX > gamePanel.player.getWorldX() - gamePanel.player.getScreenX() - TILE_SIZE
-            && worldX < gamePanel.player.getWorldX() + gamePanel.player.getScreenX() + TILE_SIZE
-            && worldY > gamePanel.player.getWorldY() - gamePanel.player.getScreenY() - TILE_SIZE
-            && worldY < gamePanel.player.getWorldY() + gamePanel.player.getScreenY() + TILE_SIZE;
     }
 
     private void loadMap(String filePath) {
@@ -76,6 +52,29 @@ public class TileManager implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void draw(Graphics2D g2) {
+        for (int worldCol = 0; worldCol < MAX_WORLD_COL; worldCol++) {
+            int worldX = worldCol * TILE_SIZE;
+            int screenX = worldX - dm.player.getWorldX() + dm.player.getScreenX();
+            for (int worldRow = 0; worldRow < MAX_WORLD_ROW; worldRow++) {
+                int worldY = worldRow * TILE_SIZE;
+                int screenY = worldY - dm.player.getWorldY() + dm.player.getScreenY();
+
+                if (isWithinScreenBoundary(worldX, worldY)) {
+                    int tileNum = mapTileNum[worldCol][worldRow];
+                    g2.drawImage(tiles.get(tileNum).image(), screenX, screenY, TILE_SIZE, TILE_SIZE, null);
+                }
+            }
+        }
+    }
+
+    private boolean isWithinScreenBoundary(int worldX, int worldY) {
+        return worldX > dm.player.getWorldX() - dm.player.getScreenX() - TILE_SIZE
+            && worldX < dm.player.getWorldX() + dm.player.getScreenX() + TILE_SIZE
+            && worldY > dm.player.getWorldY() - dm.player.getScreenY() - TILE_SIZE
+            && worldY < dm.player.getWorldY() + dm.player.getScreenY() + TILE_SIZE;
     }
 
     public int getTileNum(int x, int y) {
