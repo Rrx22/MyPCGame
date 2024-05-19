@@ -12,4 +12,7 @@ public class WorldSettings {
     public static final int MAX_WORLD_ROW = 50;
     public static final int WORLD_WIDTH = TILE_SIZE * MAX_SCREEN_COL;
     public static final int WORLD_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW;
+
+    // GAME OBJECTS
+    public static final int MAX_OBJECTS = 10;
 }

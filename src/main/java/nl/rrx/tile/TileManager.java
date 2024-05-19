@@ -13,6 +13,7 @@ import java.util.Map;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.MAX_WORLD_COL;
 import static nl.rrx.config.settings.WorldSettings.MAX_WORLD_ROW;
+import static nl.rrx.util.ScreenUtil.isWithinScreenBoundary;
 
 public class TileManager {
 
@@ -59,19 +60,12 @@ public class TileManager {
                 int worldY = worldRow * TILE_SIZE;
                 int screenY = worldY - dm.player.getWorldY() + dm.player.getScreenY();
 
-                if (isWithinScreenBoundary(worldX, worldY)) {
+                if (isWithinScreenBoundary(dm.player, worldX, worldY)) {
                     int tileNum = mapTileNum[worldCol][worldRow];
                     g2.drawImage(tiles.get(tileNum).image(), screenX, screenY, TILE_SIZE, TILE_SIZE, null);
                 }
             }
         }
-    }
-
-    private boolean isWithinScreenBoundary(int worldX, int worldY) {
-        return worldX > dm.player.getWorldX() - dm.player.getScreenX() - TILE_SIZE
-            && worldX < dm.player.getWorldX() + dm.player.getScreenX() + TILE_SIZE
-            && worldY > dm.player.getWorldY() - dm.player.getScreenY() - TILE_SIZE
-            && worldY < dm.player.getWorldY() + dm.player.getScreenY() + TILE_SIZE;
     }
 
     public int getTileNum(int x, int y) {
