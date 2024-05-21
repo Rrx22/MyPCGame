@@ -1,7 +1,7 @@
 package nl.rrx.config;
 
 import nl.rrx.object.ObjectManager;
-import nl.rrx.sound.Sound;
+import nl.rrx.sound.SoundManager;
 import nl.rrx.sprite.Player;
 import nl.rrx.tile.TileManager;
 import nl.rrx.util.CollisionUtil;
@@ -12,20 +12,20 @@ public class DependencyManager {
 
     public final KeyHandler keyHandler;
 
-    public final TileManager tileManager;
+    public final SoundManager soundManager;
 
-    public final CollisionUtil collisionUtil;
+    public final TileManager tileManager;
 
     public final ObjectManager objectManager;
 
-    public final Sound sound;
+    public final CollisionUtil collisionUtil;
 
     public DependencyManager() {
-        keyHandler = new KeyHandler();
-        tileManager = new TileManager(this);
         player = new Player(this);
-        collisionUtil = new CollisionUtil(this);
-        objectManager = new ObjectManager(this);
-        sound = new Sound();
+        keyHandler = new KeyHandler();
+        soundManager = new SoundManager();
+        tileManager = new TileManager(player);
+        objectManager = new ObjectManager(player);
+        collisionUtil = new CollisionUtil(tileManager, objectManager);
     }
 }

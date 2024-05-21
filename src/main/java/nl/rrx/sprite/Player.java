@@ -2,6 +2,7 @@ package nl.rrx.sprite;
 
 import nl.rrx.config.DependencyManager;
 import nl.rrx.config.settings.SpriteSettings;
+import nl.rrx.sound.SoundEffect;
 import nl.rrx.util.SpriteUtil;
 
 import javax.imageio.ImageIO;
@@ -24,6 +25,7 @@ public class Player extends Sprite {
     private final SpriteUtil spriteUtil = new SpriteUtil();
 
     private int keysInInventory;
+    public boolean gameOver; //TODO fix/make pwetty
 
 
     public Player(DependencyManager dm) {
@@ -109,24 +111,29 @@ public class Player extends Sprite {
             var type = dm.objectManager.gameObjects[index].type;
             switch (type) {
                 case KEY -> {
-                    keysInInventory++;
+                    dm.soundManager.playSoundEffect(SoundEffect.COIN);
                     dm.objectManager.gameObjects[index] = null;
-                    dm.sound.setFile(1);
+                    keysInInventory++;
                 }
                 case DOOR -> {
                     if (keysInInventory > 0) {
-                        keysInInventory--;
+                        dm.soundManager.playSoundEffect(SoundEffect.UNLOCK);
                         dm.objectManager.gameObjects[index] = null;
-                        dm.sound.setFile(3);
+                        keysInInventory--;
                     }
                 }
                 case BOOTS -> {
-                    dm.sound.setFile(2);
+                    dm.soundManager.playSoundEffect(SoundEffect.POWERUP);
                     speed += SPEED_BOOST;
                     dm.objectManager.gameObjects[index] = null;
                 }
+                case CHEST -> {
+                    dm.soundManager.stopMusic();
+                    gameOver = true;
+                    dm.objectManager.gameObjects[index] = null;
+                    dm.soundManager.playSoundEffect(SoundEffect.FANFARE);
+                }
             }
-            dm.sound.play();
         }
     }
 

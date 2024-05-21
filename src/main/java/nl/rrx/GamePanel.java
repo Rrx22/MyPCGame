@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setUpGame() {
         dm.objectManager.loadObjects();
-        playMusic();
+        dm.soundManager.playMusic();
     }
 
     public void startGameThread() {
@@ -41,6 +41,9 @@ public class GamePanel extends JPanel implements Runnable {
             if (fpsHandler.canLoadNextFrame()) {
                 update();
                 repaint();
+            }
+            if (dm.player.gameOver) {
+                break;
             }
         }
     }
@@ -58,20 +61,5 @@ public class GamePanel extends JPanel implements Runnable {
         dm.objectManager.draw(g2);
         dm.player.draw(g2);
         g2.dispose();
-    }
-
-    public void playMusic() {
-        dm.sound.setFile(0);
-        dm.sound.play();
-        dm.sound.loop();
-    }
-
-    public void stopMusic() {
-        dm.sound.stop();
-    }
-
-    public void playSoundEffect(int index) {
-        dm.sound.setFile(index);
-        dm.sound.play();
     }
 }
