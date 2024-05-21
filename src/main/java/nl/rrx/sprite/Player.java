@@ -20,14 +20,13 @@ public class Player extends Sprite {
     private final int screenY;
 
     private final DependencyManager dm;
-    private final SpriteUtil spriteUtil;
+    private final SpriteUtil spriteUtil = new SpriteUtil();
 
     private int keysInInventory;
 
 
     public Player(DependencyManager dm) {
         this.dm = dm;
-        spriteUtil = new SpriteUtil();
         worldX = SpriteSettings.INIT_WORLD_X;
         worldY = SpriteSettings.INIT_WORLD_Y;
         screenX = SpriteSettings.INIT_SCREEN_X;

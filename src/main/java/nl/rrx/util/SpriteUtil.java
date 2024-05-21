@@ -1,13 +1,8 @@
 package nl.rrx.util;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 import static nl.rrx.config.settings.SpriteSettings.SPRITE_REFRESH_RATE;
 
-public class SpriteUtil implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 3L;
+public class SpriteUtil {
 
     private int spriteCounter = 0;
     private int spriteNum = 1;
