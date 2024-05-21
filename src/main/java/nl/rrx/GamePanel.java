@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setUpGame() {
-        dm.gameObjectManager.loadObjects();
+        dm.objectManager.loadObjects();
     }
 
     public void startGameThread() {
@@ -54,7 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D) g;
         dm.tileManager.draw(g2);
-        dm.gameObjectManager.draw(g2);
+        dm.objectManager.draw(g2);
         dm.player.draw(g2);
         g2.dispose();
     }

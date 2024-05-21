@@ -1,16 +1,15 @@
 package nl.rrx.object;
 
 public enum GameObjectType {
-    KEY("Key", "/images/objects/key.png"),
-    DOOR("Door", "/images/objects/door.png"),
-    CHEST("Chest", "/images/objects/chest.png");
+    KEY("/images/objects/key.png", false),
+    DOOR("/images/objects/door.png", true),
+    CHEST("/images/objects/chest.png", true);
 
-    public final String id;
     public final String imageUri;
+    public final boolean isCollision;
 
-
-    GameObjectType(String id, String imageUri) {
-        this.id = id;
+    GameObjectType(String imageUri, boolean isCollision) {
         this.imageUri = imageUri;
+        this.isCollision = isCollision;
     }
 }

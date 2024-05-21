@@ -4,6 +4,7 @@ import nl.rrx.sprite.Player;
 
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -12,16 +13,17 @@ import static nl.rrx.util.ScreenUtil.isWithinScreenBoundary;
 
 public class GameObject {
 
+    public final GameObjectType type;
     public final BufferedImage image;
-    public final String name;
     public final int worldX;
     public final int worldY;
-    public boolean collision;
+    public final Rectangle collisionArea;
 
     public GameObject(GameObjectType type, int worldX, int worldY) {
-        name = type.name();
+        this.type = type;
         this.worldX = worldX * TILE_SIZE;
         this.worldY = worldY * TILE_SIZE;
+        collisionArea = new Rectangle(this.worldX, this.worldY, TILE_SIZE, TILE_SIZE);
         try {
             image = ImageIO.read(getClass().getResourceAsStream(type.imageUri));
         } catch (IOException e) {

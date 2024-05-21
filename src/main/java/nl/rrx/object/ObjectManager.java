@@ -7,12 +7,12 @@ import java.awt.Graphics2D;
 import static nl.rrx.config.settings.WorldSettings.MAX_OBJECTS;
 import static nl.rrx.object.GameObjectType.*;
 
-public class GameObjectManager {
+public class ObjectManager {
 
     private final DependencyManager dm;
     public final GameObject[] gameObjects;
 
-    public GameObjectManager(DependencyManager dm) {
+    public ObjectManager(DependencyManager dm) {
         this.dm = dm;
         gameObjects = new GameObject[MAX_OBJECTS];
     }

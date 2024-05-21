@@ -11,6 +11,7 @@ public abstract class Sprite {
 
     protected Direction direction;
     protected Rectangle collisionArea;
+    protected boolean collisionOn;
 
     protected BufferedImage up1;
     protected BufferedImage up2;
@@ -39,5 +40,9 @@ public abstract class Sprite {
 
     public Rectangle getCollisionArea() {
         return collisionArea;
+    }
+
+    public void setCollisionOn(boolean collisionOn) {
+        this.collisionOn = collisionOn;
     }
 }

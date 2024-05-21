@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
+import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 import static nl.rrx.sprite.Direction.*;
 
 public class Player extends Sprite {
@@ -20,6 +21,8 @@ public class Player extends Sprite {
 
     private final DependencyManager dm;
     private final SpriteUtil spriteUtil;
+
+    private int keysInInventory;
 
 
     public Player(DependencyManager dm) {
@@ -75,7 +78,8 @@ public class Player extends Sprite {
             moveInDirection(UP);
         } else if (dm.keyHandler.downPressed) {
             moveInDirection(DOWN);
-        } else if (dm.keyHandler.leftPressed) {
+        }
+        if (dm.keyHandler.leftPressed) {
             moveInDirection(LEFT);
         } else if (dm.keyHandler.rightPressed) {
             moveInDirection(RIGHT);
@@ -85,11 +89,37 @@ public class Player extends Sprite {
     private void moveInDirection(Direction direction) {
         this.direction = direction;
 
-        if (!dm.collisionUtil.check(this)) {
+        // CHECK TILE COLLISION
+        collisionOn = dm.collisionUtil.check(this);
+
+        // CHECK OBJECT COLLISION
+        int objIndex = dm.collisionUtil.checkObject(this, true);
+        pickUpObject(objIndex);
+
+        if (!collisionOn) {
             worldX += direction.moveX(speed);
             worldY += direction.moveY(speed);
         }
+
         spriteUtil.updateSprite();
+    }
+
+    public void pickUpObject(int index) {
+        if (index != NO_OBJECT) {
+            var type = dm.objectManager.gameObjects[index].type;
+            switch (type) {
+                case KEY -> {
+                    keysInInventory++;
+                    dm.objectManager.gameObjects[index] = null;
+                }
+                case DOOR -> {
+                    if (keysInInventory > 0) {
+                        keysInInventory--;
+                        dm.objectManager.gameObjects[index] = null;
+                    }
+                }
+            }
+        }
     }
 
     public int getScreenX() {

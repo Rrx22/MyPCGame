@@ -1,9 +1,13 @@
 package nl.rrx.util;
 
 import nl.rrx.config.DependencyManager;
+import nl.rrx.object.GameObject;
 import nl.rrx.sprite.Sprite;
 
+import java.awt.Rectangle;
+
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
+import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 
 public class CollisionUtil {
 
@@ -15,6 +19,7 @@ public class CollisionUtil {
 
     /**
      * Check if a sprite is going to hit a collision (i.e. tree, wall etc)
+     *
      * @param sprite player, npc etc
      * @return true if a collision will be hit
      */
@@ -55,5 +60,34 @@ public class CollisionUtil {
                 yield dm.tileManager.getTile(tileUpperRight).isCollision() || dm.tileManager.getTile(tileLowerRight).isCollision();
             }
         };
+    }
+
+    /**
+     * Checks whether an object can will be collided/interacted with.
+     * @param sprite player, npc etc.
+     * @param isPlayer NPCs will not interact with an object
+     * @return the index of the collided object from the objects array for a player. When no object was hit or !isPlayer, returns 999;
+     */
+    public int checkObject(Sprite sprite, boolean isPlayer) {
+        GameObject[] gameObjects = dm.objectManager.gameObjects;
+
+        for (int i = 0; i < gameObjects.length; i++) {
+            GameObject obj = gameObjects[i];
+            if (obj != null) {
+
+                var direction = sprite.getDirection();
+                var spriteCollisionArea = new Rectangle(sprite.getCollisionArea());
+                spriteCollisionArea.x += sprite.getWorldX() + direction.moveX(sprite.getSpeed());
+                spriteCollisionArea.y += sprite.getWorldY() + direction.moveY(sprite.getSpeed());
+
+                if (spriteCollisionArea.intersects(obj.collisionArea)) {
+                    sprite.setCollisionOn(obj.type.isCollision);
+                    return isPlayer
+                            ? i
+                            : NO_OBJECT;
+                }
+            }
+        }
+        return NO_OBJECT;
     }
 }
