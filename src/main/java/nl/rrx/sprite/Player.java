@@ -111,18 +111,22 @@ public class Player extends Sprite {
                 case KEY -> {
                     keysInInventory++;
                     dm.objectManager.gameObjects[index] = null;
+                    dm.sound.setFile(1);
                 }
                 case DOOR -> {
                     if (keysInInventory > 0) {
                         keysInInventory--;
                         dm.objectManager.gameObjects[index] = null;
+                        dm.sound.setFile(3);
                     }
                 }
                 case BOOTS -> {
+                    dm.sound.setFile(2);
                     speed += SPEED_BOOST;
                     dm.objectManager.gameObjects[index] = null;
                 }
             }
+            dm.sound.play();
         }
     }
 
