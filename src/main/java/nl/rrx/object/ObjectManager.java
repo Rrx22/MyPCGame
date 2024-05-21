@@ -25,6 +25,7 @@ public class ObjectManager {
         gameObjects[4] = new GameObject(DOOR, 32, 4);
         gameObjects[5] = new GameObject(DOOR, 39, 8);
         gameObjects[6] = new GameObject(CHEST, 39, 6);
+        gameObjects[7] = new GameObject(BOOTS, 8, 45);
     }
 
     public void draw(Graphics2D g2) {

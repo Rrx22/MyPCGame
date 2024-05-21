@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
+import static nl.rrx.config.settings.WorldSettings.SPEED_BOOST;
 import static nl.rrx.sprite.Direction.*;
 
 public class Player extends Sprite {
@@ -116,6 +117,10 @@ public class Player extends Sprite {
                         keysInInventory--;
                         dm.objectManager.gameObjects[index] = null;
                     }
+                }
+                case BOOTS -> {
+                    speed += SPEED_BOOST;
+                    dm.objectManager.gameObjects[index] = null;
                 }
             }
         }
