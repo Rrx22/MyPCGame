@@ -1,6 +1,6 @@
 package nl.rrx.tile;
 
-import nl.rrx.config.DependencyManager;
+import nl.rrx.sprite.Player;
 
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
@@ -17,13 +17,13 @@ import static nl.rrx.util.ScreenUtil.isWithinScreenBoundary;
 
 public class TileManager {
 
-    private final DependencyManager dm;
+    private final Player player;
 
     private final Map<Integer, Tile> tiles = new HashMap<>();
     private final int[][] mapTileNum = new int[MAX_WORLD_COL][MAX_WORLD_ROW];
 
-    public TileManager(DependencyManager dm) {
-        this.dm = dm;
+    public TileManager(Player player) {
+        this.player = player;
         loadTileImages();
         loadMap("/maps/map02.txt");
     }
@@ -55,12 +55,12 @@ public class TileManager {
     public void draw(Graphics2D g2) {
         for (int worldCol = 0; worldCol < MAX_WORLD_COL; worldCol++) {
             int worldX = worldCol * TILE_SIZE;
-            int screenX = worldX - dm.player.getWorldX() + dm.player.getScreenX();
+            int screenX = worldX - player.getWorldX() + player.getScreenX();
             for (int worldRow = 0; worldRow < MAX_WORLD_ROW; worldRow++) {
                 int worldY = worldRow * TILE_SIZE;
-                int screenY = worldY - dm.player.getWorldY() + dm.player.getScreenY();
+                int screenY = worldY - player.getWorldY() + player.getScreenY();
 
-                if (isWithinScreenBoundary(dm.player, worldX, worldY)) {
+                if (isWithinScreenBoundary(player, worldX, worldY)) {
                     int tileNum = mapTileNum[worldCol][worldRow];
                     g2.drawImage(tiles.get(tileNum).image(), screenX, screenY, TILE_SIZE, TILE_SIZE, null);
                 }
