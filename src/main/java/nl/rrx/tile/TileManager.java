@@ -1,8 +1,10 @@
 package nl.rrx.tile;
 
+import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.sprite.Player;
 
 import javax.imageio.ImageIO;
+import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -62,7 +64,15 @@ public class TileManager {
 
                 if (isWithinScreenBoundary(player, worldX, worldY)) {
                     int tileNum = mapTileNum[worldCol][worldRow];
-                    g2.drawImage(tiles.get(tileNum).image(), screenX, screenY, TILE_SIZE, TILE_SIZE, null);
+                    Tile tile = tiles.get(tileNum);
+                    g2.drawImage(tile.image(), screenX, screenY, TILE_SIZE, TILE_SIZE, null);
+
+                    if (DebugSettings.SHOW_COLLISION && tile.isCollision()) {
+                        var oldStroke = g2.getStroke();
+                        g2.setStroke(new BasicStroke(2));
+                        g2.drawRect(screenX, screenY, TILE_SIZE, TILE_SIZE);
+                        g2.setStroke(oldStroke);
+                    }
                 }
             }
         }

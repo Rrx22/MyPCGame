@@ -2,6 +2,7 @@ package nl.rrx;
 
 import nl.rrx.config.DependencyManager;
 import nl.rrx.config.FpsHandler;
+import nl.rrx.config.settings.DebugSettings;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -60,6 +61,10 @@ public class GamePanel extends JPanel implements Runnable {
         dm.tileManager.draw(g2);
         dm.objectManager.draw(g2);
         dm.player.draw(g2);
+
+        if (DebugSettings.SHOW_COLLISION) {
+            dm.collisionUtil.draw(g2, dm.player);
+        }
         g2.dispose();
     }
 }

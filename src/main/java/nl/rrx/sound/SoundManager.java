@@ -1,5 +1,7 @@
 package nl.rrx.sound;
 
+import nl.rrx.config.settings.DebugSettings;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -9,8 +11,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.EnumMap;
 import java.util.Map;
-
-import static nl.rrx.config.settings.DebugSettings.DEBUGGING;
 
 public class SoundManager {
 
@@ -27,13 +27,13 @@ public class SoundManager {
     }
 
     public void playMusic() {
-        if (DEBUGGING) return;
+        if (DebugSettings.NO_MUSIC) return;
         backgroundMusic.start();
         backgroundMusic.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
     public void stopMusic() {
-        if (DEBUGGING) return;
+        if (DebugSettings.NO_MUSIC) return;
         backgroundMusic.stop();
     }
 

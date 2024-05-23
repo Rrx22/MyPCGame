@@ -1,14 +1,17 @@
 package nl.rrx.util;
 
+import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.object.GameObject;
 import nl.rrx.object.ObjectManager;
+import nl.rrx.sprite.Player;
 import nl.rrx.sprite.Sprite;
 import nl.rrx.tile.TileManager;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
-import static nl.rrx.config.settings.DebugSettings.DEBUGGING;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 
 public class CollisionUtil {
@@ -28,7 +31,7 @@ public class CollisionUtil {
      * @return true if a collision will be hit
      */
     public boolean check(Sprite sprite) {
-        if (DEBUGGING) return false;
+        if (DebugSettings.FLY) return false;
 
         int spriteLeftWorldX = sprite.getWorldX() + sprite.getCollisionArea().x;
         int spriteRightWorldX = sprite.getWorldX() + sprite.getCollisionArea().x + sprite.getCollisionArea().width;
@@ -95,5 +98,12 @@ public class CollisionUtil {
             }
         }
         return NO_OBJECT;
+    }
+
+    public void draw(Graphics2D g2, Player sprite) {
+        int x = sprite.getScreenX() + sprite.getCollisionArea().x;
+        int y = sprite.getScreenY() + sprite.getCollisionArea().y;
+        g2.setColor(Color.RED);
+        g2.fillRect(x, y, sprite.getCollisionArea().width, sprite.getCollisionArea().height);
     }
 }
