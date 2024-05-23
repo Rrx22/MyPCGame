@@ -13,9 +13,9 @@ public class SpriteSettings {
     public static final int SPRITE_REFRESH_RATE = 12;
 
     // COLLISION BLOCK SIZES
-    public static final int PLAYER_RECT_X = TILE_SIZE / 6;
-    public static final int PLAYER_RECT_Y = TILE_SIZE / 3;
-    public static final int PLAYER_RECT_WIDTH_HEIGHT = (TILE_SIZE / 3) * 2;
+    public static final int PLAYER_RECT_X = TILE_SIZE / 4;
+    public static final int PLAYER_RECT_Y = TILE_SIZE / 2;
+    public static final int PLAYER_RECT_WIDTH_HEIGHT = (TILE_SIZE / 4) * 2;
 
     // PLAYER WORLD POSITION
     public static final int INIT_WORLD_X = TILE_SIZE * 23;
