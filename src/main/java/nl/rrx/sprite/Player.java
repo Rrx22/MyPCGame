@@ -80,8 +80,7 @@ public class Player extends Sprite {
             moveInDirection(UP);
         } else if (dm.keyHandler.downPressed) {
             moveInDirection(DOWN);
-        }
-        if (dm.keyHandler.leftPressed) {
+        } else if (dm.keyHandler.leftPressed) {
             moveInDirection(LEFT);
         } else if (dm.keyHandler.rightPressed) {
             moveInDirection(RIGHT);
