@@ -100,10 +100,10 @@ public class CollisionUtil {
         return NO_OBJECT;
     }
 
-    public void draw(Graphics2D g2, Player sprite) {
-        int x = sprite.getScreenX() + sprite.getCollisionArea().x;
-        int y = sprite.getScreenY() + sprite.getCollisionArea().y;
+    public void draw(Graphics2D g2, Player player) {
+        int x = player.getScreenX() + player.getCollisionArea().x;
+        int y = player.getScreenY() + player.getCollisionArea().y;
         g2.setColor(Color.RED);
-        g2.fillRect(x, y, sprite.getCollisionArea().width, sprite.getCollisionArea().height);
+        g2.fillRect(x, y, player.getCollisionArea().width, player.getCollisionArea().height);
     }
 }
