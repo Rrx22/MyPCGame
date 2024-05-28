@@ -120,24 +120,30 @@ public class Player extends Sprite {
                     dm.soundManager.playSoundEffect(SoundEffect.COIN);
                     dm.objectManager.gameObjects[index] = null;
                     keysInInventory++;
+                    dm.ui.showMessage("You found a key!");
                 }
                 case DOOR -> {
                     if (keysInInventory > 0) {
                         dm.soundManager.playSoundEffect(SoundEffect.UNLOCK);
                         dm.objectManager.gameObjects[index] = null;
                         keysInInventory--;
+                        dm.ui.showMessage("You unlocked the door!");
+                    } else {
+                        dm.ui.showMessage("You need a key!");
                     }
                 }
                 case BOOTS -> {
                     dm.soundManager.playSoundEffect(SoundEffect.POWERUP);
                     speed += SPEED_BOOST;
                     dm.objectManager.gameObjects[index] = null;
+                    dm.ui.showMessage("Speed up!");
                 }
                 case CHEST -> {
-                    dm.soundManager.stopMusic();
                     gameOver = true;
                     dm.objectManager.gameObjects[index] = null;
+                    dm.soundManager.stopMusic();
                     dm.soundManager.playSoundEffect(SoundEffect.FANFARE);
+                    dm.ui.showMessage("Good job!");
                 }
             }
         }
@@ -149,5 +155,9 @@ public class Player extends Sprite {
 
     public int getScreenY() {
         return screenY;
+    }
+
+    public int getKeysInInventory() {
+        return keysInInventory;
     }
 }

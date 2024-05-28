@@ -24,11 +24,7 @@ public class GameObject {
         this.worldX = worldX * TILE_SIZE;
         this.worldY = worldY * TILE_SIZE;
         collisionArea = new Rectangle(this.worldX, this.worldY, TILE_SIZE, TILE_SIZE);
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream(type.imageUri));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        image = getImage(type);
     }
 
     public void draw(Graphics2D g2, Player player) {
@@ -36,6 +32,14 @@ public class GameObject {
         int screenY = worldY - player.getWorldY() + player.getScreenY();
         if (isWithinScreenBoundary(player, worldX, worldY)) {
             g2.drawImage(image, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
+        }
+    }
+
+    public static BufferedImage getImage(GameObjectType type) {
+        try {
+            return ImageIO.read(GameObject.class.getResourceAsStream(type.imageUri));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -4,6 +4,7 @@ import nl.rrx.object.ObjectManager;
 import nl.rrx.sound.SoundManager;
 import nl.rrx.sprite.Player;
 import nl.rrx.tile.TileManager;
+import nl.rrx.ui.UI;
 import nl.rrx.util.CollisionUtil;
 
 public class DependencyManager {
@@ -20,6 +21,8 @@ public class DependencyManager {
 
     public final CollisionUtil collisionUtil;
 
+    public final UI ui;
+
     public DependencyManager() {
         player = new Player(this);
         keyHandler = new KeyHandler();
@@ -27,5 +30,6 @@ public class DependencyManager {
         tileManager = new TileManager(player);
         objectManager = new ObjectManager(player);
         collisionUtil = new CollisionUtil(tileManager, objectManager);
+        ui = new UI(player);
     }
 }

@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements Runnable {
                 update();
                 repaint();
                 if (dm.player.gameOver) {
-                    break;
+                    gameThread = null;
                 }
             }
         }
@@ -60,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable {
         dm.tileManager.draw(g2);
         dm.objectManager.draw(g2);
         dm.player.draw(g2);
+        dm.ui.draw(g2);
 
         g2.dispose();
     }
