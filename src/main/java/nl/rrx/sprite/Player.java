@@ -26,7 +26,7 @@ public class Player extends Sprite {
     private final SpriteUtil spriteUtil = new SpriteUtil();
 
     private int keysInInventory;
-    public boolean gameOver; //TODO fix/make pwetty
+    private boolean gameOver;
 
 
     public Player(DependencyManager dm) {
@@ -45,21 +45,6 @@ public class Player extends Sprite {
         collisionArea.height = SpriteSettings.PLAYER_RECT_WIDTH_HEIGHT;
 
         loadPlayerImages();
-    }
-
-    public void loadPlayerImages() {
-        try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-up-1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-up-2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-down-1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-down-2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-left-1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-left-2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-right-1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-right-2.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void update() {
@@ -81,15 +66,15 @@ public class Player extends Sprite {
     }
 
     private void move() {
-        if (dm.keyHandler.upPressed) {
+        if (dm.keyHandler.isUpPressed()) {
             moveInDirection(UP);
-        } else if (dm.keyHandler.downPressed) {
+        } else if (dm.keyHandler.isDownPressed()) {
             moveInDirection(DOWN);
         }
 
-        if (dm.keyHandler.leftPressed) {
+        if (dm.keyHandler.isLeftPressed()) {
             moveInDirection(LEFT);
-        } else if (dm.keyHandler.rightPressed) {
+        } else if (dm.keyHandler.isRightPressed()) {
             moveInDirection(RIGHT);
         }
     }
@@ -102,7 +87,9 @@ public class Player extends Sprite {
 
         // CHECK OBJECT COLLISION
         int objIndex = dm.collisionUtil.checkObject(this, true);
-        pickUpObject(objIndex);
+        if (objIndex != NO_OBJECT) {
+            interactWithObject(objIndex);
+        }
 
         if (!collisionOn) {
             worldX += direction.moveX(speed);
@@ -112,40 +99,52 @@ public class Player extends Sprite {
         spriteUtil.updateSprite();
     }
 
-    public void pickUpObject(int index) {
-        if (index != NO_OBJECT) {
-            var type = dm.objectManager.gameObjects[index].type;
-            switch (type) {
-                case KEY -> {
-                    dm.soundManager.playSoundEffect(SoundEffect.COIN);
-                    dm.objectManager.gameObjects[index] = null;
-                    keysInInventory++;
-                    dm.ui.showMessage("You found a key!");
-                }
-                case DOOR -> {
-                    if (keysInInventory > 0) {
-                        dm.soundManager.playSoundEffect(SoundEffect.UNLOCK);
-                        dm.objectManager.gameObjects[index] = null;
-                        keysInInventory--;
-                        dm.ui.showMessage("You unlocked the door!");
-                    } else {
-                        dm.ui.showMessage("You need a key!");
-                    }
-                }
-                case BOOTS -> {
-                    dm.soundManager.playSoundEffect(SoundEffect.POWERUP);
-                    speed += SPEED_BOOST;
-                    dm.objectManager.gameObjects[index] = null;
-                    dm.ui.showMessage("Speed up!");
-                }
-                case CHEST -> {
-                    gameOver = true;
-                    dm.objectManager.gameObjects[index] = null;
-                    dm.soundManager.stopMusic();
-                    dm.soundManager.playSoundEffect(SoundEffect.FANFARE);
-                    dm.ui.showMessage("Good job!");
+    private void interactWithObject(int index) {
+        var type = dm.objectManager.getTypeFor(index);
+        switch (type) {
+            case KEY -> {
+                dm.soundManager.playSoundEffect(SoundEffect.COIN);
+                dm.objectManager.removeObject(index);
+                keysInInventory++;
+                dm.ui.showMessage("You found a key!");
+            }
+            case DOOR -> {
+                if (keysInInventory > 0) {
+                    dm.soundManager.playSoundEffect(SoundEffect.UNLOCK);
+                    dm.objectManager.removeObject(index);
+                    keysInInventory--;
+                    dm.ui.showMessage("You unlocked the door!");
+                } else {
+                    dm.ui.showMessage("You need a key!");
                 }
             }
+            case BOOTS -> {
+                dm.soundManager.playSoundEffect(SoundEffect.POWERUP);
+                speed += SPEED_BOOST;
+                dm.objectManager.removeObject(index);
+                dm.ui.showMessage("Speed up!");
+            }
+            case CHEST -> {
+                gameOver = true;
+                dm.objectManager.removeObject(index);
+                dm.soundManager.stopMusic();
+                dm.soundManager.playSoundEffect(SoundEffect.FANFARE);
+            }
+        }
+    }
+
+    protected void loadPlayerImages() {
+        try {
+            up1 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-up-1.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-up-2.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-down-1.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-down-2.png"));
+            left1 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-left-1.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-left-2.png"));
+            right1 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-right-1.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/images/player/boy-right-2.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -155,6 +154,10 @@ public class Player extends Sprite {
 
     public int getScreenY() {
         return screenY;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
     }
 
     public int getKeysInInventory() {

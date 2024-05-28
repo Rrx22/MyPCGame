@@ -16,13 +16,12 @@ import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
 public class UI {
 
-    public static final int TWO_SECONDS = FPS * 2;
+    private static final int TWO_SECONDS = FPS * 2;
 
     private final Player player;
     private final BufferedImage keyImage;
-
-    private final Font arial40 = new Font("Arial", Font.PLAIN, 40);
-    private final Font arial80B = new Font("Arial", Font.BOLD, 80);
+    private final Font arial40;
+    private final Font arial80B;
 
     private String message = "";
     private int messageCounter;
@@ -32,6 +31,8 @@ public class UI {
     public UI(Player player) {
         this.player = player;
         keyImage = GameObject.getImage(GameObjectType.KEY);
+        arial40 = new Font("Arial", Font.PLAIN, 40);
+        arial80B = new Font("Arial", Font.BOLD, 80);
     }
 
     public void showMessage(String message) {
@@ -40,7 +41,7 @@ public class UI {
 
     public void draw(Graphics2D g2) {
 
-        if (player.gameOver) {
+        if (player.isGameOver()) {
             printCentralizedText(g2, "You found the treasure!", -3, arial40);
             printCentralizedText(g2, "Congratulations", 2, arial80B);
             printCentralizedText(g2, String.format("Your time is: %.2f!", playTime), 4, arial40);

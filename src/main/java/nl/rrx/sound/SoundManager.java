@@ -42,7 +42,7 @@ public class SoundManager {
         soundEffect.start();
     }
 
-    public Clip getClip(URL url) {
+    private Clip getClip(URL url) {
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(url);
             Clip clip = AudioSystem.getClip();

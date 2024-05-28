@@ -78,7 +78,7 @@ public class CollisionUtil {
      * @return the index of the collided object from the objects array. When no object was hit or !isPlayer, returns 999;
      */
     public int checkObject(Sprite sprite, boolean isPlayer) {
-        GameObject[] gameObjects = objectManager.gameObjects;
+        GameObject[] gameObjects = objectManager.getGameObjects();
 
         for (int i = 0; i < gameObjects.length; i++) {
             GameObject obj = gameObjects[i];

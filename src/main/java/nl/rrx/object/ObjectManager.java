@@ -3,6 +3,7 @@ package nl.rrx.object;
 import nl.rrx.sprite.Player;
 
 import java.awt.Graphics2D;
+import java.util.Arrays;
 
 import static nl.rrx.config.settings.WorldSettings.MAX_OBJECTS;
 import static nl.rrx.object.GameObjectType.*;
@@ -10,14 +11,15 @@ import static nl.rrx.object.GameObjectType.*;
 public class ObjectManager {
 
     private final Player player;
-    public final GameObject[] gameObjects;
+    private final GameObject[] gameObjects;
 
     public ObjectManager(Player player) {
         this.player = player;
         gameObjects = new GameObject[MAX_OBJECTS];
+        loadObjects();
     }
 
-    public void loadObjects() {
+    private void loadObjects() {
         gameObjects[0] = new GameObject(KEY, 39, 42);
         gameObjects[1] = new GameObject(KEY, 10, 30);
         gameObjects[2] = new GameObject(KEY, 4, 2);
@@ -36,4 +38,15 @@ public class ObjectManager {
         }
     }
 
+    public GameObject[] getGameObjects() {
+        return Arrays.copyOf(gameObjects, MAX_OBJECTS);
+    }
+
+    public void removeObject(int index) {
+        gameObjects[index] = null;
+    }
+
+    public GameObjectType getTypeFor(int index) {
+        return gameObjects[index].type;
+    }
 }

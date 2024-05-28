@@ -25,7 +25,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setUpGame() {
-        dm.objectManager.loadObjects();
         dm.soundManager.playMusic();
     }
 
@@ -41,7 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
             if (fpsHandler.canLoadNextFrame()) {
                 update();
                 repaint();
-                if (dm.player.gameOver) {
+                if (dm.player.isGameOver()) {
                     gameThread = null;
                 }
             }
