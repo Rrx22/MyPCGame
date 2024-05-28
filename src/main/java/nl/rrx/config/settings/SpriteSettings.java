@@ -10,7 +10,7 @@ public class SpriteSettings {
 
     private SpriteSettings() {}
 
-    public static final int SPRITE_REFRESH_RATE = 24;
+    public static final int SPRITE_REFRESH_RATE = 12;
 
     // COLLISION BLOCK SIZES
     public static final int PLAYER_RECT_X = TILE_SIZE / 4;
