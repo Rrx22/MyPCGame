@@ -48,15 +48,15 @@ public class UI {
             return;
         }
 
+        // TIME
+        playTime += (double) 1/FPS;
+
         // KEYS
         g2.setFont(arial40);
         g2.setColor(Color.white);
         g2.drawImage(keyImage, TILE_SIZE / 2, TILE_SIZE / 2, null);
         g2.drawString("x " + player.getKeysInInventory(), 75, 65);
 
-        // TIME
-        playTime += (double) 1/FPS;
-        g2.drawString(String.format("Time: %.2f", playTime), TILE_SIZE *11, 65);
 
         // MESSAGE
         if (!message.isEmpty()) {
