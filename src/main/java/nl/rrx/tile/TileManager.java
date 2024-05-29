@@ -2,12 +2,12 @@ package nl.rrx.tile;
 
 import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.sprite.Player;
+import nl.rrx.util.PerformanceUtil;
 
-import javax.imageio.ImageIO;
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,13 +31,9 @@ public class TileManager {
     }
 
     private void loadTileImages() {
-        try {
-            for (var type : TileType.values()) {
-                var image = ImageIO.read(getClass().getResourceAsStream(type.imageUri));
-                tiles.put(type.mapId, new Tile(image, type.isCollision));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (var type : TileType.values()) {
+            BufferedImage scaledImage = PerformanceUtil.getScaledImage(type.imageUri, TILE_SIZE, TILE_SIZE);
+            tiles.put(type.mapId, new Tile(scaledImage, type.isCollision));
         }
     }
 
@@ -65,7 +61,7 @@ public class TileManager {
                 if (isWithinScreenBoundary(player, worldX, worldY)) {
                     int tileNum = mapTileNum[worldCol][worldRow];
                     Tile tile = tiles.get(tileNum);
-                    g2.drawImage(tile.image(), screenX, screenY, TILE_SIZE, TILE_SIZE, null);
+                    g2.drawImage(tile.image(), screenX, screenY, null);
 
                     if (DebugSettings.SHOW_COLLISION && tile.isCollision()) {
                         var oldStroke = g2.getStroke();

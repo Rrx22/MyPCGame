@@ -1,8 +1,8 @@
 package nl.rrx.ui;
 
-import nl.rrx.object.GameObject;
 import nl.rrx.object.GameObjectType;
 import nl.rrx.sprite.Player;
+import nl.rrx.util.PerformanceUtil;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -30,7 +30,7 @@ public class UI {
 
     public UI(Player player) {
         this.player = player;
-        keyImage = GameObject.getImage(GameObjectType.KEY);
+        keyImage = PerformanceUtil.getScaledImage(GameObjectType.KEY.imageUri, TILE_SIZE, TILE_SIZE);
         arial40 = new Font("Arial", Font.PLAIN, 40);
         arial80B = new Font("Arial", Font.BOLD, 80);
     }
@@ -51,7 +51,7 @@ public class UI {
         // KEYS
         g2.setFont(arial40);
         g2.setColor(Color.white);
-        g2.drawImage(keyImage, TILE_SIZE / 2, TILE_SIZE / 2, TILE_SIZE, TILE_SIZE, null);
+        g2.drawImage(keyImage, TILE_SIZE / 2, TILE_SIZE / 2, null);
         g2.drawString("x " + player.getKeysInInventory(), 75, 65);
 
         // TIME

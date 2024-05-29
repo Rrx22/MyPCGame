@@ -2,6 +2,7 @@ package nl.rrx;
 
 import nl.rrx.config.DependencyManager;
 import nl.rrx.config.FpsHandler;
+import nl.rrx.config.settings.DebugSettings;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -55,6 +56,7 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        long drawStart = System.nanoTime();
 
         Graphics2D g2 = (Graphics2D) g;
         dm.tileManager.draw(g2);
@@ -62,6 +64,17 @@ public class GamePanel extends JPanel implements Runnable {
         dm.player.draw(g2);
         dm.ui.draw(g2);
 
+        if (DebugSettings.SHOW_DRAW_TIME) {
+            debugShowDrawTime(g2, drawStart);
+        }
+
         g2.dispose();
+    }
+
+    private static void debugShowDrawTime(Graphics2D g2, long drawStart) {
+        long drawEnd = System.nanoTime();
+        long passed = drawEnd - drawStart;
+        g2.setColor(Color.white);
+        g2.drawString(String.format("Draw time: %.5f seconds", (double) passed / 1_000_000_000L), 10, 400);
     }
 }
