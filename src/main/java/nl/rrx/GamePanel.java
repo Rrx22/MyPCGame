@@ -13,10 +13,11 @@ import static nl.rrx.config.settings.ScreenSettings.SCREEN_SIZE;
 
 public class GamePanel extends JPanel implements Runnable {
 
-    private final transient DependencyManager dm = new DependencyManager();
+    private final transient DependencyManager dm;
     private transient Thread gameThread;
 
-    public GamePanel() {
+    public GamePanel(DependencyManager dm) {
+        this.dm = dm;
         this.setPreferredSize(SCREEN_SIZE);
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);

@@ -1,5 +1,7 @@
 package nl.rrx;
 
+import nl.rrx.config.DependencyManager;
+
 import javax.swing.JFrame;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
@@ -12,7 +14,8 @@ public class Main {
         window.setResizable(false);
         window.setTitle("2D Adventure");
 
-        GamePanel gamePanel = new GamePanel();
+        DependencyManager dm = new DependencyManager();
+        GamePanel gamePanel = new GamePanel(dm);
         window.add(gamePanel);
         window.pack();
 
