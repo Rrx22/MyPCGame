@@ -83,4 +83,21 @@ public class UI {
             message = "";
         }
     }
+
+    // DEBUG DRAWING
+    public void drawDebugStats(Graphics2D g2, long drawStart) {
+        showDrawtime(g2, drawStart);
+        showPlayerWorldPosition(g2);
+    }
+
+    private static void showDrawtime(Graphics2D g2, long drawStart) {
+        long drawEnd = System.nanoTime();
+        long passed = drawEnd - drawStart;
+        g2.setColor(Color.white);
+        g2.drawString(String.format("Draw time (seconds): %.5f", (double) passed / 1_000_000_000L), 10, 400);
+    }
+
+    private void showPlayerWorldPosition(Graphics2D g2) {
+        g2.drawString(String.format("x: %02d, y: %02d", (player.getWorldX() / TILE_SIZE), (player.getWorldY() / TILE_SIZE)), 10, 440);
+    }
 }

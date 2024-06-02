@@ -27,7 +27,7 @@ public class TileManager {
     public TileManager(Player player) {
         this.player = player;
         loadTileImages();
-        loadMap("/maps/map02.txt");
+        loadMap("/maps/map03.txt");
     }
 
     private void loadTileImages() {

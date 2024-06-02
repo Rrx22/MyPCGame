@@ -63,18 +63,8 @@ public class GamePanel extends JPanel implements Runnable {
         dm.objectManager.draw(g2);
         dm.player.draw(g2);
         dm.ui.draw(g2);
-
-        if (DebugSettings.SHOW_DRAW_TIME) {
-            debugShowDrawTime(g2, drawStart);
-        }
+        if (DebugSettings.DRAW_DEBUG_STATS) dm.ui.drawDebugStats(g2, drawStart);
 
         g2.dispose();
-    }
-
-    private static void debugShowDrawTime(Graphics2D g2, long drawStart) {
-        long drawEnd = System.nanoTime();
-        long passed = drawEnd - drawStart;
-        g2.setColor(Color.white);
-        g2.drawString(String.format("Draw time: %.5f seconds", (double) passed / 1_000_000_000L), 10, 400);
     }
 }
