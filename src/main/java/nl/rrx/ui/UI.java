@@ -1,5 +1,6 @@
 package nl.rrx.ui;
 
+import nl.rrx.config.DependencyManager;
 import nl.rrx.object.GameObjectType;
 import nl.rrx.sprite.Player;
 import nl.rrx.util.PerformanceUtil;
@@ -13,13 +14,14 @@ import static nl.rrx.config.settings.ScreenSettings.FPS;
 import static nl.rrx.config.settings.ScreenSettings.SCREEN_HEIGHT;
 import static nl.rrx.config.settings.ScreenSettings.SCREEN_WIDTH;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
+import static nl.rrx.util.ScreenUtil.getXForCenteredText;
 
 public class UI {
 
     private static final int TWO_SECONDS = FPS * 2;
 
-    private final Player player;
-    private final BufferedImage keyImage;
+    private final DependencyManager dm;
+    private Graphics2D g2;
     private final Font arial40;
     private final Font arial80B;
 
@@ -28,9 +30,8 @@ public class UI {
 
     private double playTime;
 
-    public UI(Player player) {
-        this.player = player;
-        keyImage = PerformanceUtil.getScaledImage(GameObjectType.KEY.imageUri, TILE_SIZE, TILE_SIZE);
+    public UI(DependencyManager dm) {
+        this.dm = dm;
         arial40 = new Font("Arial", Font.PLAIN, 40);
         arial80B = new Font("Arial", Font.BOLD, 80);
     }
@@ -40,41 +41,29 @@ public class UI {
     }
 
     public void draw(Graphics2D g2) {
+        this.g2 = g2;
 
-        if (player.isGameOver()) {
-            printCentralizedText(g2, "You found the treasure!", -3, arial40);
-            printCentralizedText(g2, "Congratulations", 2, arial80B);
-            printCentralizedText(g2, String.format("Your time is: %.2f!", playTime), 4, arial40);
-            return;
-        }
-
-        // TIME
-        playTime += (double) 1/FPS;
-
-        // KEYS
-        g2.setFont(arial40);
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80));
         g2.setColor(Color.white);
-        g2.drawImage(keyImage, TILE_SIZE / 2, TILE_SIZE / 2, null);
-        g2.drawString("x " + player.getKeysInInventory(), 75, 65);
 
-
-        // MESSAGE
-        if (!message.isEmpty()) {
-            g2.setFont(g2.getFont().deriveFont(30F));
-            g2.drawString(message, TILE_SIZE / 2, TILE_SIZE * 5);
-            displayMessageFor(TWO_SECONDS);
+        if (!dm.keyHandler.isPauseGame()) {
+            // Do playstate stuff later
+        }
+        if (dm.keyHandler.isPauseGame()) {
+            drawPauseScreen();
         }
 
     }
 
-    private void printCentralizedText(Graphics2D g2, String text, int yRelativeToCenter, Font font) {
-        g2.setFont(font);
-        g2.setColor(font == arial40 ? Color.white : Color.yellow);
-        int textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        int x = SCREEN_WIDTH / 2 - textLength / 2;
-        int y = SCREEN_HEIGHT / 2 + TILE_SIZE * yRelativeToCenter;
+    private void drawPauseScreen() {
+        String text = "PAUSED";
+        int x = getXForCenteredText(dm.player, g2, text);
+        int y = SCREEN_HEIGHT / 2;
+
         g2.drawString(text, x, y);
     }
+
+
 
     private void displayMessageFor(int duration) {
         messageCounter++;
@@ -98,6 +87,6 @@ public class UI {
     }
 
     private void showPlayerWorldPosition(Graphics2D g2) {
-        g2.drawString(String.format("x: %02d, y: %02d", (player.getWorldX() / TILE_SIZE), (player.getWorldY() / TILE_SIZE)), 10, 440);
+        g2.drawString(String.format("x: %02d, y: %02d", (dm.player.getWorldX() / TILE_SIZE), (dm.player.getWorldY() / TILE_SIZE)), 10, 440);
     }
 }

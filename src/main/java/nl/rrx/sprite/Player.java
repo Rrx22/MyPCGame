@@ -24,7 +24,7 @@ public class Player extends Sprite {
     private final DependencyManager dm;
     private final SpriteUtil spriteUtil = new SpriteUtil();
 
-    private int keysInInventory;
+//    private int keysInInventory;
     private boolean gameOver;
 
 
@@ -105,34 +105,7 @@ public class Player extends Sprite {
     private void interactWithObject(int index) {
         var type = dm.objectManager.getTypeFor(index);
         switch (type) {
-            case KEY -> {
-                dm.soundManager.playSoundEffect(SoundEffect.COIN);
-                dm.objectManager.removeObject(index);
-                keysInInventory++;
-                dm.ui.showMessage("You found a key!");
-            }
-            case DOOR -> {
-                if (keysInInventory > 0) {
-                    dm.soundManager.playSoundEffect(SoundEffect.UNLOCK);
-                    dm.objectManager.removeObject(index);
-                    keysInInventory--;
-                    dm.ui.showMessage("You unlocked the door!");
-                } else {
-                    dm.ui.showMessage("You need a key!");
-                }
-            }
-            case BOOTS -> {
-                dm.soundManager.playSoundEffect(SoundEffect.POWERUP);
-                speed += SPEED_BOOST;
-                dm.objectManager.removeObject(index);
-                dm.ui.showMessage("Speed up!");
-            }
-            case CHEST -> {
-                gameOver = true;
-                dm.objectManager.removeObject(index);
-                dm.soundManager.stopMusic();
-                dm.soundManager.playSoundEffect(SoundEffect.FANFARE);
-            }
+
         }
     }
 
@@ -157,9 +130,5 @@ public class Player extends Sprite {
 
     public boolean isGameOver() {
         return gameOver;
-    }
-
-    public int getKeysInInventory() {
-        return keysInInventory;
     }
 }

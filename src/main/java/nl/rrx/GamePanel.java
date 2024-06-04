@@ -17,6 +17,11 @@ public class GamePanel extends JPanel implements Runnable {
     private final transient DependencyManager dm;
     private transient Thread gameThread;
 
+    // GAME STATE
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
+
     public GamePanel(DependencyManager dm) {
         this.dm = dm;
         this.setPreferredSize(SCREEN_SIZE);
@@ -28,6 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setUpGame() {
         dm.soundManager.playMusic();
+        gameState = playState;
     }
 
     public void startGameThread() {
@@ -50,7 +56,13 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void update() {
-        dm.player.update();
+        gameState = dm.keyHandler.isPauseGame() ? pauseState : playState;
+
+        if (gameState == playState) {
+            dm.player.update();
+        } else if (gameState == pauseState) {
+            // FIXME
+        }
     }
 
     @Override

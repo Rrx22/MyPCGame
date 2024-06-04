@@ -30,6 +30,6 @@ public class DependencyManager {
         tileManager = new TileManager(player);
         objectManager = new ObjectManager(player);
         collisionUtil = new CollisionUtil(tileManager, objectManager);
-        ui = new UI(player);
+        ui = new UI(this);
     }
 }
