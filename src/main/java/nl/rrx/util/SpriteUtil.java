@@ -25,4 +25,8 @@ public class SpriteUtil {
         this.isAlreadyUpdatedDuringFrame = false;
         return spriteNum == 1;
     }
+
+    public void standStill() {
+        spriteNum = 1;
+    }
 }

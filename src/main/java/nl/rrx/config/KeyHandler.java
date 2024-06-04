@@ -66,4 +66,11 @@ public class KeyHandler implements KeyListener {
     public boolean isRightPressed() {
         return rightPressed;
     }
+
+    public boolean nonePressed() {
+        return !upPressed
+                && !downPressed
+                && !leftPressed
+                && !rightPressed;
+    }
 }

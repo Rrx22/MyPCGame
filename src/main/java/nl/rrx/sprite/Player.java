@@ -65,6 +65,10 @@ public class Player extends Sprite {
     }
 
     private void move() {
+        if (dm.keyHandler.nonePressed()) {
+            spriteUtil.standStill();
+        }
+
         if (dm.keyHandler.isUpPressed()) {
             moveInDirection(UP);
         } else if (dm.keyHandler.isDownPressed()) {
