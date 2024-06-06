@@ -5,6 +5,7 @@ import nl.rrx.object.GameObject;
 import nl.rrx.object.ObjectManager;
 import nl.rrx.sprite.Player;
 import nl.rrx.sprite.Sprite;
+import nl.rrx.sprite.npc.NPC;
 import nl.rrx.tile.TileManager;
 
 import java.awt.BasicStroke;
@@ -13,6 +14,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
+import static nl.rrx.config.settings.WorldSettings.NO_NPC;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 
 public class CollisionUtil {
@@ -27,12 +29,12 @@ public class CollisionUtil {
 
     /**
      * Check if a sprite is going to hit a collision (i.e. tree, wall etc)
+     * Sets sprite's collisionOn to true if a collision is met
      *
      * @param sprite player, npc etc
-     * @return true if a collision will be hit
      */
-    public boolean check(Sprite sprite) {
-        if (DebugSettings.FLY && sprite instanceof Player) return false;
+    public void checkTile(Sprite sprite) {
+        if (DebugSettings.FLY && sprite instanceof Player) return;
 
         int spriteLeftWorldX = sprite.getWorldX() + sprite.getCollisionArea().x;
         int spriteRightWorldX = sprite.getWorldX() + sprite.getCollisionArea().x + sprite.getCollisionArea().width;
@@ -44,36 +46,46 @@ public class CollisionUtil {
         int spriteTopRow = spriteTopWorldY / TILE_SIZE;
         int spriteBottomRow = spriteBottomWorldY / TILE_SIZE;
 
-        return switch (sprite.getDirection()) {
+        switch (sprite.getDirection()) {
             case UP -> {
                 spriteTopRow = (spriteTopWorldY - sprite.getSpeed()) / TILE_SIZE;
                 int tileUpperLeft = tileManager.getTileNum(spriteLeftCol, spriteTopRow);
                 int tileUpperRight = tileManager.getTileNum(spriteRightCol, spriteTopRow);
-                yield tileManager.getTile(tileUpperLeft).isCollision() || tileManager.getTile(tileUpperRight).isCollision();
+                if (tileManager.getTile(tileUpperLeft).isCollision() || tileManager.getTile(tileUpperRight).isCollision()) {
+                    sprite.setCollisionOn(true);
+                }
             }
             case DOWN -> {
                 spriteBottomRow = (spriteBottomWorldY + sprite.getSpeed()) / TILE_SIZE;
                 int tileLowerLeft = tileManager.getTileNum(spriteLeftCol, spriteBottomRow);
                 int tileLowerRight = tileManager.getTileNum(spriteRightCol, spriteBottomRow);
-                yield tileManager.getTile(tileLowerLeft).isCollision() || tileManager.getTile(tileLowerRight).isCollision();
+                if (tileManager.getTile(tileLowerLeft).isCollision() || tileManager.getTile(tileLowerRight).isCollision()) {
+                    sprite.setCollisionOn(true);
+                }
             }
             case LEFT -> {
                 spriteLeftCol = (spriteLeftWorldX - sprite.getSpeed()) / TILE_SIZE;
                 int tileUpperLeft = tileManager.getTileNum(spriteLeftCol, spriteTopRow);
                 int tileLowerLeft = tileManager.getTileNum(spriteLeftCol, spriteBottomRow);
-                yield tileManager.getTile(tileUpperLeft).isCollision() || tileManager.getTile(tileLowerLeft).isCollision();
+                if (tileManager.getTile(tileUpperLeft).isCollision() || tileManager.getTile(tileLowerLeft).isCollision()) {
+                    sprite.setCollisionOn(true);
+                }
             }
             case RIGHT -> {
                 spriteRightCol = (spriteRightWorldX + sprite.getSpeed()) / TILE_SIZE;
                 int tileUpperRight = tileManager.getTileNum(spriteRightCol, spriteTopRow);
                 int tileLowerRight = tileManager.getTileNum(spriteRightCol, spriteBottomRow);
-                yield tileManager.getTile(tileUpperRight).isCollision() || tileManager.getTile(tileLowerRight).isCollision();
+                if (tileManager.getTile(tileUpperRight).isCollision() || tileManager.getTile(tileLowerRight).isCollision()) {
+                    sprite.setCollisionOn(true);
+                }
             }
-        };
+        }
     }
 
     /**
      * Checks whether an object can will be collided/interacted with.
+     * Sets sprite's collisionOn to true if a collision is met
+     *
      * @param sprite   player, npc etc.
      * @param isPlayer Only players can interact with objects
      * @return the index of the collided object from the objects array. When no object was hit or !isPlayer, returns 999;
@@ -98,21 +110,40 @@ public class CollisionUtil {
         return NO_OBJECT;
     }
 
-    public int checkSprite(Sprite sprite, Sprite[] target) {
-        for (int index = 0; index < target.length; index++) {
-            Sprite npc = target[index];
+    /**
+     * Check whether a sprite collides with another sprite
+     * Sets srcSprite's collisionOn to true if a collision is met
+     *
+     * @param srcSprite The sprite which is moving (player or npc)
+     * @param npcs Check this list of npcs for a collision with the source sprite
+     * @return index of npc being collided with. 999 if no npc is hit
+     */
+    public int checkSprite(Sprite srcSprite, Sprite[] npcs) {
+        for (int index = 0; index < npcs.length; index++) {
+            Sprite npc = npcs[index];
             if (npc != null) {
 
-                var spriteCollisionArea = getSpriteCollisionAreaInWorld(sprite);
+                var spriteCollisionArea = getSpriteCollisionAreaInWorld(srcSprite);
                 var npcCollisionArea = getSpriteCollisionAreaInWorld(npc);
 
                 if (spriteCollisionArea.intersects(npcCollisionArea)) {
-                    sprite.setCollisionOn(true);
+                    srcSprite.setCollisionOn(true);
                     return index;
                 }
             }
         }
-        return NO_OBJECT;
+        return NO_NPC;
+    }
+
+    /**
+     * Check whether the npc is colliding with the player
+     * Sets npc's collisionOn to true if a collision is met
+     *
+     * @param npc
+     * @param player
+     */
+    public void checkPlayer(NPC npc, Player player) {
+        checkSprite(npc, new Sprite[]{player});
     }
 
     private static Rectangle getSpriteCollisionAreaInWorld(Sprite sprite) {
@@ -123,11 +154,7 @@ public class CollisionUtil {
         return spriteCollisionArea;
     }
 
-    // DEBUG UTILS
-    public void draw(Graphics2D g2, Player player) {
-        draw(g2, Color.red, player.getScreenX(), player.getScreenY(), player.getCollisionArea());
-    }
-
+    // DEBUG UTIL
     public void draw(Graphics2D g2, Color color, int screenX, int screenY, Rectangle collisionArea) {
         int x = screenX + collisionArea.x;
         int y = screenY + collisionArea.y;

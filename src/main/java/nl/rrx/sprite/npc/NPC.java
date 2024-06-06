@@ -13,33 +13,38 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-import static nl.rrx.config.settings.ScreenSettings.FPS;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
 public abstract class NPC extends Sprite {
 
-    // TODO refactor/cleanup this class
     private static final String NPC_IMG_ROOT = "/images/npc/";
     protected static final Random RND = new Random();
 
     private final SpriteUtil spriteUtil = new SpriteUtil();
 
-    private int actionLockCounter;
-
-    protected NPC(DependencyManager dm) {
+    protected NPC(DependencyManager dm, int startWorldX, int startWorldY) {
         super(dm);
+        worldX = TILE_SIZE * startWorldX;
+        worldY = TILE_SIZE * startWorldY;
         collisionArea = new Rectangle(0, 0, TILE_SIZE, TILE_SIZE);
     }
 
     protected abstract void doNpcAction();
+    protected abstract boolean isReadyForAction();
 
     public void update() {
-        if (actionLockCounter++ > FPS * 2) {
+        collisionOn = false;
+        if (isReadyForAction()) {
             doNpcAction();
-            actionLockCounter = 0;
         }
+        move();
+    }
 
-        collisionOn = dm.collisionUtil.check(this);
+    private void move() {
+        dm.collisionUtil.checkTile(this);
+        dm.collisionUtil.checkObject(this, false);
+        dm.collisionUtil.checkPlayer(this, dm.player);
+
         if (!collisionOn) {
             worldX += direction.moveX(speed);
             worldY += direction.moveY(speed);
@@ -73,6 +78,5 @@ public abstract class NPC extends Sprite {
         left2 = PerformanceUtil.getScaledImage(NPC_IMG_ROOT + npcType + "-left-2.png", TILE_SIZE, TILE_SIZE);
         right1 = PerformanceUtil.getScaledImage(NPC_IMG_ROOT + npcType + "-right-1.png", TILE_SIZE, TILE_SIZE);
         right2 = PerformanceUtil.getScaledImage(NPC_IMG_ROOT + npcType + "-right-2.png", TILE_SIZE, TILE_SIZE);
-
     }
 }

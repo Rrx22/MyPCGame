@@ -38,7 +38,11 @@ public class NPCManager {
         }
     }
 
-    public NPC[] getNpcs() {
+    public NPC[] getNPCs() {
         return Arrays.copyOf(npcs, WorldSettings.MAX_NPCS);
+    }
+
+    public NPC get(int idx) {
+        return npcs[idx];
     }
 }

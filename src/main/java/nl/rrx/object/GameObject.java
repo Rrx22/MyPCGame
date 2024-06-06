@@ -27,9 +27,9 @@ public class GameObject {
     }
 
     public void draw(Graphics2D g2, Player player) {
-        int screenX = worldX - player.getWorldX() + player.getScreenX();
-        int screenY = worldY - player.getWorldY() + player.getScreenY();
         if (isWithinScreenBoundary(player, worldX, worldY)) {
+            int screenX = worldX - player.getWorldX() + player.getScreenX();
+            int screenY = worldY - player.getWorldY() + player.getScreenY();
             g2.drawImage(image, screenX, screenY, null);
         }
     }

@@ -18,7 +18,7 @@ public class GamePanel extends JPanel implements Runnable {
     private transient Thread gameThread;
 
     // GAME STATE
-    public int gameState;
+    public int gameState; // TODO give gamestate some love
     public final int playState = 1;
     public final int pauseState = 2;
 
@@ -74,7 +74,7 @@ public class GamePanel extends JPanel implements Runnable {
         dm.npcManager.draw(g2);
         dm.player.draw(g2);
         dm.ui.draw(g2);
-        if (DebugSettings.DRAW_DEBUG_STATS) dm.ui.drawDebugStats(drawStart); // this needs to happen here, so it surrounds all the draw methods
+        if (DebugSettings.DRAW_DEBUG_STATS) dm.ui.drawDebugStats(g2, drawStart); // this needs to happen here, so it surrounds all the draw methods
 
         g2.dispose();
     }

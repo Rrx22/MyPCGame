@@ -28,6 +28,7 @@ public abstract class Sprite {
 
     protected Sprite(DependencyManager dm) {
         this.dm = dm;
+        direction = Direction.DOWN;
     }
 
     public int getWorldX() {

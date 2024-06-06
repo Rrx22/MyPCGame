@@ -3,14 +3,17 @@ package nl.rrx.sprite;
 import nl.rrx.config.DependencyManager;
 import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.config.settings.SpriteSettings;
+import nl.rrx.sprite.npc.NPC;
 import nl.rrx.util.PerformanceUtil;
 import nl.rrx.util.SpriteUtil;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
+import static nl.rrx.config.settings.WorldSettings.NO_NPC;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 import static nl.rrx.sprite.Direction.*;
 
@@ -40,6 +43,7 @@ public class Player extends Sprite {
     }
 
     public void update() {
+        collisionOn = false;
         move();
     }
 
@@ -53,7 +57,7 @@ public class Player extends Sprite {
         g2.drawImage(image, screenX, screenY, null);
 
         if (DebugSettings.SHOW_COLLISION) {
-            dm.collisionUtil.draw(g2, this);
+            dm.collisionUtil.draw(g2, Color.red, screenX, screenY, collisionArea);
         }
     }
 
@@ -79,7 +83,7 @@ public class Player extends Sprite {
         this.direction = direction;
 
         // CHECK TILE COLLISION
-        collisionOn = dm.collisionUtil.check(this);
+        dm.collisionUtil.checkTile(this);
 
         // CHECK OBJECT COLLISION
         int objIndex = dm.collisionUtil.checkObject(this, true);
@@ -88,8 +92,10 @@ public class Player extends Sprite {
         }
 
         // CHECK NPC COLLISION
-        int npcIndex = dm.collisionUtil.checkSprite(this, dm.npcManager.getNpcs());
-        interactNPC(npcIndex);
+        int npcIndex = dm.collisionUtil.checkSprite(this, dm.npcManager.getNPCs());
+        if (npcIndex != NO_NPC) {
+            interactNPC(npcIndex);
+        }
 
         if (!collisionOn) {
             worldX += direction.moveX(speed);
@@ -107,9 +113,8 @@ public class Player extends Sprite {
     }
 
     private void interactNPC(int npcIndex) {
-        if (npcIndex != 999) {
-            System.out.println("HIT THE NPC");
-        }
+        NPC npc = dm.npcManager.get(npcIndex);
+        System.out.println("Hit " + npc.toString());
     }
 
     private void loadPlayerImages() {
