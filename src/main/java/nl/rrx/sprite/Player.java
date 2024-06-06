@@ -3,7 +3,6 @@ package nl.rrx.sprite;
 import nl.rrx.config.DependencyManager;
 import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.config.settings.SpriteSettings;
-import nl.rrx.sound.SoundEffect;
 import nl.rrx.util.PerformanceUtil;
 import nl.rrx.util.SpriteUtil;
 
@@ -13,7 +12,6 @@ import java.awt.image.BufferedImage;
 
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
-import static nl.rrx.config.settings.WorldSettings.SPEED_BOOST;
 import static nl.rrx.sprite.Direction.*;
 
 public class Player extends Sprite {
@@ -21,15 +19,10 @@ public class Player extends Sprite {
     private final int screenX;
     private final int screenY;
 
-    private final DependencyManager dm;
     private final SpriteUtil spriteUtil = new SpriteUtil();
 
-//    private int keysInInventory;
-    private boolean gameOver;
-
-
     public Player(DependencyManager dm) {
-        this.dm = dm;
+        super(dm);
         worldX = SpriteSettings.INIT_WORLD_X;
         worldY = SpriteSettings.INIT_WORLD_Y;
         screenX = SpriteSettings.INIT_SCREEN_X;
@@ -94,6 +87,10 @@ public class Player extends Sprite {
             interactWithObject(objIndex);
         }
 
+        // CHECK NPC COLLISION
+        int npcIndex = dm.collisionUtil.checkSprite(this, dm.npcManager.getNpcs());
+        interactNPC(npcIndex);
+
         if (!collisionOn) {
             worldX += direction.moveX(speed);
             worldY += direction.moveY(speed);
@@ -105,11 +102,17 @@ public class Player extends Sprite {
     private void interactWithObject(int index) {
         var type = dm.objectManager.getTypeFor(index);
         switch (type) {
-
+            // TODO
         }
     }
 
-    protected void loadPlayerImages() {
+    private void interactNPC(int npcIndex) {
+        if (npcIndex != 999) {
+            System.out.println("HIT THE NPC");
+        }
+    }
+
+    private void loadPlayerImages() {
         up1 = PerformanceUtil.getScaledImage("/images/player/boy-up-1.png", TILE_SIZE, TILE_SIZE);
         up2 = PerformanceUtil.getScaledImage("/images/player/boy-up-2.png", TILE_SIZE, TILE_SIZE);
         down1 = PerformanceUtil.getScaledImage("/images/player/boy-down-1.png", TILE_SIZE, TILE_SIZE);
@@ -126,9 +129,5 @@ public class Player extends Sprite {
 
     public int getScreenY() {
         return screenY;
-    }
-
-    public boolean isGameOver() {
-        return gameOver;
     }
 }

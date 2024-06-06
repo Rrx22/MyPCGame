@@ -18,7 +18,7 @@ public class ScreenUtil {
                 && worldY < player.getWorldY() + player.getScreenY() + TILE_SIZE;
     }
 
-    public static int getXForCenteredText(Player player, Graphics2D g2, String text) {
+    public static int getXForCenteredText(Graphics2D g2, String text) {
         int textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         return SCREEN_WIDTH / 2 - textLength /2;
     }

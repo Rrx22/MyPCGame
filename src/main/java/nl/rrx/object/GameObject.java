@@ -13,9 +13,9 @@ import static nl.rrx.util.ScreenUtil.isWithinScreenBoundary;
 public class GameObject {
 
     public final GameObjectType type;
-    public final BufferedImage image;
-    public final int worldX;
-    public final int worldY;
+    private final BufferedImage image;
+    private final int worldX;
+    private final int worldY;
     public final Rectangle collisionArea;
 
     public GameObject(GameObjectType type, int worldX, int worldY) {

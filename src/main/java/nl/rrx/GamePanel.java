@@ -48,9 +48,6 @@ public class GamePanel extends JPanel implements Runnable {
             if (fpsHandler.canLoadNextFrame()) {
                 update();
                 repaint();
-                if (dm.player.isGameOver()) {
-                    gameThread = null;
-                }
             }
         }
     }
@@ -60,8 +57,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         if (gameState == playState) {
             dm.player.update();
+            dm.npcManager.updateNPCs();
         } else if (gameState == pauseState) {
-            // FIXME
+            // TODO
         }
     }
 
@@ -73,9 +71,10 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
         dm.tileManager.draw(g2);
         dm.objectManager.draw(g2);
+        dm.npcManager.draw(g2);
         dm.player.draw(g2);
         dm.ui.draw(g2);
-        if (DebugSettings.DRAW_DEBUG_STATS) dm.ui.drawDebugStats(g2, drawStart);
+        if (DebugSettings.DRAW_DEBUG_STATS) dm.ui.drawDebugStats(drawStart); // this needs to happen here, so it surrounds all the draw methods
 
         g2.dispose();
     }

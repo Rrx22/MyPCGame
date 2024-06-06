@@ -1,9 +1,13 @@
 package nl.rrx.sprite;
 
+import nl.rrx.config.DependencyManager;
+
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public abstract class Sprite {
+
+    protected final DependencyManager dm;
 
     protected int worldX;
     protected int worldY;
@@ -21,6 +25,10 @@ public abstract class Sprite {
     protected BufferedImage left2;
     protected BufferedImage right1;
     protected BufferedImage right2;
+
+    protected Sprite(DependencyManager dm) {
+        this.dm = dm;
+    }
 
     public int getWorldX() {
         return worldX;
@@ -40,6 +48,10 @@ public abstract class Sprite {
 
     public Rectangle getCollisionArea() {
         return collisionArea;
+    }
+
+    public boolean isCollisionOn() {
+        return collisionOn;
     }
 
     public void setCollisionOn(boolean collisionOn) {
