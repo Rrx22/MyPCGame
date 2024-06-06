@@ -3,17 +3,15 @@ package nl.rrx.sprite.npc;
 import nl.rrx.config.DependencyManager;
 import nl.rrx.sprite.Direction;
 
-import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
+import static nl.rrx.config.settings.ScreenSettings.FPS;
 
 public class Wizard extends NPC {
 
-    protected Wizard(DependencyManager dm, int startWorldX, int startWorldY) {
-        super(dm);
-        direction = Direction.DOWN;
-        speed = 1;
-        worldX = TILE_SIZE * startWorldX;
-        worldY = TILE_SIZE * startWorldY;
+    private int actionLockCounter;
 
+    protected Wizard(DependencyManager dm, int startWorldX, int startWorldY) {
+        super(dm, startWorldX, startWorldY);
+        speed = 1;
         loadImages("wizard");
     }
 
@@ -27,5 +25,14 @@ public class Wizard extends NPC {
             case Integer i when i < 75 -> Direction.LEFT;
             default -> Direction.RIGHT;
         };
+    }
+
+    @Override
+    public boolean isReadyForAction() {
+        if (actionLockCounter++ > FPS * 2) {
+            actionLockCounter = 0;
+            return true;
+        }
+        return false;
     }
 }
