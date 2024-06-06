@@ -15,14 +15,14 @@ import java.util.Map;
 public class SoundManager {
 
     private final Clip backgroundMusic;
-    private final Map<SoundEffect, URL> soundEffects = new EnumMap<>(SoundEffect.class);
+    private final Map<SoundEffect, URL> soundEffectUrlMap = new EnumMap<>(SoundEffect.class);
 
     public SoundManager() {
         URL musicFile = getClass().getResource("/sounds/music/adventure.wav");
         backgroundMusic = getClip(musicFile);
 
         for (var soundEffect : SoundEffect.values()) {
-            soundEffects.put(soundEffect, getClass().getResource(soundEffect.uri));
+            soundEffectUrlMap.put(soundEffect, getClass().getResource(soundEffect.uri));
         }
     }
 
@@ -38,7 +38,7 @@ public class SoundManager {
     }
 
     public void playSoundEffect(SoundEffect key) {
-        Clip soundEffect = getClip(soundEffects.get(key));
+        Clip soundEffect = getClip(soundEffectUrlMap.get(key));
         soundEffect.start();
     }
 
