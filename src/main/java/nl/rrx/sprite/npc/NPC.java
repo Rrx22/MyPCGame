@@ -2,6 +2,7 @@ package nl.rrx.sprite.npc;
 
 import nl.rrx.config.DependencyManager;
 import nl.rrx.config.settings.DebugSettings;
+import nl.rrx.sprite.Direction;
 import nl.rrx.sprite.Sprite;
 import nl.rrx.util.PerformanceUtil;
 import nl.rrx.util.ScreenUtil;
@@ -21,6 +22,9 @@ public abstract class NPC extends Sprite {
     protected static final Random RND = new Random();
 
     private final SpriteUtil spriteUtil = new SpriteUtil();
+
+    protected String[] dialogues = new String[20];
+    protected int dialogueIndex;
 
     protected NPC(DependencyManager dm, int startWorldX, int startWorldY) {
         super(dm);
@@ -69,6 +73,21 @@ public abstract class NPC extends Sprite {
         }
     }
 
+    public void speak() {
+        dm.ui.setCurrentDialogue(dialogues[dialogueIndex]);
+        dialogueIndex++;
+        if (dialogueIndex > dialogues.length-1) {
+            dialogueIndex = 0;
+        }
+
+        direction = switch (dm.player.getDirection()) {
+            case UP -> Direction.DOWN;
+            case DOWN -> Direction.UP;
+            case LEFT -> Direction.RIGHT;
+            case RIGHT -> Direction.LEFT;
+        };
+    }
+
     protected void loadImages(String npcType) {
         up1 = PerformanceUtil.getScaledImage(NPC_IMG_ROOT + npcType + "-up-1.png", TILE_SIZE, TILE_SIZE);
         up2 = PerformanceUtil.getScaledImage(NPC_IMG_ROOT + npcType + "-up-2.png", TILE_SIZE, TILE_SIZE);
@@ -78,5 +97,9 @@ public abstract class NPC extends Sprite {
         left2 = PerformanceUtil.getScaledImage(NPC_IMG_ROOT + npcType + "-left-2.png", TILE_SIZE, TILE_SIZE);
         right1 = PerformanceUtil.getScaledImage(NPC_IMG_ROOT + npcType + "-right-1.png", TILE_SIZE, TILE_SIZE);
         right2 = PerformanceUtil.getScaledImage(NPC_IMG_ROOT + npcType + "-right-2.png", TILE_SIZE, TILE_SIZE);
+    }
+
+    protected void setDialogues(String ... dialogues) {
+        this.dialogues = dialogues;
     }
 }

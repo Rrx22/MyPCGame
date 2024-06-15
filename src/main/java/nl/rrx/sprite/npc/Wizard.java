@@ -13,11 +13,16 @@ public class Wizard extends NPC {
         super(dm, startWorldX, startWorldY);
         speed = 1;
         loadImages("wizard");
+        setDialogues(
+                "Hello, lad.",
+                "The treacherous are ever distrustful.",
+                "May the wind under your wings bear\nyou where the sun sails and the\nmoon walks."
+        );
     }
 
     @Override
     protected void doNpcAction() {
-        Integer rndVal = RND.nextInt(100) + 1;
+        Integer rndVal = RND.nextInt(100) + 1; // TODO upgrade to java 23 and use primitive instead (?)
 
         direction = switch (rndVal) {
             case Integer i when i < 25 -> Direction.DOWN;

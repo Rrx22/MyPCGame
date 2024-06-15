@@ -3,11 +3,13 @@ package nl.rrx.ui;
 import nl.rrx.config.DependencyManager;
 import nl.rrx.sprite.Sprite;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
 import static nl.rrx.config.settings.ScreenSettings.SCREEN_HEIGHT;
+import static nl.rrx.config.settings.ScreenSettings.SCREEN_WIDTH;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.util.ScreenUtil.getXForCenteredText;
 
@@ -17,10 +19,11 @@ public class UI {
 
     private final Font arial40;
     private final Font arial80B;
+    private String currentDialogue = "";
 
     public UI(DependencyManager dm) {
         this.dm = dm;
-        arial40 = new Font("Arial", Font.PLAIN, 40);
+        arial40 = new Font("Arial", Font.PLAIN, 32);
         arial80B = new Font("Arial", Font.BOLD, 80);
     }
 
@@ -28,11 +31,13 @@ public class UI {
         g2.setFont(arial80B);
         g2.setColor(Color.white);
 
-        if (!dm.keyHandler.isPauseGame()) {
-            // Do playstate stuff later
-        }
-        if (dm.keyHandler.isPauseGame()) {
-            drawPauseScreen(g2);
+        switch (dm.stateManager.currentState()) {
+            case PLAY -> {
+                // TODO playstate stuff later
+            }
+            case PAUSE -> drawPauseScreen(g2);
+            case DIALOGUE -> drawDialogueScreen(g2);
+
         }
 
     }
@@ -42,6 +47,38 @@ public class UI {
         int x = getXForCenteredText(g2, text);
         int y = SCREEN_HEIGHT / 2;
         g2.drawString(text, x, y);
+    }
+
+    private void drawDialogueScreen(Graphics2D g2) {
+        int x = TILE_SIZE * 2;
+        int y = TILE_SIZE / 2;
+        int width = SCREEN_WIDTH - (TILE_SIZE * 4);
+        int height = TILE_SIZE*4;
+        drawSubWindow(g2, x, y, width, height);
+
+        x += TILE_SIZE;
+        y += TILE_SIZE / 2;
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28F));
+        for (String line : currentDialogue.split("\n")) {
+            y += g2.getFontMetrics().getHeight();
+            g2.drawString(line, x, y);
+        }
+    }
+
+    private void drawSubWindow(Graphics2D g2, int x, int y, int width, int height) {
+        Color color = new Color(0, 0, 0, 210);
+        g2.setColor(color);
+        g2.fillRoundRect(x, y, width, height, 35, 35);
+
+        color = new Color(255, 255, 255);
+        g2.setColor(color);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(x+5, y+5, width-10, height-10, 25, 25);
+
+    }
+
+    public void setCurrentDialogue(String currentDialogue) {
+        this.currentDialogue = currentDialogue;
     }
 
 

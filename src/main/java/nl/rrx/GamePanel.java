@@ -3,6 +3,7 @@ package nl.rrx;
 import nl.rrx.config.DependencyManager;
 import nl.rrx.config.FpsHandler;
 import nl.rrx.config.settings.DebugSettings;
+import nl.rrx.state.GameState;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -17,11 +18,6 @@ public class GamePanel extends JPanel implements Runnable {
     private final transient DependencyManager dm;
     private transient Thread gameThread;
 
-    // GAME STATE
-    public int gameState; // TODO give gamestate some love
-    public final int playState = 1;
-    public final int pauseState = 2;
-
     public GamePanel(DependencyManager dm) {
         this.dm = dm;
         this.setPreferredSize(SCREEN_SIZE);
@@ -33,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setUpGame() {
         dm.soundManager.playMusic();
-        gameState = playState;
+        dm.stateManager.setState(GameState.PLAY);
     }
 
     public void startGameThread() {
@@ -53,12 +49,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void update() {
-        gameState = dm.keyHandler.isPauseGame() ? pauseState : playState;
-
-        if (gameState == playState) {
+        if (dm.stateManager.currentState() == GameState.PLAY) {
             dm.player.update();
             dm.npcManager.updateNPCs();
-        } else if (gameState == pauseState) {
+        } else if (dm.stateManager.currentState() == GameState.PAUSE) {
             // TODO
         }
     }

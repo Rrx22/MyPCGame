@@ -4,6 +4,7 @@ import nl.rrx.config.DependencyManager;
 import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.config.settings.SpriteSettings;
 import nl.rrx.sprite.npc.NPC;
+import nl.rrx.state.GameState;
 import nl.rrx.util.PerformanceUtil;
 import nl.rrx.util.SpriteUtil;
 
@@ -93,7 +94,7 @@ public class Player extends Sprite {
 
         // CHECK NPC COLLISION
         int npcIndex = dm.collisionUtil.checkSprite(this, dm.npcManager.getNPCs());
-        if (npcIndex != NO_NPC) {
+        if (npcIndex != NO_NPC && dm.keyHandler.isEnterPressed()) {
             interactNPC(npcIndex);
         }
 
@@ -114,7 +115,8 @@ public class Player extends Sprite {
 
     private void interactNPC(int npcIndex) {
         NPC npc = dm.npcManager.get(npcIndex);
-        System.out.println("Hit " + npc.toString());
+        npc.speak();
+        dm.stateManager.setState(GameState.DIALOGUE);
     }
 
     private void loadPlayerImages() {
