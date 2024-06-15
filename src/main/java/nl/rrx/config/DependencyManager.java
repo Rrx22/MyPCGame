@@ -4,6 +4,7 @@ import nl.rrx.object.ObjectManager;
 import nl.rrx.sound.SoundManager;
 import nl.rrx.sprite.Player;
 import nl.rrx.sprite.npc.NPCManager;
+import nl.rrx.state.StateManager;
 import nl.rrx.tile.TileManager;
 import nl.rrx.ui.UI;
 import nl.rrx.util.CollisionUtil;
@@ -11,6 +12,8 @@ import nl.rrx.util.CollisionUtil;
 public class DependencyManager {
 
     public final Player player;
+
+    public final StateManager stateManager;
 
     public final KeyHandler keyHandler;
 
@@ -28,12 +31,13 @@ public class DependencyManager {
 
     public DependencyManager() {
         player = new Player(this);
-        keyHandler = new KeyHandler();
+        stateManager = new StateManager();
         soundManager = new SoundManager();
         tileManager = new TileManager(player);
         objectManager = new ObjectManager(player);
         npcManager = new NPCManager(this);
         collisionUtil = new CollisionUtil(tileManager, objectManager);
+        keyHandler = new KeyHandler(stateManager);
         ui = new UI(this);
     }
 }
