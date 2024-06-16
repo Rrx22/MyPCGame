@@ -10,9 +10,9 @@ class DialogueUI {
 
     private DialogueUI() {}
 
-    public static String currentDialogue = "";
+    static String currentDialogue = "";
 
-    public static void draw(Graphics2D g2, Font font) {
+    static void draw(Graphics2D g2, Font font) {
         int x = TILE_SIZE * 2;
         int y = TILE_SIZE / 2;
         int width = SCREEN_WIDTH - (TILE_SIZE * 4);

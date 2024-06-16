@@ -10,7 +10,7 @@ class PauseUI {
 
     private PauseUI() {}
 
-    public static void draw(Graphics2D g2, Font font) {
+    static void draw(Graphics2D g2, Font font) {
         String text = "PAUSED";
         g2.setFont(font);
         int x = getXForCenteredText(g2, text);

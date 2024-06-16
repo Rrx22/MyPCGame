@@ -27,7 +27,7 @@ public class TitleScreen {
     private TitleScreen() {
     }
 
-    public static void draw(Graphics2D g2, Font fontBold) {
+    static void draw(Graphics2D g2, Font fontBold) {
         if (titleScreenFlowNum == 0) {
             drawScreen(g2, fontBold, "ADVENTURE STORY", WIZARD_IMAGE, "NEW GAME", "LOAD GAME", "QUIT");
         } else if (titleScreenFlowNum == 1) {

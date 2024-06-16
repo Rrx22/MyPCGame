@@ -12,7 +12,7 @@ class DebugUI {
 
     private DebugUI() {}
 
-    public static void draw(Graphics2D g2, Sprite sprite, long drawStart, Font font) {
+    static void draw(Graphics2D g2, Sprite sprite, long drawStart, Font font) {
         g2.setFont(font);
         showDrawTime(g2, drawStart);
         showWorldPositionOf(g2, sprite);
