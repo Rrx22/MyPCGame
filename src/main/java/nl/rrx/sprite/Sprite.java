@@ -13,6 +13,9 @@ public abstract class Sprite {
     protected int worldY;
     protected int speed;
 
+    protected int maxHP;
+    protected int healthPoints;
+
     protected Direction direction;
     protected Rectangle collisionArea;
     protected boolean collisionOn;
@@ -57,5 +60,13 @@ public abstract class Sprite {
 
     public void setCollisionOn(boolean collisionOn) {
         this.collisionOn = collisionOn;
+    }
+
+    public int getMaxHP() {
+        return maxHP;
+    }
+
+    public int getHealthPoints() {
+        return healthPoints;
     }
 }

@@ -26,9 +26,7 @@ public class UI {
         g2.setColor(Color.white);
 
         switch (dm.stateManager.currentState()) {
-            case PLAY -> {
-                // TODO playstate stuff later
-            }
+            case PLAY -> PlayUI.draw(g2, dm.player);
             case PAUSE -> PauseUI.draw(g2, fontBold);
             case DIALOGUE -> DialogueUI.draw(g2, fontPlain);
             case TITLE_SCREEN -> TitleScreen.draw(g2, fontBold);
@@ -43,5 +41,6 @@ public class UI {
 
     public void setCurrentDialogue(String dialogue) {
         DialogueUI.currentDialogue = dialogue;
+        // TODO FIX
     }
 }

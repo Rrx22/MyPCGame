@@ -1,5 +1,6 @@
 package nl.rrx.config;
 
+import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.state.GameState;
 import nl.rrx.ui.TitleScreen;
 
@@ -38,6 +39,8 @@ public class KeyHandler implements KeyListener {
     }
 
     private void handleKeysForPlayState(int code) {
+        if (DebugSettings.ENABLED && code == KeyEvent.VK_Q) System.exit(0);
+
         if (code == KeyEvent.VK_P) {
             dm.stateManager.pressPause();
             return;

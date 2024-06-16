@@ -4,7 +4,9 @@ public enum GameObjectType {
     KEY("/images/objects/key.png", false),
     DOOR("/images/objects/door.png", true),
     CHEST("/images/objects/chest.png", true),
-    BOOTS("/images/objects/boots.png", false);
+    BOOTS("/images/objects/boots.png", false),
+    HEART("/images/objects/heart_full.png", false),
+    ;
 
     public final String imageUri;
     public final boolean isCollision;

@@ -14,6 +14,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
+import static nl.rrx.config.settings.SpriteSettings.INIT_PLAYER_HP;
 import static nl.rrx.config.settings.WorldSettings.NO_NPC;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 import static nl.rrx.sprite.Direction.*;
@@ -31,6 +32,9 @@ public class Player extends Sprite {
         worldY = SpriteSettings.INIT_WORLD_Y;
         screenX = SpriteSettings.INIT_SCREEN_X;
         screenY = SpriteSettings.INIT_SCREEN_Y;
+
+        maxHP = INIT_PLAYER_HP;
+        healthPoints = maxHP;
         speed = SpriteSettings.INIT_SPEED;
         direction = SpriteSettings.INIT_DIRECTION;
 
