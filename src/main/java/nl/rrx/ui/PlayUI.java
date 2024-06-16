@@ -18,7 +18,6 @@ class PlayUI {
     private PlayUI() {
     }
 
-    // TODO ALSO IN OTHER CLASSES
     static void draw(Graphics2D g2, Player player) {
         drawPlayerLife(g2, player);
     }
