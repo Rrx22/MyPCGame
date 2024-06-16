@@ -16,7 +16,6 @@ public class UI {
     private final Font fontBold;
     private final Font fontPlain;
 
-
     public UI(DependencyManager dm) {
         this.dm = dm;
         fontBold = importFont(UIUtil.PURISA_BOLD_TTF).deriveFont(Font.BOLD, 80);
