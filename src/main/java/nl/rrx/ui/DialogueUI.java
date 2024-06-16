@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import static nl.rrx.config.settings.ScreenSettings.SCREEN_WIDTH;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
-public class DialogueUI {
+class DialogueUI {
 
     private DialogueUI() {}
 
