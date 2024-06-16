@@ -1,5 +1,6 @@
 package nl.rrx.config;
 
+import nl.rrx.event.EventHandler;
 import nl.rrx.object.ObjectManager;
 import nl.rrx.sound.SoundManager;
 import nl.rrx.sprite.Player;
@@ -27,6 +28,8 @@ public class DependencyManager {
 
     public final KeyHandler keyHandler;
 
+    public final EventHandler eventHandler;
+
     public final UI ui;
 
     public DependencyManager() {
@@ -38,6 +41,7 @@ public class DependencyManager {
         collisionUtil = new CollisionUtil(tileManager, objectManager);
         npcManager = new NPCManager(this);
         keyHandler = new KeyHandler(this);
+        eventHandler = new EventHandler(this);
         ui = new UI(this);
     }
 }

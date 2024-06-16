@@ -27,7 +27,8 @@ class DebugUI {
     }
 
     private static void showWorldPositionOf(Graphics2D g2, Sprite sprite) {
-        g2.drawString(String.format("x: %02d, y: %02d", (sprite.getWorldX() / TILE_SIZE), (sprite.getWorldY() / TILE_SIZE)), 10, 440);
+        // TODO check out whats going on with these (and other, like events) coords...
+        g2.drawString(String.format("x: %02d, y: %02d", ((sprite.getWorldX()) / TILE_SIZE), ((sprite.getWorldY()) / TILE_SIZE)), 10, 440);
     }
 
     private static void showIsCollisionOnFor(Graphics2D g2, Sprite sprite) {

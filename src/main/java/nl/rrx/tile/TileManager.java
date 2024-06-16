@@ -5,6 +5,7 @@ import nl.rrx.sprite.Player;
 import nl.rrx.util.PerformanceUtil;
 
 import java.awt.BasicStroke;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -63,14 +64,23 @@ public class TileManager {
                     Tile tile = tiles.get(tileNum);
                     g2.drawImage(tile.image(), screenX, screenY, null);
 
-                    if (DebugSettings.SHOW_COLLISION && tile.isCollision()) {
-                        var oldStroke = g2.getStroke();
-                        g2.setStroke(new BasicStroke(2));
-                        g2.drawRect(screenX, screenY, TILE_SIZE, TILE_SIZE);
-                        g2.setStroke(oldStroke);
-                    }
+                    if (DebugSettings.ENABLED) doDebugDrawing(g2, tile, screenX, screenY, worldCol, worldRow);
                 }
             }
+        }
+    }
+
+    private void doDebugDrawing(Graphics2D g2, Tile tile, int screenX, int screenY, int worldCol, int worldRow) {
+        if (DebugSettings.SHOW_COLLISION && tile.isCollision()) {
+            var oldStroke = g2.getStroke();
+            g2.setStroke(new BasicStroke(2));
+            g2.drawRect(screenX, screenY, TILE_SIZE, TILE_SIZE);
+            g2.setStroke(oldStroke);
+        }
+        if (DebugSettings.SHOW_COORDS) {
+            g2.setFont(new Font("arial", Font.PLAIN, 10));
+            g2.drawString(String.format("x:%02d", worldCol), screenX +5, screenY +10);
+            g2.drawString(String.format("y:%02d", worldRow), screenX +5, screenY +20);
         }
     }
 

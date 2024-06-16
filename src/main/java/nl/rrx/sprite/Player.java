@@ -102,6 +102,9 @@ public class Player extends Sprite {
             interactNPC(npcIndex);
         }
 
+        // CHECK EVENT
+        dm.eventHandler.checkEvent();
+
         if (!collisionOn) {
             worldX += direction.moveX(speed);
             worldY += direction.moveY(speed);
@@ -140,5 +143,18 @@ public class Player extends Sprite {
 
     public int getScreenY() {
         return screenY;
+    }
+
+    public void doDamage(int damage) {
+        healthPoints -= damage;
+    }
+
+    public void recoverHP() {
+        healthPoints = maxHP;
+    }
+
+    public void teleport(int x, int y) {
+        worldX = x * TILE_SIZE;
+        worldY = y * TILE_SIZE;
     }
 }

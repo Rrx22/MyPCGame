@@ -65,6 +65,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         if (dm.stateManager.currentState() != GameState.TITLE_SCREEN) {
             dm.tileManager.draw(g2);
+            dm.eventHandler.draw(g2);
             dm.objectManager.draw(g2);
             dm.npcManager.draw(g2);
             dm.player.draw(g2);

@@ -6,8 +6,9 @@ public class DebugSettings {
 
     public static final boolean ENABLED = true;
 
-    public static final boolean FLY = false;
+    public static final boolean FLY = ENABLED;
     public static final boolean NO_MUSIC = ENABLED;
     public static final boolean SHOW_COLLISION = ENABLED;
+    public static final boolean SHOW_COORDS = ENABLED;
     public static final boolean DRAW_DEBUG_STATS = ENABLED;
 }
