@@ -16,7 +16,7 @@ public class Wizard extends NPC {
         setDialogues(
                 "Hello, lad.",
                 "The treacherous are ever distrustful.",
-                "May the wind under your wings bear\nyou where the sun sails and the\nmoon walks."
+                "May the wind under your wings bear you\nwhere the sun sails and the moon walks."
         );
     }
 

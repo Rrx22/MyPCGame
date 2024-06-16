@@ -11,24 +11,25 @@ import java.awt.Graphics2D;
 import static nl.rrx.config.settings.ScreenSettings.SCREEN_HEIGHT;
 import static nl.rrx.config.settings.ScreenSettings.SCREEN_WIDTH;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
+import static nl.rrx.ui.FontUtil.importFont;
 import static nl.rrx.util.ScreenUtil.getXForCenteredText;
 
 public class UI {
 
     private final DependencyManager dm;
 
-    private final Font arial40;
-    private final Font arial80B;
+    private final Font fontBold;
+    private final Font fontPlain;
+
     private String currentDialogue = "";
 
     public UI(DependencyManager dm) {
         this.dm = dm;
-        arial40 = new Font("Arial", Font.PLAIN, 32);
-        arial80B = new Font("Arial", Font.BOLD, 80);
+        fontBold = importFont(FontUtil.boldFontFile).deriveFont(Font.BOLD, 80);
+        fontPlain = importFont(FontUtil.plainFontFile).deriveFont(Font.PLAIN, 20F);
     }
 
     public void draw(Graphics2D g2) {
-        g2.setFont(arial80B);
         g2.setColor(Color.white);
 
         switch (dm.stateManager.currentState()) {
@@ -37,13 +38,13 @@ public class UI {
             }
             case PAUSE -> drawPauseScreen(g2);
             case DIALOGUE -> drawDialogueScreen(g2);
-
         }
 
     }
 
     private void drawPauseScreen(Graphics2D g2) {
         String text = "PAUSED";
+        g2.setFont(fontBold);
         int x = getXForCenteredText(g2, text);
         int y = SCREEN_HEIGHT / 2;
         g2.drawString(text, x, y);
@@ -58,7 +59,7 @@ public class UI {
 
         x += TILE_SIZE;
         y += TILE_SIZE / 2;
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28F));
+        g2.setFont(fontPlain);
         for (String line : currentDialogue.split("\n")) {
             y += g2.getFontMetrics().getHeight();
             g2.drawString(line, x, y);
@@ -84,7 +85,7 @@ public class UI {
 
     // DEBUG DRAWING
     public void drawDebugStats(Graphics2D g2, long drawStart) {
-        g2.setFont(arial40);
+        g2.setFont(fontPlain);
         showDrawTime(g2, drawStart);
         Sprite sprite = dm.player;
 //        Sprite sprite = dm.npcManager.getNpcs()[0];

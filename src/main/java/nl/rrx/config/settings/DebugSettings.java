@@ -8,6 +8,6 @@ public class DebugSettings {
 
     public static final boolean FLY = false;
     public static final boolean NO_MUSIC = ENABLED;
-    public static final boolean SHOW_COLLISION = false;
-    public static final boolean DRAW_DEBUG_STATS = false;
+    public static final boolean SHOW_COLLISION = ENABLED;
+    public static final boolean DRAW_DEBUG_STATS = ENABLED;
 }
