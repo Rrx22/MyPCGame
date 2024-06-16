@@ -1,14 +1,14 @@
 package nl.rrx.config;
 
 import nl.rrx.state.GameState;
-import nl.rrx.state.StateManager;
+import nl.rrx.ui.TitleScreen;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
-    private final StateManager stateManager;
+    private final DependencyManager dm;
 
     private boolean upPressed;
     private boolean downPressed;
@@ -16,8 +16,8 @@ public class KeyHandler implements KeyListener {
     private boolean rightPressed;
     private boolean enterPressed;
 
-    public KeyHandler(StateManager stateManager) {
-        this.stateManager = stateManager;
+    public KeyHandler(DependencyManager dm) {
+        this.dm = dm;
     }
 
     @Override
@@ -29,17 +29,24 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_P) {
-            stateManager.pressPause();
-        }
-
-        switch (stateManager.currentState()) {
-            case PLAY -> handleMovementKeys(code);
-            case DIALOGUE -> handleDialogueKeys(code);
+        switch (dm.stateManager.currentState()) {
+            case PLAY -> handleKeysForPlayState(code);
+            case PAUSE -> handleKeysForPauseState(code);
+            case DIALOGUE -> handleKeysForDialogueState(code);
+            case TITLE_SCREEN -> handleKeysForTitleScreen(code);
         }
     }
 
-    private void handleMovementKeys(int code) {
+    private void handleKeysForPlayState(int code) {
+        if (code == KeyEvent.VK_P) {
+            dm.stateManager.pressPause();
+            return;
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            enterPressed = true;
+            return;
+        }
+        // TODO These booleans are a very different implentation from the other handle methods, which use the DM or static functions to do stuff
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             upPressed = true;
         }
@@ -52,14 +59,29 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
             rightPressed = true;
         }
-        if (code == KeyEvent.VK_ENTER) {
-            enterPressed = true;
+    }
+
+    private void handleKeysForPauseState(int code) {
+        if (code == KeyEvent.VK_P) {
+            dm.stateManager.pressPause();
         }
     }
 
-    private void handleDialogueKeys(int code) {
+    private void handleKeysForDialogueState(int code) {
         if (code == KeyEvent.VK_ENTER) {
-            stateManager.setState(GameState.PLAY);
+            dm.stateManager.setState(GameState.PLAY);
+        }
+    }
+
+    private void handleKeysForTitleScreen(int code) {
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+            TitleScreen.pressUp();
+        }
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+            TitleScreen.pressDown();
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            TitleScreen.pressMenu(dm);
         }
     }
 

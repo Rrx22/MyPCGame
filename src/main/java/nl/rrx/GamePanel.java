@@ -28,8 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setUpGame() {
-        dm.soundManager.playMusic();
-        dm.stateManager.setState(GameState.PLAY);
+        dm.stateManager.setState(GameState.TITLE_SCREEN);
     }
 
     public void startGameThread() {
@@ -63,12 +62,16 @@ public class GamePanel extends JPanel implements Runnable {
         long drawStart = System.nanoTime();
 
         Graphics2D g2 = (Graphics2D) g;
-        dm.tileManager.draw(g2);
-        dm.objectManager.draw(g2);
-        dm.npcManager.draw(g2);
-        dm.player.draw(g2);
+
+        if (dm.stateManager.currentState() != GameState.TITLE_SCREEN) {
+            dm.tileManager.draw(g2);
+            dm.objectManager.draw(g2);
+            dm.npcManager.draw(g2);
+            dm.player.draw(g2);
+            if (DebugSettings.DRAW_DEBUG_STATS)
+                dm.ui.drawDebugStats(g2, drawStart); // this needs to happen here, so it surrounds all the draw methods
+        }
         dm.ui.draw(g2);
-        if (DebugSettings.DRAW_DEBUG_STATS) dm.ui.drawDebugStats(g2, drawStart); // this needs to happen here, so it surrounds all the draw methods
 
         g2.dispose();
     }

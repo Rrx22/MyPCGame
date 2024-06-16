@@ -15,17 +15,17 @@ public class DependencyManager {
 
     public final StateManager stateManager;
 
-    public final KeyHandler keyHandler;
-
     public final SoundManager soundManager;
 
     public final TileManager tileManager;
 
     public final ObjectManager objectManager;
 
+    public final CollisionUtil collisionUtil;
+
     public final NPCManager npcManager;
 
-    public final CollisionUtil collisionUtil;
+    public final KeyHandler keyHandler;
 
     public final UI ui;
 
@@ -35,9 +35,9 @@ public class DependencyManager {
         soundManager = new SoundManager();
         tileManager = new TileManager(player);
         objectManager = new ObjectManager(player);
-        npcManager = new NPCManager(this);
         collisionUtil = new CollisionUtil(tileManager, objectManager);
-        keyHandler = new KeyHandler(stateManager);
+        npcManager = new NPCManager(this);
+        keyHandler = new KeyHandler(this);
         ui = new UI(this);
     }
 }
