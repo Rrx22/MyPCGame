@@ -1,8 +1,10 @@
 package nl.rrx.util;
 
 import nl.rrx.config.settings.DebugSettings;
+import nl.rrx.event.Event;
 import nl.rrx.object.GameObject;
 import nl.rrx.object.ObjectManager;
+import nl.rrx.sprite.Direction;
 import nl.rrx.sprite.Player;
 import nl.rrx.sprite.Sprite;
 import nl.rrx.sprite.npc.NPC;
@@ -14,6 +16,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
+import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_OUTLINER;
 import static nl.rrx.config.settings.WorldSettings.NO_NPC;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 
@@ -144,6 +147,23 @@ public class CollisionUtil {
      */
     public void checkPlayer(NPC npc, Player player) {
         checkSprite(npc, new Sprite[]{player});
+    }
+
+    /**
+     * Check
+     * @param player
+     * @param event (Nullable) If null, any direction will set off the event.
+     * @return true if the player has set off the event
+     */
+    public boolean checkEvent(Player player, Event event) {
+        int eventX = event.col() * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
+        int eventY = event.row() * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
+        var eventRect = new Rectangle(eventX, eventY, 2, 2);
+        var playerRect = getSpriteCollisionAreaInWorld(player);
+
+        Direction requiredDirection = event.requiredDirection();
+        return playerRect.intersects(eventRect)
+                && (requiredDirection == null || requiredDirection.equals(player.getDirection()));
     }
 
     private static Rectangle getSpriteCollisionAreaInWorld(Sprite sprite) {

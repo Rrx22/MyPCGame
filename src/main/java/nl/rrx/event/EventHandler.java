@@ -4,67 +4,46 @@ import nl.rrx.config.DependencyManager;
 import nl.rrx.sprite.Direction;
 import nl.rrx.state.GameState;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
-import static nl.rrx.config.settings.SpriteSettings.PLAYER_RECT_X;
-import static nl.rrx.config.settings.SpriteSettings.PLAYER_RECT_Y;
+import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_OUTLINER;
+import static nl.rrx.event.EventType.DAMAGE_PIT;
+import static nl.rrx.event.EventType.HEALING_POOL;
+import static nl.rrx.event.EventType.TELEPORT;
 
 public class EventHandler {
 
     private final DependencyManager dm;
+    private final Event[] events;
 
-    public Rectangle eventRect;
-    public int eventRectDefaultX;
-    public int eventRectDefaultY;
 
     public EventHandler(DependencyManager dm) {
-        // TODO this entire class needs some love
-        //  - weird behaviour with coords
-        //  - only works when moving (also goes for interacting with npc). Especially annoying when pressing ENTER
         this.dm = dm;
-
-        eventRect = new Rectangle();
-        eventRect.x = 23;
-        eventRect.y = 23;
-        eventRect.width = 2;
-        eventRect.height = 2;
-        eventRectDefaultX = eventRect.x;
-        eventRectDefaultY = eventRect.y;
+        events = new Event[]{
+                new Event(DAMAGE_PIT, 29, 20, Direction.RIGHT),
+                new Event(HEALING_POOL, 23, 22, null),
+                new Event(TELEPORT, 22, 22, null),
+        };
     }
 
     public void checkEvent() {
-        if (hit(29, 19, Direction.RIGHT)) damagePit();
-        if (hit(23, 22)) healingPool();
-        if (hit(22, 22)) teleport();
-    }
-
-    public boolean hit (int eventCol, int eventRow) {
-        return hit(eventCol, eventRow, null);
-    }
-
-    public boolean hit(int eventCol, int eventRow, Direction requiredDirection) {
-        boolean hit = false;
-
-        dm.player.getCollisionArea().x = dm.player.getWorldX() + dm.player.getCollisionArea().x;
-        dm.player.getCollisionArea().y = dm.player.getWorldY() + dm.player.getCollisionArea().y;
-        eventRect.x = eventCol * TILE_SIZE + eventRect.x;
-        eventRect.y = eventRow * TILE_SIZE + eventRect.y;
-
-        if (dm.player.getCollisionArea().intersects(eventRect)) {
-            if (requiredDirection == null || dm.player.getDirection() == requiredDirection) {
-                hit = true;
+        // TODO only works when moving (also goes for interacting with npc). Especially annoying when pressing ENTER
+        for (var event : events) {
+            if (dm.collisionUtil.checkEvent(dm.player, event)) {
+                perform(event);
             }
         }
+    }
 
-        // reset values
-        dm.player.getCollisionArea().x = PLAYER_RECT_X;
-        dm.player.getCollisionArea().y = PLAYER_RECT_Y;
-        eventRect.x = eventRectDefaultX;
-        eventRect.y = eventRectDefaultY;
-
-        return hit;
+    private void perform(Event event) {
+        switch (event.type()) {
+            case DAMAGE_PIT -> damagePit();
+            case HEALING_POOL -> healingPool();
+            case TELEPORT -> teleport();
+        }
     }
 
     // EVENTS
@@ -88,10 +67,13 @@ public class EventHandler {
         dm.player.teleport(47, 21);
     }
 
-
     public void draw(Graphics2D g2) {
-        // TODO
-        //  g2.setColor(Color.BLUE);
-        //  g2.fillRect(drawX, drawY, drawW, drawH);
+        for (var event : events) {
+            int x = event.col() * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
+            int y = event.row() * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
+            int screenX = x - dm.player.getWorldX() + dm.player.getScreenX();
+            int screenY = y - dm.player.getWorldY() + dm.player.getScreenY();
+            dm.collisionUtil.draw(g2, Color.magenta, screenX, screenY, new Rectangle(0, 0, 2, 2));
+        }
     }
 }
