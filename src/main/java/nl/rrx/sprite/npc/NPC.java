@@ -74,7 +74,7 @@ public abstract class NPC extends Sprite {
     }
 
     public void speak() {
-        dm.ui.setCurrentDialogue(dialogues[dialogueIndex]);
+        dm.ui.setDialogue(dialogues[dialogueIndex]);
         dialogueIndex++;
         if (dialogueIndex > dialogues.length-1) {
             dialogueIndex = 0;

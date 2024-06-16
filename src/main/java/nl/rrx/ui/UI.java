@@ -12,9 +12,10 @@ import static nl.rrx.ui.UIUtil.importFont;
 public class UI {
 
     private final DependencyManager dm;
-
     private final Font fontBold;
     private final Font fontPlain;
+
+    private String dialogue = "";
 
     public UI(DependencyManager dm) {
         this.dm = dm;
@@ -28,7 +29,7 @@ public class UI {
         switch (dm.stateManager.currentState()) {
             case PLAY -> PlayUI.draw(g2, dm.player);
             case PAUSE -> PauseUI.draw(g2, fontBold);
-            case DIALOGUE -> DialogueUI.draw(g2, fontPlain);
+            case DIALOGUE -> DialogueUI.draw(g2, fontPlain, dialogue);
             case TITLE_SCREEN -> TitleScreen.draw(g2, fontBold);
         }
     }
@@ -39,8 +40,7 @@ public class UI {
         DebugUI.draw(g2, sprite, drawStart, fontPlain);
     }
 
-    public void setCurrentDialogue(String dialogue) {
-        DialogueUI.currentDialogue = dialogue;
-        // TODO FIX
+    public void setDialogue(String dialogue) {
+        this.dialogue = dialogue;
     }
 }
