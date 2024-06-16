@@ -118,7 +118,7 @@ public class CollisionUtil {
      * Sets srcSprite's collisionOn to true if a collision is met
      *
      * @param srcSprite The sprite which is moving (player or npc)
-     * @param npcs Check this list of npcs for a collision with the source sprite
+     * @param npcs      Check this list of npcs for a collision with the source sprite
      * @return index of npc being collided with. 999 if no npc is hit
      */
     public int checkSprite(Sprite srcSprite, Sprite[] npcs) {
@@ -151,8 +151,9 @@ public class CollisionUtil {
 
     /**
      * Check
+     *
      * @param player
-     * @param event (Nullable) If null, any direction will set off the event.
+     * @param event  (Nullable) If null, any direction will set off the event.
      * @return true if the player has set off the event
      */
     public boolean checkEvent(Player player, Event event) {
@@ -175,7 +176,11 @@ public class CollisionUtil {
     }
 
     // DEBUG UTIL
-    public void draw(Graphics2D g2, Color color, int screenX, int screenY, Rectangle collisionArea) {
+    public void drawIfDebug(Graphics2D g2, Color color, int screenX, int screenY, Rectangle collisionArea) {
+        if (!DebugSettings.SHOW_COLLISION) {
+            return;
+        }
+
         int x = screenX + collisionArea.x;
         int y = screenY + collisionArea.y;
         var oldStroke = g2.getStroke();

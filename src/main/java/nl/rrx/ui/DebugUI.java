@@ -6,8 +6,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
-import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
-
 class DebugUI {
 
     private DebugUI() {}
@@ -15,7 +13,6 @@ class DebugUI {
     static void draw(Graphics2D g2, Sprite sprite, long drawStart, Font font) {
         g2.setFont(font);
         showDrawTime(g2, drawStart);
-        showWorldPositionOf(g2, sprite);
         showIsCollisionOnFor(g2, sprite);
     }
 
@@ -26,13 +23,8 @@ class DebugUI {
         g2.drawString(String.format("Draw time (seconds): %.5f", (double) passed / 1_000_000_000L), 10, 400);
     }
 
-    private static void showWorldPositionOf(Graphics2D g2, Sprite sprite) {
-        // TODO check out whats going on with these (and other, like events) coords...
-        g2.drawString(String.format("x: %02d, y: %02d", ((sprite.getWorldX()) / TILE_SIZE), ((sprite.getWorldY()) / TILE_SIZE)), 10, 440);
-    }
-
     private static void showIsCollisionOnFor(Graphics2D g2, Sprite sprite) {
-        g2.drawString("collisionOn: " + sprite.isCollisionOn(), 10, 480);
+        g2.drawString("collisionOn: " + sprite.isCollisionOn(), 10, 440);
     }
 
 

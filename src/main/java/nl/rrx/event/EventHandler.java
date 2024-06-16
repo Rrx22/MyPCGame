@@ -73,7 +73,7 @@ public class EventHandler {
             int y = event.row() * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
             int screenX = x - dm.player.getWorldX() + dm.player.getScreenX();
             int screenY = y - dm.player.getWorldY() + dm.player.getScreenY();
-            dm.collisionUtil.draw(g2, Color.magenta, screenX, screenY, new Rectangle(0, 0, 2, 2));
+            dm.collisionUtil.drawIfDebug(g2, Color.magenta, screenX, screenY, new Rectangle(0, 0, 2, 2));
         }
     }
 }

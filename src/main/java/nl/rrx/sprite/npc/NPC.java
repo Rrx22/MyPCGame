@@ -1,7 +1,6 @@
 package nl.rrx.sprite.npc;
 
 import nl.rrx.config.DependencyManager;
-import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.sprite.Direction;
 import nl.rrx.sprite.Sprite;
 import nl.rrx.util.PerformanceUtil;
@@ -69,7 +68,7 @@ public abstract class NPC extends Sprite {
             int screenY = worldY - dm.player.getWorldY() + dm.player.getScreenY();
             g2.drawImage(image, screenX, screenY, null);
 
-            if (DebugSettings.SHOW_COLLISION) dm.collisionUtil.draw(g2, Color.YELLOW, screenX, screenY, collisionArea);
+            dm.collisionUtil.drawIfDebug(g2, Color.YELLOW, screenX, screenY, collisionArea);
         }
     }
 

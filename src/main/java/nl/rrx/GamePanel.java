@@ -28,7 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setUpGame() {
-        dm.stateManager.setState(GameState.TITLE_SCREEN);
+        dm.stateManager.setStartState();
     }
 
     public void startGameThread() {

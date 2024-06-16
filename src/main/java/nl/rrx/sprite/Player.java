@@ -1,7 +1,6 @@
 package nl.rrx.sprite;
 
 import nl.rrx.config.DependencyManager;
-import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.config.settings.SpriteSettings;
 import nl.rrx.sprite.npc.NPC;
 import nl.rrx.state.GameState;
@@ -60,10 +59,7 @@ public class Player extends Sprite {
             case RIGHT -> spriteUtil.isNewDirection() ? right1 : right2;
         };
         g2.drawImage(image, screenX, screenY, null);
-
-        if (DebugSettings.SHOW_COLLISION) {
-            dm.collisionUtil.draw(g2, Color.red, screenX, screenY, collisionArea);
-        }
+        dm.collisionUtil.drawIfDebug(g2, Color.red, screenX, screenY, collisionArea);
     }
 
     private void move() {
