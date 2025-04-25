@@ -36,7 +36,7 @@ public class Rogue extends NPC {
 
     @Override
     public boolean isReadyForAction() {
-        if (actionLockCounter++ > FPS * 2) {
+        if (actionLockCounter++ > FPS) {
             actionLockCounter = 0;
             return true;
         }

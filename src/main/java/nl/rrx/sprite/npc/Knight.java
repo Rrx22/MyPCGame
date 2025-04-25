@@ -34,7 +34,7 @@ public class Knight extends NPC {
 
     @Override
     public boolean isReadyForAction() {
-        if (actionLockCounter++ > FPS * 2) {
+        if (actionLockCounter++ > FPS * 3) {
             actionLockCounter = 0;
             return true;
         }
