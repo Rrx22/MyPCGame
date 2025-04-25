@@ -17,7 +17,7 @@ import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
 public abstract class NPC extends Sprite {
 
-    private static final String NPC_IMG_ROOT = "/images/npc/";
+    private static final String NPC_IMG_ROOT = "/images/sprite/";
     protected static final Random RND = new Random();
 
     private final SpriteUtil spriteUtil = new SpriteUtil();
@@ -48,6 +48,10 @@ public abstract class NPC extends Sprite {
         dm.collisionUtil.checkObject(this, false);
         dm.collisionUtil.checkPlayer(this, dm.player);
 
+        if (speed == 0) {
+            return;
+        }
+
         if (!collisionOn) {
             worldX += direction.moveX(speed);
             worldY += direction.moveY(speed);
@@ -75,7 +79,7 @@ public abstract class NPC extends Sprite {
     public void speak() {
         dm.ui.setDialogue(dialogues[dialogueIndex]);
         dialogueIndex++;
-        if (dialogueIndex > dialogues.length-1) {
+        if (dialogueIndex > dialogues.length - 1) {
             dialogueIndex = 0;
         }
 
@@ -98,7 +102,7 @@ public abstract class NPC extends Sprite {
         right2 = PerformanceUtil.getScaledImage(NPC_IMG_ROOT + npcType + "-right-2.png", TILE_SIZE, TILE_SIZE);
     }
 
-    protected void setDialogues(String ... dialogues) {
+    protected void setDialogues(String... dialogues) {
         this.dialogues = dialogues;
     }
 }

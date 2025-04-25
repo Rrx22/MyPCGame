@@ -16,8 +16,10 @@ import static nl.rrx.util.ScreenUtil.getXForCenteredText;
 
 public class TitleScreen {
 
-    private static final BufferedImage WIZARD_IMAGE = PerformanceUtil.getScaledImage("/images/npc/wizard-down-2.png", TILE_SIZE, TILE_SIZE);
-    private static final BufferedImage BOY_IMAGE = PerformanceUtil.getScaledImage("/images/player/boy-down-2.png", TILE_SIZE, TILE_SIZE);
+    private static final BufferedImage KNIGHT_IMAGE = PerformanceUtil.getScaledImage("/images/sprite/knight-down-2.png", TILE_SIZE, TILE_SIZE);
+    private static final BufferedImage WIZARD_IMAGE = PerformanceUtil.getScaledImage("/images/sprite/wizard-down-2.png", TILE_SIZE, TILE_SIZE);
+    private static final BufferedImage ROGUE_IMAGE = PerformanceUtil.getScaledImage("/images/sprite/rogue-down-2.png", TILE_SIZE, TILE_SIZE);
+    private static final BufferedImage BOY_IMAGE = PerformanceUtil.getScaledImage("/images/sprite/boy-down-2.png", TILE_SIZE, TILE_SIZE);
     private static final int INDEX_LAST_MENU_ITEM = 2;
     private static final int LAST_INDEX_CLASS_SELECTION = 3;
 
@@ -31,7 +33,7 @@ public class TitleScreen {
         if (titleScreenFlowNum == 0) {
             drawScreen(g2, fontBold, "ADVENTURE STORY", WIZARD_IMAGE, "NEW GAME", "LOAD GAME", "QUIT");
         } else if (titleScreenFlowNum == 1) {
-            drawScreen(g2, fontBold, "Select Your Class", selectImage(), "Fighter", "Wizard", "Ranger", "Back");
+            drawScreen(g2, fontBold, "Select Your Class", selectImage(), "Knight", "Wizard", "Rogue", "Back");
         }
     }
 
@@ -81,6 +83,13 @@ public class TitleScreen {
             titleScreenFlowNum--;
             selectedItemNum = 0;
         } else {
+            String playerClass = switch (selectedItemNum) {
+                case 0 -> "knight";
+                case 1 -> "wizard";
+                case 2 -> "rogue";
+                default -> "boy";
+            };
+            dm.player.loadPlayerImages(playerClass);
             dm.soundManager.playMusic();
             dm.stateManager.setState(GameState.PLAY);
         }
@@ -119,7 +128,9 @@ public class TitleScreen {
 
     private static BufferedImage selectImage() {
         return switch (selectedItemNum) {
+            case 0 -> KNIGHT_IMAGE;
             case 1 -> WIZARD_IMAGE;
+            case 2 -> ROGUE_IMAGE;
             default -> BOY_IMAGE;
         };
     }

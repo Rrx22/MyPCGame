@@ -43,7 +43,7 @@ public class Player extends Sprite {
         collisionArea.width = SpriteSettings.PLAYER_RECT_WIDTH_HEIGHT;
         collisionArea.height = SpriteSettings.PLAYER_RECT_WIDTH_HEIGHT;
 
-        loadPlayerImages();
+        loadPlayerImages("boy");
     }
 
     public void update() {
@@ -122,15 +122,15 @@ public class Player extends Sprite {
         dm.stateManager.setState(GameState.DIALOGUE);
     }
 
-    private void loadPlayerImages() {
-        up1 = PerformanceUtil.getScaledImage("/images/player/boy-up-1.png", TILE_SIZE, TILE_SIZE);
-        up2 = PerformanceUtil.getScaledImage("/images/player/boy-up-2.png", TILE_SIZE, TILE_SIZE);
-        down1 = PerformanceUtil.getScaledImage("/images/player/boy-down-1.png", TILE_SIZE, TILE_SIZE);
-        down2 = PerformanceUtil.getScaledImage("/images/player/boy-down-2.png", TILE_SIZE, TILE_SIZE);
-        left1 = PerformanceUtil.getScaledImage("/images/player/boy-left-1.png", TILE_SIZE, TILE_SIZE);
-        left2 = PerformanceUtil.getScaledImage("/images/player/boy-left-2.png", TILE_SIZE, TILE_SIZE);
-        right1 = PerformanceUtil.getScaledImage("/images/player/boy-right-1.png", TILE_SIZE, TILE_SIZE);
-        right2 = PerformanceUtil.getScaledImage("/images/player/boy-right-2.png", TILE_SIZE, TILE_SIZE);
+    public void loadPlayerImages(String imageTypeName) {
+        up1 = PerformanceUtil.getScaledImage("/images/sprite/" + imageTypeName + "-up-1.png", TILE_SIZE, TILE_SIZE);
+        up2 = PerformanceUtil.getScaledImage("/images/sprite/" + imageTypeName + "-up-2.png", TILE_SIZE, TILE_SIZE);
+        down1 = PerformanceUtil.getScaledImage("/images/sprite/" + imageTypeName + "-down-1.png", TILE_SIZE, TILE_SIZE);
+        down2 = PerformanceUtil.getScaledImage("/images/sprite/" + imageTypeName + "-down-2.png", TILE_SIZE, TILE_SIZE);
+        left1 = PerformanceUtil.getScaledImage("/images/sprite/" + imageTypeName + "-left-1.png", TILE_SIZE, TILE_SIZE);
+        left2 = PerformanceUtil.getScaledImage("/images/sprite/" + imageTypeName + "-left-2.png", TILE_SIZE, TILE_SIZE);
+        right1 = PerformanceUtil.getScaledImage("/images/sprite/" + imageTypeName + "-right-1.png", TILE_SIZE, TILE_SIZE);
+        right2 = PerformanceUtil.getScaledImage("/images/sprite/" + imageTypeName + "-right-2.png", TILE_SIZE, TILE_SIZE);
     }
 
     public int getScreenX() {
