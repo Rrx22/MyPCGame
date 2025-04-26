@@ -38,7 +38,7 @@ public class DependencyManager {
         soundManager = new SoundManager();
         tileManager = new TileManager(player);
         objectManager = new ObjectManager(player);
-        collisionUtil = new CollisionUtil(tileManager, objectManager);
+        collisionUtil = new CollisionUtil(this);
         npcManager = new NPCManager(this);
         keyHandler = new KeyHandler(this);
         eventHandler = new EventHandler(this);

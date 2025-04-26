@@ -30,9 +30,9 @@ public class EventHandler {
     }
 
     public void checkEvent() {
-        // TODO only works when moving (also goes for interacting with npc). Especially annoying when pressing ENTER
+        // TODO only works when moving. Especially annoying when having to press ENTER
         for (var event : events) {
-            if (dm.collisionUtil.checkEvent(dm.player, event)) {
+            if (dm.collisionUtil.checkEvent(event)) {
                 perform(event);
             }
         }

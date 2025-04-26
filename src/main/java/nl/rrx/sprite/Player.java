@@ -3,7 +3,6 @@ package nl.rrx.sprite;
 import nl.rrx.config.DependencyManager;
 import nl.rrx.config.settings.SpriteSettings;
 import nl.rrx.sprite.npc.NPC;
-import nl.rrx.state.GameState;
 import nl.rrx.util.PerformanceUtil;
 import nl.rrx.util.SpriteUtil;
 
@@ -14,12 +13,12 @@ import java.awt.image.BufferedImage;
 
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.SpriteSettings.INIT_PLAYER_HP;
-import static nl.rrx.config.settings.WorldSettings.NO_NPC;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 import static nl.rrx.sprite.Direction.*;
 
 public class Player extends Sprite {
 
+    public static final String IMG_ROOT = "/images/sprite/";
     private final int screenX;
     private final int screenY;
 
@@ -93,10 +92,7 @@ public class Player extends Sprite {
         }
 
         // CHECK NPC COLLISION
-        int npcIndex = dm.collisionUtil.checkSprite(this, dm.npcManager.getNPCs());
-        if (npcIndex != NO_NPC && dm.keyHandler.isEnterPressed()) {
-            interactNPC(npcIndex);
-        }
+        dm.collisionUtil.checkSprite(this, dm.npcManager.getNPCs());
 
         // CHECK EVENT
         dm.eventHandler.checkEvent();
@@ -116,21 +112,15 @@ public class Player extends Sprite {
         }
     }
 
-    private void interactNPC(int npcIndex) {
-        NPC npc = dm.npcManager.get(npcIndex);
-        npc.speak();
-        dm.stateManager.setState(GameState.DIALOGUE);
-    }
-
     public void loadPlayerImages(String imageTypeName) {
-        up1 = PerformanceUtil.getScaledImage("/images/sprite/" + imageTypeName + "-up-1.png", TILE_SIZE, TILE_SIZE);
-        up2 = PerformanceUtil.getScaledImage("/images/sprite/" + imageTypeName + "-up-2.png", TILE_SIZE, TILE_SIZE);
-        down1 = PerformanceUtil.getScaledImage("/images/sprite/" + imageTypeName + "-down-1.png", TILE_SIZE, TILE_SIZE);
-        down2 = PerformanceUtil.getScaledImage("/images/sprite/" + imageTypeName + "-down-2.png", TILE_SIZE, TILE_SIZE);
-        left1 = PerformanceUtil.getScaledImage("/images/sprite/" + imageTypeName + "-left-1.png", TILE_SIZE, TILE_SIZE);
-        left2 = PerformanceUtil.getScaledImage("/images/sprite/" + imageTypeName + "-left-2.png", TILE_SIZE, TILE_SIZE);
-        right1 = PerformanceUtil.getScaledImage("/images/sprite/" + imageTypeName + "-right-1.png", TILE_SIZE, TILE_SIZE);
-        right2 = PerformanceUtil.getScaledImage("/images/sprite/" + imageTypeName + "-right-2.png", TILE_SIZE, TILE_SIZE);
+        up1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-up-1.png", TILE_SIZE, TILE_SIZE);
+        up2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-up-2.png", TILE_SIZE, TILE_SIZE);
+        down1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-down-1.png", TILE_SIZE, TILE_SIZE);
+        down2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-down-2.png", TILE_SIZE, TILE_SIZE);
+        left1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-left-1.png", TILE_SIZE, TILE_SIZE);
+        left2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-left-2.png", TILE_SIZE, TILE_SIZE);
+        right1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-right-1.png", TILE_SIZE, TILE_SIZE);
+        right2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-right-2.png", TILE_SIZE, TILE_SIZE);
     }
 
     public int getScreenX() {
@@ -152,5 +142,10 @@ public class Player extends Sprite {
     public void teleport(int x, int y) {
         worldX = x * TILE_SIZE;
         worldY = y * TILE_SIZE;
+    }
+
+    public boolean isFacing(NPC npc) {
+        // todo implement so that the player can only interact with an NPC in front of him
+        return true;
     }
 }

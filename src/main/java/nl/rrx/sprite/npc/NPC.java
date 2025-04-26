@@ -3,6 +3,7 @@ package nl.rrx.sprite.npc;
 import nl.rrx.config.DependencyManager;
 import nl.rrx.sprite.Direction;
 import nl.rrx.sprite.Sprite;
+import nl.rrx.state.GameState;
 import nl.rrx.util.PerformanceUtil;
 import nl.rrx.util.ScreenUtil;
 import nl.rrx.util.SpriteUtil;
@@ -46,7 +47,11 @@ public abstract class NPC extends Sprite {
     private void move() {
         dm.collisionUtil.checkTile(this);
         dm.collisionUtil.checkObject(this, false);
-        dm.collisionUtil.checkPlayer(this, dm.player);
+        boolean playerHit = dm.collisionUtil.checkPlayer(this);
+        if (playerHit && dm.keyHandler.isEnterPressed() && dm.player.isFacing(this)) {
+            speak();
+            dm.stateManager.setState(GameState.DIALOGUE);
+        }
 
         if (speed == 0) {
             return;
