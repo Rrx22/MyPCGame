@@ -51,6 +51,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (dm.stateManager.currentState() == GameState.PLAY) {
             dm.player.update();
             dm.npcManager.updateNPCs();
+            dm.eventHandler.checkEvent();
         } else if (dm.stateManager.currentState() == GameState.PAUSE) {
             // TODO
         }

@@ -30,9 +30,8 @@ public class EventHandler {
     }
 
     public void checkEvent() {
-        // TODO only works when moving. Especially annoying when having to press ENTER
         for (var event : events) {
-            if (dm.collisionUtil.checkEvent(event)) {
+            if (event != null && dm.collisionUtil.checkEvent(event)) {
                 perform(event);
             }
         }
@@ -40,17 +39,26 @@ public class EventHandler {
 
     private void perform(Event event) {
         switch (event.type()) {
-            case DAMAGE_PIT -> damagePit();
+            case DAMAGE_PIT -> damagePit(event);
             case HEALING_POOL -> healingPool();
             case TELEPORT -> teleport();
         }
     }
 
+    private void remove(Event event) {
+        for (int i = 0; i < events.length; i++) {
+            if (event == events[i]) {
+                events[i] = null;
+            }
+        }
+    }
+
     // EVENTS
-    private void damagePit() {
+    private void damagePit(Event event) {
         dm.stateManager.setState(GameState.DIALOGUE);
         dm.ui.setDialogue("You fell into a pit!");
         dm.player.doDamage(1);
+        remove(event);
     }
 
     private void healingPool() {
@@ -69,6 +77,9 @@ public class EventHandler {
 
     public void draw(Graphics2D g2) {
         for (var event : events) {
+            if (event == null) {
+                continue;
+            }
             int x = event.col() * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
             int y = event.row() * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
             int screenX = x - dm.player.getWorldX() + dm.player.getScreenX();

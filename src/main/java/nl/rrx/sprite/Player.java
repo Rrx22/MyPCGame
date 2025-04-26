@@ -94,9 +94,6 @@ public class Player extends Sprite {
         // CHECK NPC COLLISION
         dm.collisionUtil.checkSprite(this, dm.npcManager.getNPCs());
 
-        // CHECK EVENT
-        dm.eventHandler.checkEvent();
-
         if (!collisionOn) {
             worldX += direction.moveX(speed);
             worldY += direction.moveY(speed);
@@ -105,6 +102,7 @@ public class Player extends Sprite {
         spriteUtil.updateSprite();
     }
 
+    // todo should probably also move this to the GamePanel, to improve interacting with enter easier
     private void interactWithObject(int index) {
         var type = dm.objectManager.getTypeFor(index);
         switch (type) {
