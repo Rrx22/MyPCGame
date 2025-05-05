@@ -1,5 +1,6 @@
 package nl.rrx;
 
+import nl.rrx.common.DrawOrderMatters;
 import nl.rrx.config.FpsHandler;
 import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.state.GameState;
@@ -12,7 +13,6 @@ import java.awt.Graphics2D;
 import static nl.rrx.config.DependencyManager.EVENT_HANDLER;
 import static nl.rrx.config.DependencyManager.KEY_HANDLER;
 import static nl.rrx.config.DependencyManager.NPC_MGR;
-import static nl.rrx.config.DependencyManager.OBJECT_MGR;
 import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.DependencyManager.STATE_MGR;
 import static nl.rrx.config.DependencyManager.TILE_MGR;
@@ -71,9 +71,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (STATE_MGR.currentState() != GameState.TITLE_SCREEN) {
             TILE_MGR.draw(g2);
             EVENT_HANDLER.draw(g2);
-            OBJECT_MGR.draw(g2);
-            NPC_MGR.draw(g2);
-            PLAYER.draw(g2);
+            DrawOrderMatters.drawSpritesAndObjectsInOrder(g2);
             if (DebugSettings.DRAW_DEBUG_STATS)
                 UI.drawDebugStats(g2, drawStart); // this needs to happen here, so it surrounds all the draw methods
         }

@@ -55,6 +55,7 @@ public class Player extends Sprite {
         move();
     }
 
+    @Override
     public void draw(Graphics2D g2) {
         BufferedImage image = switch (direction) {
             case UP -> spriteUtil.isNewDirection() ? up1 : up2;

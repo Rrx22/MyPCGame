@@ -1,5 +1,6 @@
 package nl.rrx.sprite.npc;
 
+import nl.rrx.config.settings.SpriteSettings;
 import nl.rrx.sprite.Direction;
 import nl.rrx.sprite.Sprite;
 import nl.rrx.state.GameState;
@@ -34,7 +35,11 @@ public abstract class NPC extends Sprite {
         super();
         worldX = TILE_SIZE * startWorldX;
         worldY = TILE_SIZE * startWorldY;
-        collisionArea = new Rectangle(0, 0, TILE_SIZE, TILE_SIZE);
+        collisionArea = new Rectangle();
+        collisionArea.x = SpriteSettings.PLAYER_RECT_X;
+        collisionArea.y = SpriteSettings.PLAYER_RECT_Y;
+        collisionArea.width = SpriteSettings.PLAYER_RECT_WIDTH_HEIGHT;
+        collisionArea.height = SpriteSettings.PLAYER_RECT_WIDTH_HEIGHT;
     }
 
     protected abstract void doNpcAction();
@@ -68,6 +73,7 @@ public abstract class NPC extends Sprite {
         spriteUtil.updateSprite();
     }
 
+    @Override
     public void draw(Graphics2D g2) {
         if (ScreenUtil.isWithinScreenBoundary(PLAYER, worldX, worldY)) {
             BufferedImage image = switch (direction) {

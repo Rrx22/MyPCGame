@@ -1,9 +1,11 @@
 package nl.rrx.sprite;
 
+import nl.rrx.common.DrawOrderMatters;
+
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-public abstract class Sprite {
+public abstract class Sprite implements DrawOrderMatters {
 
     protected int worldX;
     protected int worldY;
@@ -33,6 +35,7 @@ public abstract class Sprite {
         return worldX;
     }
 
+    @Override
     public int getWorldY() {
         return worldY;
     }

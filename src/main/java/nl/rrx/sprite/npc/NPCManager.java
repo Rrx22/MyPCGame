@@ -2,7 +2,6 @@ package nl.rrx.sprite.npc;
 
 import nl.rrx.config.settings.WorldSettings;
 
-import java.awt.Graphics2D;
 import java.util.Arrays;
 
 
@@ -31,14 +30,6 @@ public class NPCManager {
         for (NPC npc : npcs) {
             if (npc != null) {
                 npc.update();
-            }
-        }
-    }
-
-    public void draw(Graphics2D g2) {
-        for (NPC npc : npcs) {
-            if (npc != null) {
-                npc.draw(g2);
             }
         }
     }

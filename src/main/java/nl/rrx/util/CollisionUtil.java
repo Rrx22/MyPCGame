@@ -145,8 +145,8 @@ public class CollisionUtil {
      */
     public boolean isFacing(Sprite srcSprite, Sprite otherSprite) {
         var inFrontOFCollisionArea = getSpriteCollisionAreaInWorld(srcSprite);
-        inFrontOFCollisionArea.x += srcSprite.getDirection().moveX(TILE_SIZE);
-        inFrontOFCollisionArea.y += srcSprite.getDirection().moveY(TILE_SIZE);
+        inFrontOFCollisionArea.x += srcSprite.getDirection().moveX(TILE_SIZE / 2);
+        inFrontOFCollisionArea.y += srcSprite.getDirection().moveY(TILE_SIZE / 2);
         var npcCollisionArea = getSpriteCollisionAreaInWorld(otherSprite);
         return inFrontOFCollisionArea.intersects(npcCollisionArea);
     }

@@ -21,7 +21,6 @@ public class EventHandler {
     public EventHandler() {
         events = new Event[]{
                 new DamagePit(29, 20, Direction.RIGHT),
-                new DamagePit(26, 16, null),
                 new HealingPool(23, 22),
                 new Teleport(22, 22, 47, 21),
         };

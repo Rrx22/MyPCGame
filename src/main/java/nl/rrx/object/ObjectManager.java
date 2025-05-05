@@ -1,10 +1,11 @@
 package nl.rrx.object;
 
-import java.awt.Graphics2D;
 import java.util.Arrays;
 
-import static nl.rrx.config.DependencyManager.PLAYER;
+import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.MAX_OBJECTS;
+import static nl.rrx.object.GameObjectType.BOOTS;
+import static nl.rrx.object.GameObjectType.DOOR;
 
 public class ObjectManager {
 
@@ -16,15 +17,10 @@ public class ObjectManager {
     }
 
     private void loadObjects() {
-//        gameObjects[7] = new GameObject(BOOTS, 19, 37);
-    }
-
-    public void draw(Graphics2D g2) {
-        for (int i = 0; i < MAX_OBJECTS; i++) {
-            if (gameObjects[i] != null) {
-                gameObjects[i].draw(g2, PLAYER);
-            }
-        }
+        gameObjects[0] = new GameObject(DOOR, 26, 16, 0, TILE_SIZE / 3);
+        gameObjects[1] = new GameObject(DOOR, 28, 16, TILE_SIZE / 3, 0);
+        gameObjects[2] = new GameObject(DOOR, 28, 17);
+        gameObjects[3] = new GameObject(BOOTS, 26, 12);
     }
 
     public GameObject[] getGameObjects() {
