@@ -1,6 +1,5 @@
 package nl.rrx.ui;
 
-import nl.rrx.config.DependencyManager;
 import nl.rrx.state.GameState;
 import nl.rrx.util.PerformanceUtil;
 
@@ -9,6 +8,9 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import static nl.rrx.config.DependencyManager.PLAYER;
+import static nl.rrx.config.DependencyManager.SOUND_MGR;
+import static nl.rrx.config.DependencyManager.STATE_MGR;
 import static nl.rrx.config.settings.ScreenSettings.SCREEN_HEIGHT;
 import static nl.rrx.config.settings.ScreenSettings.SCREEN_WIDTH;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
@@ -59,11 +61,11 @@ public class TitleScreen {
         if (TitleScreen.selectedItemNum < lastIndex) TitleScreen.selectedItemNum++;
     }
 
-    public static void pressMenu(DependencyManager dm) {
+    public static void pressMenu() {
         if (titleScreenFlowNum == 0) {
             handleTitleScreen();
         } else if (titleScreenFlowNum == 1) {
-            handleClassSelectionScreen(dm);
+            handleClassSelectionScreen();
         }
     }
 
@@ -78,7 +80,7 @@ public class TitleScreen {
         }
     }
 
-    private static void handleClassSelectionScreen(DependencyManager dm) {
+    private static void handleClassSelectionScreen() {
         if (selectedItemNum == LAST_INDEX_CLASS_SELECTION) {
             titleScreenFlowNum--;
             selectedItemNum = 0;
@@ -89,9 +91,9 @@ public class TitleScreen {
                 case 2 -> "rogue";
                 default -> "boy";
             };
-            dm.player.loadPlayerImages(playerClass);
-            dm.soundManager.playMusic();
-            dm.stateManager.setState(GameState.PLAY);
+            PLAYER.loadPlayerImages(playerClass);
+            SOUND_MGR.playMusic();
+            STATE_MGR.setState(GameState.PLAY);
         }
     }
 

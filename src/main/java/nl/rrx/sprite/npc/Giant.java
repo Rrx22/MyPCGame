@@ -1,6 +1,5 @@
 package nl.rrx.sprite.npc;
 
-import nl.rrx.config.DependencyManager;
 import nl.rrx.sprite.Direction;
 
 import static nl.rrx.config.settings.ScreenSettings.FPS;
@@ -9,8 +8,8 @@ public class Giant extends NPC {
 
     private int actionLockCounter;
 
-    protected Giant(DependencyManager dm, int startWorldX, int startWorldY) {
-        super(dm, startWorldX, startWorldY);
+    protected Giant(int startWorldX, int startWorldY) {
+        super(startWorldX, startWorldY);
         speed = 0;
         loadImages("boy");
         setDialogues(

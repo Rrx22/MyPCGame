@@ -1,6 +1,5 @@
 package nl.rrx.util;
 
-import nl.rrx.config.DependencyManager;
 import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.event.Event;
 import nl.rrx.object.GameObject;
@@ -14,17 +13,14 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import static nl.rrx.config.DependencyManager.OBJECT_MGR;
+import static nl.rrx.config.DependencyManager.PLAYER;
+import static nl.rrx.config.DependencyManager.TILE_MGR;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_OUTLINER;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 
 public class CollisionUtil {
-
-    private final DependencyManager dm;
-
-    public CollisionUtil(DependencyManager dm) {
-        this.dm = dm;
-    }
 
     /**
      * Check if a sprite is going to hit a collision (i.e. tree, wall etc)
@@ -48,33 +44,33 @@ public class CollisionUtil {
         switch (sprite.getDirection()) {
             case UP -> {
                 spriteTopRow = (spriteTopWorldY - sprite.getSpeed()) / TILE_SIZE;
-                int tileUpperLeft = dm.tileManager.getTileNum(spriteLeftCol, spriteTopRow);
-                int tileUpperRight = dm.tileManager.getTileNum(spriteRightCol, spriteTopRow);
-                if (dm.tileManager.getTile(tileUpperLeft).isCollision() || dm.tileManager.getTile(tileUpperRight).isCollision()) {
+                int tileUpperLeft = TILE_MGR.getTileNum(spriteLeftCol, spriteTopRow);
+                int tileUpperRight = TILE_MGR.getTileNum(spriteRightCol, spriteTopRow);
+                if (TILE_MGR.getTile(tileUpperLeft).isCollision() || TILE_MGR.getTile(tileUpperRight).isCollision()) {
                     sprite.setCollisionOn(true);
                 }
             }
             case DOWN -> {
                 spriteBottomRow = (spriteBottomWorldY + sprite.getSpeed()) / TILE_SIZE;
-                int tileLowerLeft = dm.tileManager.getTileNum(spriteLeftCol, spriteBottomRow);
-                int tileLowerRight = dm.tileManager.getTileNum(spriteRightCol, spriteBottomRow);
-                if (dm.tileManager.getTile(tileLowerLeft).isCollision() || dm.tileManager.getTile(tileLowerRight).isCollision()) {
+                int tileLowerLeft = TILE_MGR.getTileNum(spriteLeftCol, spriteBottomRow);
+                int tileLowerRight = TILE_MGR.getTileNum(spriteRightCol, spriteBottomRow);
+                if (TILE_MGR.getTile(tileLowerLeft).isCollision() || TILE_MGR.getTile(tileLowerRight).isCollision()) {
                     sprite.setCollisionOn(true);
                 }
             }
             case LEFT -> {
                 spriteLeftCol = (spriteLeftWorldX - sprite.getSpeed()) / TILE_SIZE;
-                int tileUpperLeft = dm.tileManager.getTileNum(spriteLeftCol, spriteTopRow);
-                int tileLowerLeft = dm.tileManager.getTileNum(spriteLeftCol, spriteBottomRow);
-                if (dm.tileManager.getTile(tileUpperLeft).isCollision() || dm.tileManager.getTile(tileLowerLeft).isCollision()) {
+                int tileUpperLeft = TILE_MGR.getTileNum(spriteLeftCol, spriteTopRow);
+                int tileLowerLeft = TILE_MGR.getTileNum(spriteLeftCol, spriteBottomRow);
+                if (TILE_MGR.getTile(tileUpperLeft).isCollision() || TILE_MGR.getTile(tileLowerLeft).isCollision()) {
                     sprite.setCollisionOn(true);
                 }
             }
             case RIGHT -> {
                 spriteRightCol = (spriteRightWorldX + sprite.getSpeed()) / TILE_SIZE;
-                int tileUpperRight = dm.tileManager.getTileNum(spriteRightCol, spriteTopRow);
-                int tileLowerRight = dm.tileManager.getTileNum(spriteRightCol, spriteBottomRow);
-                if (dm.tileManager.getTile(tileUpperRight).isCollision() || dm.tileManager.getTile(tileLowerRight).isCollision()) {
+                int tileUpperRight = TILE_MGR.getTileNum(spriteRightCol, spriteTopRow);
+                int tileLowerRight = TILE_MGR.getTileNum(spriteRightCol, spriteBottomRow);
+                if (TILE_MGR.getTile(tileUpperRight).isCollision() || TILE_MGR.getTile(tileLowerRight).isCollision()) {
                     sprite.setCollisionOn(true);
                 }
             }
@@ -90,7 +86,7 @@ public class CollisionUtil {
      * @return the index of the collided object from the objects array. When no object was hit or !isPlayer, returns 999;
      */
     public int checkObject(Sprite sprite, boolean isPlayer) {
-        GameObject[] gameObjects = dm.objectManager.getGameObjects();
+        GameObject[] gameObjects = OBJECT_MGR.getGameObjects();
 
         for (int i = 0; i < gameObjects.length; i++) {
             GameObject obj = gameObjects[i];
@@ -138,7 +134,7 @@ public class CollisionUtil {
      * @param npc
      */
     public boolean checkPlayer(NPC npc) {
-        return checkSprite(npc, new Sprite[]{dm.player});
+        return checkSprite(npc, new Sprite[]{PLAYER});
     }
 
     /**
@@ -165,11 +161,11 @@ public class CollisionUtil {
         int eventX = event.col() * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
         int eventY = event.row() * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
         var eventRect = new Rectangle(eventX, eventY, 2, 2);
-        var playerRect = getSpriteCollisionAreaInWorld(dm.player);
+        var playerRect = getSpriteCollisionAreaInWorld(PLAYER);
 
         Direction requiredDirection = event.requiredDirection();
         return playerRect.intersects(eventRect)
-                && (requiredDirection == null || requiredDirection.equals(dm.player.getDirection()));
+                && (requiredDirection == null || requiredDirection.equals(PLAYER.getDirection()));
     }
 
     private static Rectangle getSpriteCollisionAreaInWorld(Sprite sprite) {

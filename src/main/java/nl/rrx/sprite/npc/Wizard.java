@@ -1,6 +1,5 @@
 package nl.rrx.sprite.npc;
 
-import nl.rrx.config.DependencyManager;
 import nl.rrx.sprite.Direction;
 
 import static nl.rrx.config.settings.ScreenSettings.FPS;
@@ -9,8 +8,8 @@ public class Wizard extends NPC {
 
     private int actionLockCounter;
 
-    protected Wizard(DependencyManager dm, int startWorldX, int startWorldY) {
-        super(dm, startWorldX, startWorldY);
+    protected Wizard(int startWorldX, int startWorldY) {
+        super(startWorldX, startWorldY);
         speed = 1;
         loadImages("wizard");
         setDialogues(
@@ -22,7 +21,7 @@ public class Wizard extends NPC {
 
     @Override
     protected void doNpcAction() {
-        Integer rndVal = RND.nextInt(100) + 1; // TODO upgrade to java 23 and use primitive instead (?)
+        Integer rndVal = RND.nextInt(100) + 1;
 
         direction = switch (rndVal) {
             case Integer i when i < 25 -> Direction.DOWN;

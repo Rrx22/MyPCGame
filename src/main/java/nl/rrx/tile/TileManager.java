@@ -1,7 +1,6 @@
 package nl.rrx.tile;
 
 import nl.rrx.config.settings.DebugSettings;
-import nl.rrx.sprite.Player;
 import nl.rrx.util.PerformanceUtil;
 
 import java.awt.BasicStroke;
@@ -13,6 +12,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.MAX_WORLD_COL;
 import static nl.rrx.config.settings.WorldSettings.MAX_WORLD_ROW;
@@ -20,13 +20,10 @@ import static nl.rrx.util.ScreenUtil.isWithinScreenBoundary;
 
 public class TileManager {
 
-    private final Player player;
-
     private final Map<Integer, Tile> tiles = new HashMap<>();
     private final int[][] mapTileNum = new int[MAX_WORLD_COL][MAX_WORLD_ROW];
 
-    public TileManager(Player player) {
-        this.player = player;
+    public TileManager() {
         loadTileImages();
         loadMap("/maps/woodlands.txt");
     }
@@ -54,12 +51,12 @@ public class TileManager {
     public void draw(Graphics2D g2) {
         for (int worldCol = 0; worldCol < MAX_WORLD_COL; worldCol++) {
             int worldX = worldCol * TILE_SIZE;
-            int screenX = worldX - player.getWorldX() + player.getScreenX();
+            int screenX = worldX - PLAYER.getWorldX() + PLAYER.getScreenX();
             for (int worldRow = 0; worldRow < MAX_WORLD_ROW; worldRow++) {
                 int worldY = worldRow * TILE_SIZE;
-                int screenY = worldY - player.getWorldY() + player.getScreenY();
+                int screenY = worldY - PLAYER.getWorldY() + PLAYER.getScreenY();
 
-                if (isWithinScreenBoundary(player, worldX, worldY)) {
+                if (isWithinScreenBoundary(PLAYER, worldX, worldY)) {
                     int tileNum = mapTileNum[worldCol][worldRow];
                     Tile tile = tiles.get(tileNum);
                     g2.drawImage(tile.image(), screenX, screenY, null);

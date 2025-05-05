@@ -1,13 +1,9 @@
 package nl.rrx.sprite;
 
-import nl.rrx.config.DependencyManager;
-
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public abstract class Sprite {
-
-    protected final DependencyManager dm;
 
     protected int worldX;
     protected int worldY;
@@ -29,8 +25,7 @@ public abstract class Sprite {
     protected BufferedImage right1;
     protected BufferedImage right2;
 
-    protected Sprite(DependencyManager dm) {
-        this.dm = dm;
+    protected Sprite() {
         direction = Direction.DOWN;
     }
 

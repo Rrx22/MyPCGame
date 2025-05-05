@@ -12,36 +12,24 @@ import nl.rrx.util.CollisionUtil;
 
 public class DependencyManager {
 
-    public final Player player;
+    public static final Player PLAYER = new Player();
+    public static final UI UI = new UI();
 
-    public final StateManager stateManager;
+    // Managers
+    public static final StateManager STATE_MGR = new StateManager();
+    public static final SoundManager SOUND_MGR = new SoundManager();
+    public static final TileManager TILE_MGR = new TileManager();
+    public static final ObjectManager OBJECT_MGR = new ObjectManager();
+    public static final NPCManager NPC_MGR = new NPCManager();
 
-    public final SoundManager soundManager;
+    // utils
+    public static final CollisionUtil COLLISION_UTIL = new CollisionUtil();
 
-    public final TileManager tileManager;
+    // handlers
+    public static final KeyHandler KEY_HANDLER = new KeyHandler();
+    public static final EventHandler EVENT_HANDLER = new EventHandler();
 
-    public final ObjectManager objectManager;
-
-    public final CollisionUtil collisionUtil;
-
-    public final NPCManager npcManager;
-
-    public final KeyHandler keyHandler;
-
-    public final EventHandler eventHandler;
-
-    public final UI ui;
-
-    public DependencyManager() {
-        player = new Player(this);
-        stateManager = new StateManager();
-        soundManager = new SoundManager();
-        tileManager = new TileManager(player);
-        objectManager = new ObjectManager(player);
-        collisionUtil = new CollisionUtil(this);
-        npcManager = new NPCManager(this);
-        keyHandler = new KeyHandler(this);
-        eventHandler = new EventHandler(this);
-        ui = new UI(this);
+    private DependencyManager() {
+        // no instantiation
     }
 }

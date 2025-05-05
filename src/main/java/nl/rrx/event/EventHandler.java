@@ -1,6 +1,5 @@
 package nl.rrx.event;
 
-import nl.rrx.config.DependencyManager;
 import nl.rrx.sprite.Direction;
 import nl.rrx.state.GameState;
 
@@ -8,6 +7,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import static nl.rrx.config.DependencyManager.COLLISION_UTIL;
+import static nl.rrx.config.DependencyManager.KEY_HANDLER;
+import static nl.rrx.config.DependencyManager.PLAYER;
+import static nl.rrx.config.DependencyManager.STATE_MGR;
+import static nl.rrx.config.DependencyManager.UI;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_OUTLINER;
 import static nl.rrx.event.EventType.DAMAGE_PIT;
@@ -16,12 +20,10 @@ import static nl.rrx.event.EventType.TELEPORT;
 
 public class EventHandler {
 
-    private final DependencyManager dm;
     private final Event[] events;
 
 
-    public EventHandler(DependencyManager dm) {
-        this.dm = dm;
+    public EventHandler() {
         events = new Event[]{
                 new Event(DAMAGE_PIT, 29, 20, Direction.RIGHT),
                 new Event(HEALING_POOL, 23, 22, null),
@@ -31,7 +33,7 @@ public class EventHandler {
 
     public void checkEvent() {
         for (var event : events) {
-            if (event != null && dm.collisionUtil.checkEvent(event)) {
+            if (event != null && COLLISION_UTIL.checkEvent(event)) {
                 perform(event);
             }
         }
@@ -55,24 +57,24 @@ public class EventHandler {
 
     // EVENTS
     private void damagePit(Event event) {
-        dm.stateManager.setState(GameState.DIALOGUE);
-        dm.ui.setDialogue("You fell into a pit!");
-        dm.player.doDamage(1);
+        STATE_MGR.setState(GameState.DIALOGUE);
+        UI.setDialogue("You fell into a pit!");
+        PLAYER.doDamage(1);
         remove(event);
     }
 
     private void healingPool() {
-        if (dm.keyHandler.isEnterPressed()) {
-            dm.stateManager.setState(GameState.DIALOGUE);
-            dm.ui.setDialogue("You drank some water.\nYour life has been recovered!");
-            dm.player.recoverHP();
+        if (KEY_HANDLER.isEnterPressed()) {
+            STATE_MGR.setState(GameState.DIALOGUE);
+            UI.setDialogue("You drank some water.\nYour life has been recovered!");
+            PLAYER.recoverHP();
         }
     }
 
     private void teleport() {
-        dm.stateManager.setState(GameState.DIALOGUE);
-        dm.ui.setDialogue("Teleport!");
-        dm.player.teleport(47, 21);
+        STATE_MGR.setState(GameState.DIALOGUE);
+        UI.setDialogue("Teleport!");
+        PLAYER.teleport(47, 21);
     }
 
     public void draw(Graphics2D g2) {
@@ -82,9 +84,9 @@ public class EventHandler {
             }
             int x = event.col() * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
             int y = event.row() * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
-            int screenX = x - dm.player.getWorldX() + dm.player.getScreenX();
-            int screenY = y - dm.player.getWorldY() + dm.player.getScreenY();
-            dm.collisionUtil.drawIfDebug(g2, Color.magenta, screenX, screenY, new Rectangle(0, 0, 2, 2));
+            int screenX = x - PLAYER.getWorldX() + PLAYER.getScreenX();
+            int screenY = y - PLAYER.getWorldY() + PLAYER.getScreenY();
+            COLLISION_UTIL.drawIfDebug(g2, Color.magenta, screenX, screenY, new Rectangle(0, 0, 2, 2));
         }
     }
 }

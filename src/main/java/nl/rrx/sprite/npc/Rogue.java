@@ -1,8 +1,8 @@
 package nl.rrx.sprite.npc;
 
-import nl.rrx.config.DependencyManager;
 import nl.rrx.sprite.Direction;
 
+import static nl.rrx.config.DependencyManager.NPC_MGR;
 import static nl.rrx.config.settings.ScreenSettings.FPS;
 
 public class Rogue extends NPC {
@@ -10,8 +10,8 @@ public class Rogue extends NPC {
     private int actionLockCounter;
     private int disappearCounter;
 
-    protected Rogue(DependencyManager dm, int startWorldX, int startWorldY) {
-        super(dm, startWorldX, startWorldY);
+    protected Rogue(int startWorldX, int startWorldY) {
+        super(startWorldX, startWorldY);
         speed = 2;
         loadImages("rogue");
         setDialogues(
@@ -48,10 +48,10 @@ public class Rogue extends NPC {
         super.speak();
         disappearCounter++;
         if (disappearCounter >= dialogues.length) {
-            for (int i = 0; i < dm.npcManager.getNPCs().length; i++) {
-                NPC npc = dm.npcManager.get(i);
+            for (int i = 0; i < NPC_MGR.getNPCs().length; i++) {
+                NPC npc = NPC_MGR.get(i);
                 if (npc == this) {
-                    dm.npcManager.remove(i);
+                    NPC_MGR.remove(i);
                 }
             }
         }

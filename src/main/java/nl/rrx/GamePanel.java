@@ -1,34 +1,38 @@
 package nl.rrx;
 
-import nl.rrx.config.DependencyManager;
 import nl.rrx.config.FpsHandler;
 import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.state.GameState;
 
+import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import javax.swing.JPanel;
-
+import static nl.rrx.config.DependencyManager.EVENT_HANDLER;
+import static nl.rrx.config.DependencyManager.KEY_HANDLER;
+import static nl.rrx.config.DependencyManager.NPC_MGR;
+import static nl.rrx.config.DependencyManager.OBJECT_MGR;
+import static nl.rrx.config.DependencyManager.PLAYER;
+import static nl.rrx.config.DependencyManager.STATE_MGR;
+import static nl.rrx.config.DependencyManager.TILE_MGR;
+import static nl.rrx.config.DependencyManager.UI;
 import static nl.rrx.config.settings.ScreenSettings.SCREEN_SIZE;
 
 public class GamePanel extends JPanel implements Runnable {
 
-    private final transient DependencyManager dm;
     private transient Thread gameThread;
 
-    public GamePanel(DependencyManager dm) {
-        this.dm = dm;
+    public GamePanel() {
         this.setPreferredSize(SCREEN_SIZE);
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
-        this.addKeyListener(dm.keyHandler);
+        this.addKeyListener(KEY_HANDLER);
         this.setFocusable(true);
     }
 
     public void setUpGame() {
-        dm.stateManager.setStartState();
+        STATE_MGR.setStartState();
     }
 
     public void startGameThread() {
@@ -48,11 +52,11 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void update() {
-        if (dm.stateManager.currentState() == GameState.PLAY) {
-            dm.player.update();
-            dm.npcManager.updateNPCs();
-            dm.eventHandler.checkEvent();
-        } else if (dm.stateManager.currentState() == GameState.PAUSE) {
+        if (STATE_MGR.currentState() == GameState.PLAY) {
+            PLAYER.update();
+            NPC_MGR.updateNPCs();
+            EVENT_HANDLER.checkEvent();
+        } else if (STATE_MGR.currentState() == GameState.PAUSE) {
             // TODO
         }
     }
@@ -64,16 +68,16 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D) g;
 
-        if (dm.stateManager.currentState() != GameState.TITLE_SCREEN) {
-            dm.tileManager.draw(g2);
-            dm.eventHandler.draw(g2);
-            dm.objectManager.draw(g2);
-            dm.npcManager.draw(g2);
-            dm.player.draw(g2);
+        if (STATE_MGR.currentState() != GameState.TITLE_SCREEN) {
+            TILE_MGR.draw(g2);
+            EVENT_HANDLER.draw(g2);
+            OBJECT_MGR.draw(g2);
+            NPC_MGR.draw(g2);
+            PLAYER.draw(g2);
             if (DebugSettings.DRAW_DEBUG_STATS)
-                dm.ui.drawDebugStats(g2, drawStart); // this needs to happen here, so it surrounds all the draw methods
+                UI.drawDebugStats(g2, drawStart); // this needs to happen here, so it surrounds all the draw methods
         }
-        dm.ui.draw(g2);
+        UI.draw(g2);
 
         g2.dispose();
     }

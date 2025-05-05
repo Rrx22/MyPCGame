@@ -1,8 +1,6 @@
 package nl.rrx.sprite;
 
-import nl.rrx.config.DependencyManager;
 import nl.rrx.config.settings.SpriteSettings;
-import nl.rrx.sprite.npc.NPC;
 import nl.rrx.util.PerformanceUtil;
 import nl.rrx.util.SpriteUtil;
 
@@ -11,10 +9,17 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import static nl.rrx.config.DependencyManager.COLLISION_UTIL;
+import static nl.rrx.config.DependencyManager.KEY_HANDLER;
+import static nl.rrx.config.DependencyManager.NPC_MGR;
+import static nl.rrx.config.DependencyManager.OBJECT_MGR;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.SpriteSettings.INIT_PLAYER_HP;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
-import static nl.rrx.sprite.Direction.*;
+import static nl.rrx.sprite.Direction.DOWN;
+import static nl.rrx.sprite.Direction.LEFT;
+import static nl.rrx.sprite.Direction.RIGHT;
+import static nl.rrx.sprite.Direction.UP;
 
 public class Player extends Sprite {
 
@@ -24,8 +29,8 @@ public class Player extends Sprite {
 
     private final SpriteUtil spriteUtil = new SpriteUtil();
 
-    public Player(DependencyManager dm) {
-        super(dm);
+    public Player() {
+        super();
         worldX = SpriteSettings.INIT_WORLD_X;
         worldY = SpriteSettings.INIT_WORLD_Y;
         screenX = SpriteSettings.INIT_SCREEN_X;
@@ -58,23 +63,23 @@ public class Player extends Sprite {
             case RIGHT -> spriteUtil.isNewDirection() ? right1 : right2;
         };
         g2.drawImage(image, screenX, screenY, null);
-        dm.collisionUtil.drawIfDebug(g2, Color.red, screenX, screenY, collisionArea);
+        COLLISION_UTIL.drawIfDebug(g2, Color.red, screenX, screenY, collisionArea);
     }
 
     private void move() {
-        if (dm.keyHandler.nonePressed()) {
+        if (KEY_HANDLER.nonePressed()) {
             spriteUtil.standStill();
         }
 
-        if (dm.keyHandler.isUpPressed()) {
+        if (KEY_HANDLER.isUpPressed()) {
             moveInDirection(UP);
-        } else if (dm.keyHandler.isDownPressed()) {
+        } else if (KEY_HANDLER.isDownPressed()) {
             moveInDirection(DOWN);
         }
 
-        if (dm.keyHandler.isLeftPressed()) {
+        if (KEY_HANDLER.isLeftPressed()) {
             moveInDirection(LEFT);
-        } else if (dm.keyHandler.isRightPressed()) {
+        } else if (KEY_HANDLER.isRightPressed()) {
             moveInDirection(RIGHT);
         }
     }
@@ -83,16 +88,16 @@ public class Player extends Sprite {
         this.direction = direction;
 
         // CHECK TILE COLLISION
-        dm.collisionUtil.checkTile(this);
+        COLLISION_UTIL.checkTile(this);
 
         // CHECK OBJECT COLLISION
-        int objIndex = dm.collisionUtil.checkObject(this, true);
+        int objIndex = COLLISION_UTIL.checkObject(this, true);
         if (objIndex != NO_OBJECT) {
             interactWithObject(objIndex);
         }
 
         // CHECK NPC COLLISION
-        dm.collisionUtil.checkSprite(this, dm.npcManager.getNPCs());
+        COLLISION_UTIL.checkSprite(this, NPC_MGR.getNPCs());
 
         if (!collisionOn) {
             worldX += direction.moveX(speed);
@@ -104,7 +109,7 @@ public class Player extends Sprite {
 
     // todo should probably also move this to the GamePanel, to improve interacting with enter easier
     private void interactWithObject(int index) {
-        var type = dm.objectManager.getTypeFor(index);
+        var type = OBJECT_MGR.getTypeFor(index);
         switch (type) {
             // TODO
         }

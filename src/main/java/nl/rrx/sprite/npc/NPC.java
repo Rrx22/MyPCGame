@@ -1,6 +1,5 @@
 package nl.rrx.sprite.npc;
 
-import nl.rrx.config.DependencyManager;
 import nl.rrx.sprite.Direction;
 import nl.rrx.sprite.Sprite;
 import nl.rrx.state.GameState;
@@ -14,6 +13,11 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import static nl.rrx.config.DependencyManager.COLLISION_UTIL;
+import static nl.rrx.config.DependencyManager.KEY_HANDLER;
+import static nl.rrx.config.DependencyManager.PLAYER;
+import static nl.rrx.config.DependencyManager.STATE_MGR;
+import static nl.rrx.config.DependencyManager.UI;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
 public abstract class NPC extends Sprite {
@@ -26,8 +30,8 @@ public abstract class NPC extends Sprite {
     protected String[] dialogues = new String[20];
     protected int dialogueIndex;
 
-    protected NPC(DependencyManager dm, int startWorldX, int startWorldY) {
-        super(dm);
+    protected NPC(int startWorldX, int startWorldY) {
+        super();
         worldX = TILE_SIZE * startWorldX;
         worldY = TILE_SIZE * startWorldY;
         collisionArea = new Rectangle(0, 0, TILE_SIZE, TILE_SIZE);
@@ -45,12 +49,12 @@ public abstract class NPC extends Sprite {
     }
 
     private void move() {
-        dm.collisionUtil.checkTile(this);
-        dm.collisionUtil.checkObject(this, false);
-        boolean playerHit = dm.collisionUtil.checkPlayer(this);
-        if (playerHit && dm.keyHandler.isEnterPressed() && dm.collisionUtil.isFacing(dm.player, this)) {
+        COLLISION_UTIL.checkTile(this);
+        COLLISION_UTIL.checkObject(this, false);
+        boolean playerHit = COLLISION_UTIL.checkPlayer(this);
+        if (playerHit && KEY_HANDLER.isEnterPressed() && COLLISION_UTIL.isFacing(PLAYER, this)) {
             speak();
-            dm.stateManager.setState(GameState.DIALOGUE);
+            STATE_MGR.setState(GameState.DIALOGUE);
         }
 
         if (speed == 0) {
@@ -65,7 +69,7 @@ public abstract class NPC extends Sprite {
     }
 
     public void draw(Graphics2D g2) {
-        if (ScreenUtil.isWithinScreenBoundary(dm.player, worldX, worldY)) {
+        if (ScreenUtil.isWithinScreenBoundary(PLAYER, worldX, worldY)) {
             BufferedImage image = switch (direction) {
                 case UP -> spriteUtil.isNewDirection() ? up1 : up2;
                 case DOWN -> spriteUtil.isNewDirection() ? down1 : down2;
@@ -73,22 +77,22 @@ public abstract class NPC extends Sprite {
                 case RIGHT -> spriteUtil.isNewDirection() ? right1 : right2;
             };
 
-            int screenX = worldX - dm.player.getWorldX() + dm.player.getScreenX();
-            int screenY = worldY - dm.player.getWorldY() + dm.player.getScreenY();
+            int screenX = worldX - PLAYER.getWorldX() + PLAYER.getScreenX();
+            int screenY = worldY - PLAYER.getWorldY() + PLAYER.getScreenY();
             g2.drawImage(image, screenX, screenY, null);
 
-            dm.collisionUtil.drawIfDebug(g2, Color.YELLOW, screenX, screenY, collisionArea);
+            COLLISION_UTIL.drawIfDebug(g2, Color.YELLOW, screenX, screenY, collisionArea);
         }
     }
 
     public void speak() {
-        dm.ui.setDialogue(dialogues[dialogueIndex]);
+        UI.setDialogue(dialogues[dialogueIndex]);
         dialogueIndex++;
         if (dialogueIndex > dialogues.length - 1) {
             dialogueIndex = 0;
         }
 
-        direction = switch (dm.player.getDirection()) {
+        direction = switch (PLAYER.getDirection()) {
             case UP -> Direction.DOWN;
             case DOWN -> Direction.UP;
             case LEFT -> Direction.RIGHT;

@@ -7,19 +7,15 @@ import nl.rrx.ui.TitleScreen;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyHandler implements KeyListener {
+import static nl.rrx.config.DependencyManager.STATE_MGR;
 
-    private final DependencyManager dm;
+public class KeyHandler implements KeyListener {
 
     private boolean upPressed;
     private boolean downPressed;
     private boolean leftPressed;
     private boolean rightPressed;
     private boolean enterPressed;
-
-    public KeyHandler(DependencyManager dm) {
-        this.dm = dm;
-    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -30,7 +26,7 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        switch (dm.stateManager.currentState()) {
+        switch (STATE_MGR.currentState()) {
             case PLAY -> handleKeysForPlayState(code);
             case PAUSE -> handleKeysForPauseState(code);
             case DIALOGUE -> handleKeysForDialogueState(code);
@@ -42,7 +38,7 @@ public class KeyHandler implements KeyListener {
         if (DebugSettings.ENABLED && code == KeyEvent.VK_Q) System.exit(0);
 
         if (code == KeyEvent.VK_P) {
-            dm.stateManager.pressPause();
+            STATE_MGR.pressPause();
             return;
         }
         if (code == KeyEvent.VK_ENTER) {
@@ -66,13 +62,13 @@ public class KeyHandler implements KeyListener {
 
     private void handleKeysForPauseState(int code) {
         if (code == KeyEvent.VK_P) {
-            dm.stateManager.pressPause();
+            STATE_MGR.pressPause();
         }
     }
 
     private void handleKeysForDialogueState(int code) {
         if (code == KeyEvent.VK_ENTER) {
-            dm.stateManager.setState(GameState.PLAY);
+            STATE_MGR.setState(GameState.PLAY);
         }
     }
 
@@ -84,7 +80,7 @@ public class KeyHandler implements KeyListener {
             TitleScreen.pressDown();
         }
         if (code == KeyEvent.VK_ENTER) {
-            TitleScreen.pressMenu(dm);
+            TitleScreen.pressMenu();
         }
     }
 

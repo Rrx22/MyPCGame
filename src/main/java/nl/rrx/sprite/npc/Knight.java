@@ -1,6 +1,5 @@
 package nl.rrx.sprite.npc;
 
-import nl.rrx.config.DependencyManager;
 import nl.rrx.sprite.Direction;
 
 import static nl.rrx.config.settings.ScreenSettings.FPS;
@@ -9,8 +8,8 @@ public class Knight extends NPC {
 
     private int actionLockCounter;
 
-    protected Knight(DependencyManager dm, int startWorldX, int startWorldY) {
-        super(dm, startWorldX, startWorldY);
+    protected Knight(int startWorldX, int startWorldY) {
+        super(startWorldX, startWorldY);
         speed = 1;
         loadImages("knight");
         setDialogues(
