@@ -16,6 +16,7 @@ import static nl.rrx.config.DependencyManager.OBJECT_MGR;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.SpriteSettings.INIT_PLAYER_HP;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
+import static nl.rrx.config.settings.WorldSettings.SPEED_BOOST;
 import static nl.rrx.sprite.Direction.DOWN;
 import static nl.rrx.sprite.Direction.LEFT;
 import static nl.rrx.sprite.Direction.RIGHT;
@@ -112,7 +113,10 @@ public class Player extends Sprite {
     private void interactWithObject(int index) {
         var type = OBJECT_MGR.getTypeFor(index);
         switch (type) {
-            // TODO
+            case BOOTS -> {
+                speed += SPEED_BOOST;
+                OBJECT_MGR.removeObject(index);
+            }
         }
     }
 

@@ -13,6 +13,7 @@ import static nl.rrx.config.DependencyManager.COLLISION_UTIL;
 import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_OUTLINER;
+import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_SIZE;
 
 public class EventHandler {
 
@@ -43,7 +44,7 @@ public class EventHandler {
             int y = event.y * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
             int screenX = x - PLAYER.getWorldX() + PLAYER.getScreenX();
             int screenY = y - PLAYER.getWorldY() + PLAYER.getScreenY();
-            COLLISION_UTIL.drawIfDebug(g2, Color.magenta, screenX, screenY, new Rectangle(0, 0, 2, 2));
+            COLLISION_UTIL.drawIfDebug(g2, Color.magenta, screenX, screenY, new Rectangle(0, 0, DEFAULT_EVENT_SIZE, DEFAULT_EVENT_SIZE));
         }
     }
 }

@@ -13,8 +13,10 @@ public class WorldSettings {
     public static final int MAX_OBJECTS = 10;
     public static final int MAX_NPCS = 10;
     public static final int NO_OBJECT = 999;
+    public static final int SPEED_BOOST = 2;
 
     // EVENT
     public static final int DEFAULT_EVENT_OUTLINER = TILE_SIZE / 2 - 1;
+    public static final int DEFAULT_EVENT_SIZE = 2;
 
 }

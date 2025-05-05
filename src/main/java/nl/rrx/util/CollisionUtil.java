@@ -18,6 +18,7 @@ import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.DependencyManager.TILE_MGR;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_OUTLINER;
+import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_SIZE;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 
 public class CollisionUtil {
@@ -158,7 +159,7 @@ public class CollisionUtil {
     public boolean checkEvent(Event event) {
         int eventX = event.x * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
         int eventY = event.y * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
-        var eventRect = new Rectangle(eventX, eventY, 2, 2);
+        var eventRect = new Rectangle(eventX, eventY, DEFAULT_EVENT_SIZE, DEFAULT_EVENT_SIZE);
         var playerRect = getSpriteCollisionAreaInWorld(PLAYER);
 
         Direction requiredDirection = event.requiredDirection;
