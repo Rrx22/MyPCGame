@@ -109,7 +109,8 @@ public class Player extends Sprite {
         spriteUtil.updateSprite();
     }
 
-    // todo should probably also move this to the GamePanel, to improve interacting with enter easier
+    // should probably also move this to the GamePanel, to improve interacting with keypress easier
+    //  - not yet a problem, since objects not yet interactable with keypresses
     private void interactWithObject(int index) {
         var type = OBJECT_MGR.getTypeFor(index);
         switch (type) {

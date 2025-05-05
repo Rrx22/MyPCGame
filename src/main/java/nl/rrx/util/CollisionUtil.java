@@ -21,6 +21,10 @@ import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_OUTLINER;
 import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_SIZE;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 
+// todo currently npcs (sometimes player too) gets blocked from moving by collisionUtil in moments they might be able to move along, like
+//  - user faces left, npc faces right. They scratch eachothers collision-boxes. Keep moving?
+//  - same for other opposite directions
+//  - or also same directions? Maybe? Maybe not - might be a problem. Check
 public class CollisionUtil {
 
     /**

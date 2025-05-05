@@ -57,7 +57,7 @@ public class GamePanel extends JPanel implements Runnable {
             NPC_MGR.updateNPCs();
             EVENT_HANDLER.checkEvent();
         } else if (STATE_MGR.currentState() == GameState.PAUSE) {
-            // TODO
+            // add options such as LOAD GAME
         }
     }
 
@@ -72,8 +72,7 @@ public class GamePanel extends JPanel implements Runnable {
             TILE_MGR.draw(g2);
             EVENT_HANDLER.draw(g2);
             DrawOrderMatters.drawSpritesAndObjectsInOrder(g2);
-            if (DebugSettings.DRAW_DEBUG_STATS)
-                UI.drawDebugStats(g2, drawStart); // this needs to happen here, so it surrounds all the draw methods
+            if (DebugSettings.DRAW_DEBUG_STATS) UI.drawDebugStats(g2, drawStart); // this needs to happen right here
         }
         UI.draw(g2);
 

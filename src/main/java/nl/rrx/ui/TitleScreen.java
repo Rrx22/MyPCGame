@@ -73,7 +73,7 @@ public class TitleScreen {
         switch (selectedItemNum) {
             case 0 ->  titleScreenFlowNum++; //START GAME
             case 1 -> {
-                // TODO LOAD GAME
+                // add LOAD GAME functionality
             }
             case 2 -> System.exit(0); // QUIT
             default -> throw new IllegalArgumentException("selectedMenuItemIndex should be between 0-" + INDEX_LAST_MENU_ITEM);

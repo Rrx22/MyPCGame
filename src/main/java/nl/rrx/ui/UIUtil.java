@@ -10,8 +10,7 @@ import java.io.InputStream;
 
 class UIUtil {
 
-    // TODO find something prettier at https://fontsgeek.com/
-    // Credit for these fonts goes out to https://fontsgeek.com/
+    // Credit for these fonts + find more/others at https://fontsgeek.com/
     public static final String PURISA_BOLD_TTF = "Purisa Bold.ttf";
     public static final String PURISA_MEDIUM_TTF = "Purisa Medium.ttf";
 

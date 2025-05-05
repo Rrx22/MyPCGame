@@ -48,7 +48,7 @@ public class GameObject implements DrawOrderMatters {
             int screenX = worldX - PLAYER.getWorldX() + PLAYER.getScreenX() - offsetX;
             int screenY = worldY - PLAYER.getWorldY() + PLAYER.getScreenY() - offsetY;
             g2.drawImage(image, screenX, screenY, null);
-            debugDraw(g2, screenX, screenY);
+            if (DebugSettings.SHOW_COLLISION) drawCollision(g2, screenX, screenY);
         }
     }
 
@@ -57,11 +57,7 @@ public class GameObject implements DrawOrderMatters {
         return worldY;
     }
 
-    private void debugDraw(Graphics2D g2, int screenX, int screenY) {
-        if (!DebugSettings.SHOW_COLLISION) {
-            return;
-        }
-
+    private void drawCollision(Graphics2D g2, int screenX, int screenY) {
         var oldStroke = g2.getStroke();
         g2.setStroke(new BasicStroke(2));
         g2.setColor(Color.CYAN);
