@@ -48,7 +48,7 @@ public abstract class NPC extends Sprite {
         dm.collisionUtil.checkTile(this);
         dm.collisionUtil.checkObject(this, false);
         boolean playerHit = dm.collisionUtil.checkPlayer(this);
-        if (playerHit && dm.keyHandler.isEnterPressed() && dm.player.isFacing(this)) {
+        if (playerHit && dm.keyHandler.isEnterPressed() && dm.collisionUtil.isFacing(dm.player, this)) {
             speak();
             dm.stateManager.setState(GameState.DIALOGUE);
         }

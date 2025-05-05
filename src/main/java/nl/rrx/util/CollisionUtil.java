@@ -142,6 +142,20 @@ public class CollisionUtil {
     }
 
     /**
+     * Check whether srcSprite is facing otherSprite.
+     * For example, can only speak to an npc if player is facing it
+     *
+     * @return true if srcSprite faces otherSprite
+     */
+    public boolean isFacing(Sprite srcSprite, Sprite otherSprite) {
+        var inFrontOFCollisionArea = getSpriteCollisionAreaInWorld(srcSprite);
+        inFrontOFCollisionArea.x += srcSprite.getDirection().moveX(TILE_SIZE);
+        inFrontOFCollisionArea.y += srcSprite.getDirection().moveY(TILE_SIZE);
+        var npcCollisionArea = getSpriteCollisionAreaInWorld(otherSprite);
+        return inFrontOFCollisionArea.intersects(npcCollisionArea);
+    }
+
+    /**
      * Check
      *
      * @param event  (Nullable) If null, any direction will set off the event.

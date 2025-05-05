@@ -141,9 +141,4 @@ public class Player extends Sprite {
         worldX = x * TILE_SIZE;
         worldY = y * TILE_SIZE;
     }
-
-    public boolean isFacing(NPC npc) {
-        // todo implement so that the player can only interact with an NPC in front of him
-        return true;
-    }
 }
