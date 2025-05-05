@@ -1,0 +1,38 @@
+package nl.rrx.event.types;
+
+import nl.rrx.event.Event;
+import nl.rrx.state.GameState;
+
+import static nl.rrx.config.DependencyManager.KEY_HANDLER;
+import static nl.rrx.config.DependencyManager.PLAYER;
+import static nl.rrx.config.DependencyManager.STATE_MGR;
+import static nl.rrx.config.DependencyManager.UI;
+
+public class HealingPool extends Event {
+
+    private static final int MAX_HEALING_INTERACTIONS = 3;
+
+    public HealingPool(int x, int y) {
+        super(x, y, null);
+    }
+
+    @Override
+    public void interact() {
+        super.interact();
+        STATE_MGR.setState(GameState.DIALOGUE);
+        if (interactCount <= MAX_HEALING_INTERACTIONS) {
+            UI.setDialogue("You drank some water.\nYour life has been recovered!");
+            PLAYER.recoverHP();
+        } else {
+            UI.setDialogue("This healing pool is depleted.");
+        }
+    }
+
+    @Override
+    public boolean shouldTrigger() {
+        if (!super.shouldTrigger()) {
+            return false;
+        }
+        return KEY_HANDLER.isEnterPressed();
+    }
+}

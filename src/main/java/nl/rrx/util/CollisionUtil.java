@@ -152,18 +152,16 @@ public class CollisionUtil {
     }
 
     /**
-     * Check
-     *
-     * @param event  (Nullable) If null, any direction will set off the event.
+     * Check player event collision
      * @return true if the player has set off the event
      */
     public boolean checkEvent(Event event) {
-        int eventX = event.col() * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
-        int eventY = event.row() * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
+        int eventX = event.x * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
+        int eventY = event.y * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
         var eventRect = new Rectangle(eventX, eventY, 2, 2);
         var playerRect = getSpriteCollisionAreaInWorld(PLAYER);
 
-        Direction requiredDirection = event.requiredDirection();
+        Direction requiredDirection = event.requiredDirection;
         return playerRect.intersects(eventRect)
                 && (requiredDirection == null || requiredDirection.equals(PLAYER.getDirection()));
     }
