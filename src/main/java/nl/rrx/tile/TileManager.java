@@ -20,12 +20,14 @@ import static nl.rrx.util.ScreenUtil.isWithinScreenBoundary;
 
 public class TileManager {
 
+    private static final String MAP_TXT_FILE = "/maps/woodlands.txt";
+
     private final Map<Integer, Tile> tiles = new HashMap<>();
     private final int[][] mapTileNum = new int[MAX_WORLD_COL][MAX_WORLD_ROW];
 
     public TileManager() {
         loadTileImages();
-        loadMap("/maps/woodlands.txt");
+        loadMap();
     }
 
     private void loadTileImages() {
@@ -35,8 +37,8 @@ public class TileManager {
         }
     }
 
-    private void loadMap(String filePath) {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(filePath)))) {
+    private void loadMap() {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(MAP_TXT_FILE)))) {
             for (int row = 0; row < MAX_WORLD_ROW; row++) {
                 String[] parsedTileNumbers = reader.readLine().split(" ");
                 for (int col = 0; col < MAX_WORLD_COL; col++) {

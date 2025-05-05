@@ -45,7 +45,6 @@ public class KeyHandler implements KeyListener {
             enterPressed = true;
             return;
         }
-        // TODO These booleans are a very different implentation from the other handle methods, which use the DM or static functions to do stuff
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             upPressed = true;
         }

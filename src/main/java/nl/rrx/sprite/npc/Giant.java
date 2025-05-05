@@ -21,12 +21,12 @@ public class Giant extends NPC {
 
     @Override
     protected void doNpcAction() {
-        Integer rndVal = RND.nextInt(100) + 1;
+        int rndVal = RND.nextInt(100) + 1;
 
         direction = switch (rndVal) {
-            case Integer i when i < 25 -> Direction.DOWN;
-            case Integer i when i < 50 -> Direction.UP;
-            case Integer i when i < 75 -> Direction.LEFT;
+            case int i when i < 25 -> Direction.DOWN;
+            case int i when i < 50 -> Direction.UP;
+            case int i when i < 75 -> Direction.LEFT;
             default -> Direction.RIGHT;
         };
     }
