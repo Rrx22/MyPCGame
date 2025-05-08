@@ -14,7 +14,11 @@ public class MonsterManager {
     }
 
     public void loadMonsters() {
-        this.monsters[0] = new GreenSlime(26, 17);
+        this.monsters[0] = new GreenSlime(48, 17);
+        this.monsters[1] = new GreenSlime(48, 18);
+        this.monsters[2] = new GreenSlime(48, 19);
+        this.monsters[3] = new GreenSlime(47, 20);
+        this.monsters[4] = new GreenSlime(47, 21);
     }
 
     public void updateMonsters() {
@@ -25,7 +29,7 @@ public class MonsterManager {
         }
     }
 
-    public Monster[] getNPCs() {
+    public Monster[] getMonsters() {
         return Arrays.copyOf(monsters, WorldSettings.MAX_NPCS);
     }
 

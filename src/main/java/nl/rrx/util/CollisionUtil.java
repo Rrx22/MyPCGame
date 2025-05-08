@@ -24,8 +24,7 @@ import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 //  - user faces left, npc faces right. They scratch eachothers collision-boxes. Keep moving?
 //  - same for other opposite directions
 //  - or also same directions? Maybe? Maybe not - might be a problem. Check
-
-// todo also make monsters / npcs collide with eachother
+//  - also currently on collision, and still moving, the characters look weird walking into a wall/other sprite
 public class CollisionUtil {
 
     /**
@@ -121,7 +120,7 @@ public class CollisionUtil {
      */
     public boolean checkSprite(Sprite srcSprite, Sprite[] npcs) {
         for (Sprite npc : npcs) {
-            if (npc != null) {
+            if (npc != null && !npc.equals(srcSprite)) {
                 var spriteCollisionArea = getSpriteCollisionAreaInWorld(srcSprite);
                 var npcCollisionArea = getSpriteCollisionAreaInWorld(npc);
                 if (spriteCollisionArea.intersects(npcCollisionArea)) {
@@ -159,6 +158,7 @@ public class CollisionUtil {
 
     /**
      * Check player event collision
+     *
      * @return true if the player has set off the event
      */
     public boolean checkEvent(Event event) {

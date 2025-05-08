@@ -18,6 +18,7 @@ public class NPCManager {
         this.npcs[1] = new Rogue(15, 15);
         this.npcs[2] = new Knight(9, 15);
         this.npcs[3] = new Giant(9, 23);
+        this.npcs[4] = new Knight(47, 22);
     }
 
     public void updateNPCs() {

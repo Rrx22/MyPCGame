@@ -6,6 +6,8 @@ import nl.rrx.state.GameState;
 
 import static nl.rrx.config.DependencyManager.COLLISION_UTIL;
 import static nl.rrx.config.DependencyManager.KEY_HANDLER;
+import static nl.rrx.config.DependencyManager.MONSTER_MGR;
+import static nl.rrx.config.DependencyManager.NPC_MGR;
 import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.DependencyManager.STATE_MGR;
 import static nl.rrx.config.DependencyManager.UI;
@@ -26,6 +28,8 @@ public abstract class NPC extends NonPlayerSprite {
         COLLISION_UTIL.checkTile(this);
         COLLISION_UTIL.checkObject(this, false);
         boolean playerHit = COLLISION_UTIL.checkPlayer(this);
+        COLLISION_UTIL.checkSprite(this, NPC_MGR.getNPCs());
+        COLLISION_UTIL.checkSprite(this, MONSTER_MGR.getMonsters());
         if (playerHit && KEY_HANDLER.isEnterPressed() && COLLISION_UTIL.isFacing(PLAYER, this)) {
             speak();
             STATE_MGR.setState(GameState.DIALOGUE);

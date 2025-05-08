@@ -12,6 +12,8 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import static nl.rrx.config.DependencyManager.COLLISION_UTIL;
+import static nl.rrx.config.DependencyManager.MONSTER_MGR;
+import static nl.rrx.config.DependencyManager.NPC_MGR;
 import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
@@ -75,6 +77,8 @@ public abstract class NonPlayerSprite extends Sprite {
         COLLISION_UTIL.checkTile(this);
         COLLISION_UTIL.checkObject(this, false);
         COLLISION_UTIL.checkPlayer(this);
+        COLLISION_UTIL.checkSprite(this, NPC_MGR.getNPCs());
+        COLLISION_UTIL.checkSprite(this, MONSTER_MGR.getMonsters());
 
         if (!collisionOn) {
             worldX += direction.moveX(speed);

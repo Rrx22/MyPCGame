@@ -27,7 +27,7 @@ public interface SortedDrawable {
         for (GameObject obj : OBJECT_MGR.getGameObjects()) {
             if (obj != null) objectsAndSprites.add(obj);
         }
-        for (Monster monster : MONSTER_MGR.getNPCs()) {
+        for (Monster monster : MONSTER_MGR.getMonsters()) {
             if (monster != null) objectsAndSprites.add(monster);
         }
         objectsAndSprites.stream()

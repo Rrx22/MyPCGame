@@ -95,7 +95,7 @@ public class Player extends Sprite {
 
         // CHECK NPC/MONSTER COLLISION
         COLLISION_UTIL.checkSprite(this, NPC_MGR.getNPCs());
-        COLLISION_UTIL.checkSprite(this, MONSTER_MGR.getNPCs());
+        COLLISION_UTIL.checkSprite(this, MONSTER_MGR.getMonsters());
 
         if (!collisionOn) {
             worldX += direction.moveX(speed);
