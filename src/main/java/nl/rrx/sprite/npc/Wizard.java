@@ -2,15 +2,12 @@ package nl.rrx.sprite.npc;
 
 import nl.rrx.sprite.Direction;
 
-import static nl.rrx.config.settings.ScreenSettings.FPS;
-
 public class Wizard extends NPC {
-
-    private int actionLockCounter;
 
     protected Wizard(int startWorldX, int startWorldY) {
         super(startWorldX, startWorldY);
         speed = 1;
+        actionLockInterval *= 2;
         loadImages("wizard");
         setDialogues(
                 "Hello, lad.",
@@ -20,7 +17,7 @@ public class Wizard extends NPC {
     }
 
     @Override
-    protected void doNpcAction() {
+    protected void doAction() {
         int rndVal = RND.nextInt(100) + 1;
 
         direction = switch (rndVal) {
@@ -29,14 +26,5 @@ public class Wizard extends NPC {
             case int i when i < 75 -> Direction.LEFT;
             default -> Direction.RIGHT;
         };
-    }
-
-    @Override
-    public boolean isReadyForAction() {
-        if (actionLockCounter++ > FPS * 2) {
-            actionLockCounter = 0;
-            return true;
-        }
-        return false;
     }
 }

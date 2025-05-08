@@ -1,6 +1,6 @@
 package nl.rrx.object;
 
-import nl.rrx.common.DrawOrderMatters;
+import nl.rrx.common.SortedDrawable;
 import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.util.PerformanceUtil;
 
@@ -14,7 +14,7 @@ import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.util.ScreenUtil.isWithinScreenBoundary;
 
-public class GameObject implements DrawOrderMatters {
+public class GameObject implements SortedDrawable {
 
     public final GameObjectType type;
     private final BufferedImage image;

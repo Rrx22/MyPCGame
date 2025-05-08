@@ -6,7 +6,6 @@ import nl.rrx.object.GameObject;
 import nl.rrx.sprite.Direction;
 import nl.rrx.sprite.Player;
 import nl.rrx.sprite.Sprite;
-import nl.rrx.sprite.npc.NPC;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -25,6 +24,8 @@ import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 //  - user faces left, npc faces right. They scratch eachothers collision-boxes. Keep moving?
 //  - same for other opposite directions
 //  - or also same directions? Maybe? Maybe not - might be a problem. Check
+
+// todo also make monsters / npcs collide with eachother
 public class CollisionUtil {
 
     /**
@@ -133,13 +134,13 @@ public class CollisionUtil {
     }
 
     /**
-     * Check whether the npc is colliding with the player
+     * Check whether the sprite is colliding with the player
      * Sets npc's collisionOn to true if a collision is met
      *
-     * @param npc
+     * @param sprite
      */
-    public boolean checkPlayer(NPC npc) {
-        return checkSprite(npc, new Sprite[]{PLAYER});
+    public boolean checkPlayer(Sprite sprite) {
+        return checkSprite(sprite, new Sprite[]{PLAYER});
     }
 
     /**

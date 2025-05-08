@@ -2,7 +2,6 @@ package nl.rrx.sprite;
 
 import nl.rrx.config.settings.SpriteSettings;
 import nl.rrx.util.PerformanceUtil;
-import nl.rrx.util.SpriteUtil;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -11,10 +10,10 @@ import java.awt.image.BufferedImage;
 
 import static nl.rrx.config.DependencyManager.COLLISION_UTIL;
 import static nl.rrx.config.DependencyManager.KEY_HANDLER;
+import static nl.rrx.config.DependencyManager.MONSTER_MGR;
 import static nl.rrx.config.DependencyManager.NPC_MGR;
 import static nl.rrx.config.DependencyManager.OBJECT_MGR;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
-import static nl.rrx.config.settings.SpriteSettings.INIT_PLAYER_HP;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 import static nl.rrx.config.settings.WorldSettings.SPEED_BOOST;
 import static nl.rrx.sprite.Direction.DOWN;
@@ -28,16 +27,12 @@ public class Player extends Sprite {
     private final int screenX;
     private final int screenY;
 
-    private final SpriteUtil spriteUtil = new SpriteUtil();
-
     public Player() {
-        super();
-        worldX = SpriteSettings.INIT_WORLD_X;
-        worldY = SpriteSettings.INIT_WORLD_Y;
+        super(SpriteSettings.INIT_WORLD_X, SpriteSettings.INIT_WORLD_Y);
         screenX = SpriteSettings.INIT_SCREEN_X;
         screenY = SpriteSettings.INIT_SCREEN_Y;
 
-        maxHP = INIT_PLAYER_HP;
+        maxHP = SpriteSettings.INIT_PLAYER_HP;
         healthPoints = maxHP;
         speed = SpriteSettings.INIT_SPEED;
         direction = SpriteSettings.INIT_DIRECTION;
@@ -98,8 +93,9 @@ public class Player extends Sprite {
             interactWithObject(objIndex);
         }
 
-        // CHECK NPC COLLISION
+        // CHECK NPC/MONSTER COLLISION
         COLLISION_UTIL.checkSprite(this, NPC_MGR.getNPCs());
+        COLLISION_UTIL.checkSprite(this, MONSTER_MGR.getNPCs());
 
         if (!collisionOn) {
             worldX += direction.moveX(speed);

@@ -35,7 +35,7 @@ public class UI {
 
     public void drawDebugStats(Graphics2D g2, long drawStart) {
         Sprite sprite = PLAYER;
-//        Sprite sprite = npcManager.getNpcs()[0];
+//        Sprite sprite = MONSTER_MGR.get(0);
         DebugUI.draw(g2, sprite, drawStart, fontPlain);
     }
 

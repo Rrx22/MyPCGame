@@ -1,11 +1,16 @@
 package nl.rrx.sprite;
 
-import nl.rrx.common.DrawOrderMatters;
+import nl.rrx.common.SortedDrawable;
+import nl.rrx.util.SpriteUtil;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-public abstract class Sprite implements DrawOrderMatters {
+import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
+
+public abstract class Sprite implements SortedDrawable {
+
+    protected final SpriteUtil spriteUtil = new SpriteUtil();
 
     protected int worldX;
     protected int worldY;
@@ -27,8 +32,10 @@ public abstract class Sprite implements DrawOrderMatters {
     protected BufferedImage right1;
     protected BufferedImage right2;
 
-    protected Sprite() {
+    protected Sprite(int startWorldX, int startWorldY) {
         direction = Direction.DOWN;
+        worldX = TILE_SIZE * startWorldX;
+        worldY = TILE_SIZE * startWorldY;
     }
 
     public int getWorldX() {

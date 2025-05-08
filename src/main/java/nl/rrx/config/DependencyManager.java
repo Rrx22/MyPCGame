@@ -4,6 +4,7 @@ import nl.rrx.event.EventHandler;
 import nl.rrx.object.ObjectManager;
 import nl.rrx.sound.SoundManager;
 import nl.rrx.sprite.Player;
+import nl.rrx.sprite.monster.MonsterManager;
 import nl.rrx.sprite.npc.NPCManager;
 import nl.rrx.state.StateManager;
 import nl.rrx.tile.TileManager;
@@ -21,6 +22,7 @@ public class DependencyManager {
     public static final TileManager TILE_MGR = new TileManager();
     public static final ObjectManager OBJECT_MGR = new ObjectManager();
     public static final NPCManager NPC_MGR = new NPCManager();
+    public static final MonsterManager MONSTER_MGR = new MonsterManager();
 
     // utils
     public static final CollisionUtil COLLISION_UTIL = new CollisionUtil();
