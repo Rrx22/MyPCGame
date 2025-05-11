@@ -63,7 +63,8 @@ public class Player extends Sprite {
         COLLISION_UTIL.drawIfDebug(g2, Color.red, screenX, screenY, collisionArea);
     }
 
-    private void move() {
+    @Override
+    protected void move() {
         if (KEY_HANDLER.nonePressed()) {
             spriteUtil.standStill();
         }

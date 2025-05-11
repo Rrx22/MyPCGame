@@ -7,6 +7,7 @@ public class Giant extends NPC {
     protected Giant(int startWorldX, int startWorldY) {
         super(startWorldX, startWorldY);
         speed = 0;
+        direction = Direction.RIGHT;
         actionLockInterval *= 3;
         loadImages("boy");
         setDialogues(
@@ -18,9 +19,7 @@ public class Giant extends NPC {
 
     @Override
     protected void doAction() {
-        int rndVal = RND.nextInt(100) + 1;
-
-        direction = switch (rndVal) {
+        direction = switch (RND.nextInt(100) + 1) {
             case int i when i < 25 -> Direction.DOWN;
             case int i when i < 50 -> Direction.UP;
             case int i when i < 75 -> Direction.LEFT;

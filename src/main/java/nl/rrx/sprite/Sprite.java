@@ -32,6 +32,8 @@ public abstract class Sprite implements SortedDrawable {
     protected BufferedImage right1;
     protected BufferedImage right2;
 
+    protected abstract void move();
+
     protected Sprite(int startWorldX, int startWorldY) {
         direction = Direction.DOWN;
         worldX = TILE_SIZE * startWorldX;

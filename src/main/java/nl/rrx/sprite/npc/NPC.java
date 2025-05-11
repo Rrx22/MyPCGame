@@ -36,6 +36,7 @@ public abstract class NPC extends NonPlayerSprite {
         }
 
         if (speed == 0) {
+            spriteUtil.standStill();
             return;
         }
 

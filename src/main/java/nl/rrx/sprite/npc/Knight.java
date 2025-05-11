@@ -18,13 +18,18 @@ public class Knight extends NPC {
 
     @Override
     protected void doAction() {
+        speed = 1;
         int rndVal = RND.nextInt(100) + 1;
 
-        direction = switch (rndVal) {
-            case int i when i < 25 -> Direction.DOWN;
-            case int i when i < 50 -> Direction.UP;
-            case int i when i < 75 -> Direction.LEFT;
-            default -> Direction.RIGHT;
-        };
+        switch (rndVal) {
+            case int i when i < 20 -> direction = Direction.DOWN;
+            case int i when i < 40 -> direction = Direction.UP;
+            case int i when i < 60 -> direction = Direction.LEFT;
+            case int i when i < 80 -> direction = Direction.RIGHT;
+            default -> {
+                speed = 0;
+                spriteUtil.standStill();
+            }
+        }
     }
 }
