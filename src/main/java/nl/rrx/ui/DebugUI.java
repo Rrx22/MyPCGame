@@ -26,6 +26,4 @@ class DebugUI {
     private static void showIsCollisionOnFor(Graphics2D g2, Sprite sprite) {
         g2.drawString("collisionOn: " + sprite.isCollisionOn(), 10, 440);
     }
-
-
 }

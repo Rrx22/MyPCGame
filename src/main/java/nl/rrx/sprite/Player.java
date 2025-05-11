@@ -3,6 +3,7 @@ package nl.rrx.sprite;
 import nl.rrx.config.settings.SpriteSettings;
 import nl.rrx.util.PerformanceUtil;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -13,6 +14,7 @@ import static nl.rrx.config.DependencyManager.KEY_HANDLER;
 import static nl.rrx.config.DependencyManager.MONSTER_MGR;
 import static nl.rrx.config.DependencyManager.NPC_MGR;
 import static nl.rrx.config.DependencyManager.OBJECT_MGR;
+import static nl.rrx.config.settings.ScreenSettings.FPS;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 import static nl.rrx.config.settings.WorldSettings.SPEED_BOOST;
@@ -26,6 +28,8 @@ public class Player extends Sprite {
     public static final String IMG_ROOT = "/images/sprite/";
     private final int screenX;
     private final int screenY;
+    private boolean isInvincible = false;
+    private int invincibleCounter = 0;
 
     public Player() {
         super(SpriteSettings.INIT_WORLD_X, SpriteSettings.INIT_WORLD_Y);
@@ -48,6 +52,7 @@ public class Player extends Sprite {
 
     public void update() {
         collisionOn = false;
+        handleInvincibility();
         move();
     }
 
@@ -59,7 +64,11 @@ public class Player extends Sprite {
             case LEFT -> spriteUtil.isNewDirection() ? left1 : left2;
             case RIGHT -> spriteUtil.isNewDirection() ? right1 : right2;
         };
+        if (isInvincible) { // transparant if invincible
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        }
         g2.drawImage(image, screenX, screenY, null);
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f)); // reset transparant drawing
         COLLISION_UTIL.drawIfDebug(g2, Color.red, screenX, screenY, collisionArea);
     }
 
@@ -138,7 +147,10 @@ public class Player extends Sprite {
     }
 
     public void doDamage(int damage) {
-        healthPoints -= damage;
+        if (!isInvincible) {
+            healthPoints -= damage;
+            isInvincible = true; // temporary invincibility after being hurt
+        }
     }
 
     public void recoverHP() {
@@ -148,5 +160,12 @@ public class Player extends Sprite {
     public void teleport(int x, int y) {
         worldX = x * TILE_SIZE;
         worldY = y * TILE_SIZE;
+    }
+
+    private void handleInvincibility() {
+        if (isInvincible && ++invincibleCounter > FPS) {
+            isInvincible = false;
+            invincibleCounter = 0;
+        }
     }
 }

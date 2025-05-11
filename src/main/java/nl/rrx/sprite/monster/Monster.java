@@ -14,6 +14,8 @@ public abstract class Monster extends NonPlayerSprite {
         super(startWorldX, startWorldY);
     }
 
+    public abstract void onPlayerTouch();
+
     @Override
     protected void move() {
         COLLISION_UTIL.checkTile(this);

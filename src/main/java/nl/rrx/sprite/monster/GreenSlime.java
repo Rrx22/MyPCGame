@@ -4,6 +4,8 @@ import nl.rrx.sprite.Direction;
 
 import java.awt.Rectangle;
 
+import static nl.rrx.config.DependencyManager.PLAYER;
+
 public class GreenSlime extends Monster {
 
     public GreenSlime(int startWorldX, int startWorldY) {
@@ -25,15 +27,16 @@ public class GreenSlime extends Monster {
         speed = 1;
         int rndVal = RND.nextInt(100) + 1;
 
-        switch (rndVal) {
-            case int i when i < 20 -> direction = Direction.DOWN;
-            case int i when i < 40 -> direction = Direction.UP;
-            case int i when i < 60 -> direction = Direction.LEFT;
-            case int i when i < 80 -> direction = Direction.RIGHT;
-            default -> {
-                speed = 0;
-                spriteUtil.standStill();
-            }
-        }
+        direction = switch (rndVal) {
+            case int i when i < 25 -> Direction.DOWN;
+            case int i when i < 50 -> Direction.UP;
+            case int i when i < 75 -> Direction.LEFT;
+            default -> Direction.RIGHT;
+        };
+    }
+
+    @Override
+    public void onPlayerTouch() {
+        PLAYER.doDamage(1);
     }
 }

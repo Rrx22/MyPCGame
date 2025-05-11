@@ -4,8 +4,10 @@ import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.event.Event;
 import nl.rrx.object.GameObject;
 import nl.rrx.sprite.Direction;
+import nl.rrx.sprite.NonPlayerSprite;
 import nl.rrx.sprite.Player;
 import nl.rrx.sprite.Sprite;
+import nl.rrx.sprite.monster.Monster;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -115,16 +117,19 @@ public class CollisionUtil {
      * Sets srcSprite's collisionOn to true if a collision is met
      *
      * @param srcSprite The sprite which is moving (player or npc)
-     * @param npcs      Check this list of npcs for a collision with the source sprite
+     * @param otherSprites      Check this list of npcs for a collision with the source sprite
      * @return index of npc being collided with. 999 if no npc is hit
      */
-    public boolean checkSprite(Sprite srcSprite, Sprite[] npcs) {
-        for (Sprite npc : npcs) {
-            if (npc != null && !npc.equals(srcSprite)) {
+    public boolean checkSprite(Sprite srcSprite, Sprite[] otherSprites) {
+        for (Sprite otherSprite : otherSprites) {
+            if (otherSprite != null && !otherSprite.equals(srcSprite)) {
                 var spriteCollisionArea = getSpriteCollisionAreaInWorld(srcSprite);
-                var npcCollisionArea = getSpriteCollisionAreaInWorld(npc);
+                var npcCollisionArea = getSpriteCollisionAreaInWorld(otherSprite);
                 if (spriteCollisionArea.intersects(npcCollisionArea)) {
                     srcSprite.setCollisionOn(true);
+                    if (srcSprite instanceof Monster monster && otherSprite instanceof Player) {
+                        monster.onPlayerTouch();
+                    }
                     return true;
                 }
             }
@@ -138,7 +143,7 @@ public class CollisionUtil {
      *
      * @param sprite
      */
-    public boolean checkPlayer(Sprite sprite) {
+    public boolean checkPlayer(NonPlayerSprite sprite) {
         return checkSprite(sprite, new Sprite[]{PLAYER});
     }
 
