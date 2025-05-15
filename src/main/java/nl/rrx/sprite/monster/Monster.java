@@ -35,4 +35,16 @@ public abstract class Monster extends NonPlayerSprite {
     protected String getImageDir() {
         return MONSTER_IMG_ROOT;
     }
+
+    public void doDamage() {
+        if (isTemporarilyInvincible) {
+            return;
+        }
+
+        healthPoints -= 1;
+        isTemporarilyInvincible = true;
+        if (healthPoints < 1) {
+            MONSTER_MGR.remove(this);
+        }
+    }
 }

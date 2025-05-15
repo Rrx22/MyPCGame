@@ -116,8 +116,8 @@ public class CollisionUtil {
      * Check whether a sprite collides with another sprite
      * Sets srcSprite's collisionOn to true if a collision is met
      *
-     * @param srcSprite The sprite which is moving (player or npc)
-     * @param otherSprites      Check this list of npcs for a collision with the source sprite
+     * @param srcSprite    The sprite which is moving (player or npc)
+     * @param otherSprites Check this list of npcs for a collision with the source sprite
      * @return index of npc being collided with. 999 if no npc is hit
      */
     public boolean checkSprite(Sprite srcSprite, Sprite[] otherSprites) {
@@ -127,8 +127,13 @@ public class CollisionUtil {
                 var npcCollisionArea = getSpriteCollisionAreaInWorld(otherSprite);
                 if (spriteCollisionArea.intersects(npcCollisionArea)) {
                     srcSprite.setCollisionOn(true);
+                    // todo this is stupid maybe returning the idx of the sprite being hit was better after all
+                    //  because now this collision util will end up containing a bunch of logic that doesnt belong here
                     if (srcSprite instanceof Monster monster && otherSprite instanceof Player) {
                         monster.onPlayerTouch();
+                    }
+                    if (srcSprite instanceof Player && otherSprite instanceof Monster monster) {
+                        PLAYER.hit(monster);
                     }
                     return true;
                 }

@@ -124,10 +124,10 @@ public class KeyHandler implements KeyListener {
         return enterPressed;
     }
 
-    public boolean nonePressed() {
-        return !upPressed
-                && !downPressed
-                && !leftPressed
-                && !rightPressed;
+    public boolean noMovementKeysPressed() {
+        return upPressed
+                && downPressed
+                && leftPressed
+                && rightPressed;
     }
 }

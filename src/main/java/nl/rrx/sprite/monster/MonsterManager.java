@@ -37,6 +37,13 @@ public class MonsterManager {
         return monsters[idx];
     }
 
+    public void remove(Monster monster) {
+        for (int i = 0; i < monsters.length ; i++) {
+            if (monsters[i] == monster) {
+                monsters[i] = null;
+            }
+        }
+    }
     public void remove(int idx) {
         monsters[idx] = null;
     }

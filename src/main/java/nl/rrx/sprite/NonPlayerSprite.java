@@ -5,6 +5,7 @@ import nl.rrx.config.settings.SpriteSettings;
 import nl.rrx.util.PerformanceUtil;
 import nl.rrx.util.ScreenUtil;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -38,6 +39,9 @@ public abstract class NonPlayerSprite extends Sprite {
             BufferedImage image = getBufferedImage();
             int screenX = worldX - PLAYER.getWorldX() + PLAYER.getScreenX();
             int screenY = worldY - PLAYER.getWorldY() + PLAYER.getScreenY();
+            if (isTemporarilyInvincible) { // transparant if invincible
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+            }
             g2.drawImage(image, screenX, screenY, null);
             COLLISION_UTIL.drawIfDebug(g2, Color.YELLOW, screenX, screenY, collisionArea);
         }
@@ -55,8 +59,9 @@ public abstract class NonPlayerSprite extends Sprite {
         };
     }
 
+    @Override
     public void update() {
-        collisionOn = false;
+        super.update();
         if (isReadyForAction()) {
             doAction();
         }

@@ -6,6 +6,7 @@ import nl.rrx.util.SpriteUtil;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import static nl.rrx.config.settings.ScreenSettings.FPS;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
 public abstract class Sprite implements SortedDrawable {
@@ -22,6 +23,9 @@ public abstract class Sprite implements SortedDrawable {
     protected Direction direction;
     protected Rectangle collisionArea;
     protected boolean collisionOn;
+
+    protected boolean isTemporarilyInvincible = false;
+    private int invincibleCounter = 0;
 
     protected BufferedImage up1;
     protected BufferedImage up2;
@@ -40,13 +44,33 @@ public abstract class Sprite implements SortedDrawable {
         worldY = TILE_SIZE * startWorldY;
     }
 
+    public void update() {
+        collisionOn = false;
+        handleInvincibility();
+    }
+
+    protected void handleInvincibility() {
+        if (isTemporarilyInvincible && ++invincibleCounter > FPS) {
+            isTemporarilyInvincible = false;
+            invincibleCounter = 0;
+        }
+    }
+
     public int getWorldX() {
         return worldX;
+    }
+
+    public void setWorldX(int worldX) {
+        this.worldX = worldX;
     }
 
     @Override
     public int getWorldY() {
         return worldY;
+    }
+
+    public void setWorldY(int worldY) {
+        this.worldY = worldY;
     }
 
     public int getSpeed() {
