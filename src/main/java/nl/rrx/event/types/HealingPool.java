@@ -13,7 +13,7 @@ public class HealingPool extends Event {
     private static final int MAX_HEALING_INTERACTIONS = 3;
 
     public HealingPool(int x, int y) {
-        super(x, y, null);
+        super(x, y, null, true);
     }
 
     @Override

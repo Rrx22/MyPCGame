@@ -8,6 +8,7 @@ import nl.rrx.sprite.Direction;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.Arrays;
 
 import static nl.rrx.config.DependencyManager.COLLISION_UTIL;
 import static nl.rrx.config.DependencyManager.PLAYER;
@@ -46,5 +47,11 @@ public class EventHandler {
             int screenY = y - PLAYER.getWorldY() + PLAYER.getScreenY();
             COLLISION_UTIL.drawIfDebug(g2, Color.magenta, screenX, screenY, new Rectangle(0, 0, DEFAULT_EVENT_SIZE, DEFAULT_EVENT_SIZE));
         }
+    }
+
+    public boolean checkIfEnterWillTriggerAnEvent() {
+        return Arrays.stream(events)
+                .filter(e -> e.isTriggeredByEnter)
+                .anyMatch(COLLISION_UTIL::checkEvent);
     }
 }

@@ -13,7 +13,7 @@ public class Teleport extends Event {
     private final int destinationY;
 
     public Teleport(int x, int y, int destinationX, int destinationY) {
-        super(x, y, null);
+        super(x, y, null, false);
         this.destinationX = destinationX;
         this.destinationY = destinationY;
     }

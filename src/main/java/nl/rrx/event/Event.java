@@ -14,11 +14,13 @@ public abstract class Event {
 
     protected boolean canTouchAgain = false; // every fps event is triggered, so we need to halt it somehow
     protected int interactCount = 0;
+    protected final boolean isTriggeredByEnter;
 
-    protected Event(int x, int y, Direction requiredDirection) {
+    protected Event(int x, int y, Direction requiredDirection, boolean isTriggeredByEnter) {
         this.x = x;
         this.y = y;
         this.requiredDirection = requiredDirection;
+        this.isTriggeredByEnter = isTriggeredByEnter;
     }
 
     public void interact() {

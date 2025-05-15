@@ -11,11 +11,11 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import static nl.rrx.config.DependencyManager.COLLISION_UTIL;
+import static nl.rrx.config.DependencyManager.EVENT_HANDLER;
 import static nl.rrx.config.DependencyManager.KEY_HANDLER;
 import static nl.rrx.config.DependencyManager.MONSTER_MGR;
 import static nl.rrx.config.DependencyManager.NPC_MGR;
 import static nl.rrx.config.DependencyManager.OBJECT_MGR;
-import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 import static nl.rrx.config.settings.WorldSettings.SPEED_BOOST;
@@ -30,16 +30,6 @@ public class Player extends Sprite {
     private final int screenX;
     private final int screenY;
     private boolean isAttacking = false;
-
-    private final Rectangle attackArea = new Rectangle(0, 0, 36, 10);
-    private BufferedImage attackUp1;
-    private BufferedImage attackUp2;
-    private BufferedImage attackDown1;
-    private BufferedImage attackDown2;
-    private BufferedImage attackLeft1;
-    private BufferedImage attackLeft2;
-    private BufferedImage attackRight1;
-    private BufferedImage attackRight2;
 
     public Player() {
         super(SpriteSettings.INIT_WORLD_X, SpriteSettings.INIT_WORLD_Y);
@@ -57,7 +47,7 @@ public class Player extends Sprite {
         collisionArea.width = SpriteSettings.PLAYER_RECT_WIDTH_HEIGHT;
         collisionArea.height = SpriteSettings.PLAYER_RECT_WIDTH_HEIGHT;
 
-        loadPlayerImages("boy");
+        loadPlayerImages("rogue");
     }
 
     @Override
@@ -68,45 +58,57 @@ public class Player extends Sprite {
 
     @Override
     public void draw(Graphics2D g2) {
-        int tempScreenX = screenX;
-        int tempScreenY = screenY;
-        boolean isNewDirection = spriteUtil.isNewDirection();
-        BufferedImage image = switch (direction) {
-            case UP -> {
-                if (isAttacking) {
-                    tempScreenY = screenY - TILE_SIZE;
-                    yield (isNewDirection ? attackUp1 : attackUp2);
-                }
-                yield isNewDirection ? up1 : up2;
-            }
-            case DOWN -> isAttacking
-                    ? (isNewDirection ? attackDown1 : attackDown2)
-                    : (isNewDirection ? down1 : down2);
-            case LEFT -> {
-                if (isAttacking) {
-                    tempScreenX = screenX - TILE_SIZE;
-                    yield (isNewDirection ? attackLeft1 : attackLeft2);
-                }
-                yield isNewDirection ? left1 : left2;
-            }
-            case RIGHT -> isAttacking
-                    ? (isNewDirection ? attackRight1 : attackRight2)
-                    : (isNewDirection ? right1 : right2);
-        };
         if (isTemporarilyInvincible) { // transparant if invincible
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
         }
-        g2.drawImage(image, tempScreenX, tempScreenY, null);
+        if (isAttacking) {
+            drawAttackingImage(g2);
+        } else {
+            drawMovingImage(g2);
+        }
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f)); // reset transparant drawing
         COLLISION_UTIL.drawIfDebug(g2, Color.red, screenX, screenY, collisionArea);
+    }
+
+    private void drawAttackingImage(Graphics2D g2) {
+        int offsetX = 0;
+        int offsetY = 0;
+        boolean isNewDirection = spriteUtil.isNewDirection();
+        BufferedImage image = switch (direction) {
+            case DOWN -> isNewDirection ? attackUtil.attackDown1() : attackUtil.attackDown2();
+            case RIGHT -> isNewDirection ? attackUtil.attackRight1() : attackUtil.attackRight2();
+            case UP -> {
+                offsetY -= TILE_SIZE;
+                yield isNewDirection ? attackUtil.attackUp1() : attackUtil.attackUp2();
+            }
+            case LEFT -> {
+                offsetX -= TILE_SIZE;
+                yield isNewDirection ? attackUtil.attackLeft1() : attackUtil.attackLeft2();
+            }
+        };
+        g2.drawImage(image, screenX + offsetX, screenY + offsetY, null);
+    }
+
+    private void drawMovingImage(Graphics2D g2) {
+        boolean isNewDirection = spriteUtil.isNewDirection();
+        BufferedImage image = switch (direction) {
+            case UP -> isNewDirection ? up1 : up2;
+            case DOWN -> isNewDirection ? down1 : down2;
+            case LEFT -> isNewDirection ? left1 : left2;
+            case RIGHT -> isNewDirection ? right1 : right2;
+        };
+        g2.drawImage(image, screenX, screenY, null);
     }
 
     @Override
     protected void move() {
         if (isAttacking || KEY_HANDLER.isEnterPressed()) {
-            boolean isAboutToTriggerNpcDialogue = COLLISION_UTIL.checkSprite(this, NPC_MGR.getNPCs());
-            if (!isAboutToTriggerNpcDialogue) {
-                isAttacking = spriteUtil.attack(PLAYER, collisionArea, attackArea, direction);
+            boolean doNotAttack = COLLISION_UTIL.checkSprite(this, NPC_MGR.getNPCs()) || // trigger npc dialogue instead
+                    EVENT_HANDLER.checkIfEnterWillTriggerAnEvent(); // trigger event instead
+            if (doNotAttack) {
+                isAttacking = false;
+            } else {
+                isAttacking = spriteUtil.doAttackAnimation(this, attackUtil);
             }
             return;
         }
@@ -182,14 +184,7 @@ public class Player extends Sprite {
     }
 
     private void loadPlayerAttackImages(String imageTypeName) {
-        attackUp1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-atk-up-1.png", TILE_SIZE, TILE_SIZE * 2);
-        attackUp2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-atk-up-2.png", TILE_SIZE, TILE_SIZE * 2);
-        attackDown1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-atk-down-1.png", TILE_SIZE, TILE_SIZE * 2);
-        attackDown2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-atk-down-2.png", TILE_SIZE, TILE_SIZE * 2);
-        attackLeft1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-atk-left-1.png", TILE_SIZE * 2, TILE_SIZE);
-        attackLeft2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-atk-left-2.png", TILE_SIZE * 2, TILE_SIZE);
-        attackRight1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-atk-right-1.png", TILE_SIZE * 2, TILE_SIZE);
-        attackRight2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-atk-right-2.png", TILE_SIZE * 2, TILE_SIZE);
+        attackUtil = AttackUtil.buildAndLoadImages(AttackType.MELEE, 36, 36, IMG_ROOT + imageTypeName);
     }
 
     public int getScreenX() {

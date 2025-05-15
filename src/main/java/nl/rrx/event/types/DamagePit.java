@@ -11,7 +11,7 @@ import static nl.rrx.config.DependencyManager.UI;
 public class DamagePit extends Event {
 
     public DamagePit(int x, int y, Direction requiredDirection) {
-        super(x, y, requiredDirection);
+        super(x, y, requiredDirection, false);
     }
 
     @Override

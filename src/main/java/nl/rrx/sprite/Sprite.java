@@ -12,6 +12,7 @@ import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 public abstract class Sprite implements SortedDrawable {
 
     protected final SpriteUtil spriteUtil = new SpriteUtil();
+    protected AttackUtil attackUtil;
 
     protected int worldX;
     protected int worldY;
