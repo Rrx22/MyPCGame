@@ -7,7 +7,6 @@ import nl.rrx.sprite.Direction;
 import nl.rrx.sprite.NonPlayerSprite;
 import nl.rrx.sprite.Player;
 import nl.rrx.sprite.Sprite;
-import nl.rrx.sprite.monster.Monster;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -22,12 +21,9 @@ import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_OUTLINER;
 import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_SIZE;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 
-// todo currently npcs (sometimes player too) gets blocked from moving by collisionUtil in moments they might be able to move along, like
-//  - user faces left, npc faces right. They scratch eachothers collision-boxes. Keep moving?
-//  - same for other opposite directions
-//  - or also same directions? Maybe? Maybe not - might be a problem. Check
-//  - also currently on collision, and still moving, the characters look weird walking into a wall/other sprite
 public class CollisionUtil {
+
+    public static final int NO_HIT = -1;
 
     /**
      * Check if a sprite is going to hit a collision (i.e. tree, wall etc)
@@ -117,39 +113,35 @@ public class CollisionUtil {
      * Sets srcSprite's collisionOn to true if a collision is met
      *
      * @param srcSprite    The sprite which is moving (player or npc)
-     * @param otherSprites Check this list of npcs for a collision with the source sprite
-     * @return index of npc being collided with. 999 if no npc is hit
+     * @param otherSprites Check this list of sprite for a collision with the source sprite
+     * @return index of npc being collided with. -1 if no npc is hit
      */
-    public boolean checkSprite(Sprite srcSprite, Sprite[] otherSprites) {
-        for (Sprite otherSprite : otherSprites) {
-            if (otherSprite != null && !otherSprite.equals(srcSprite)) {
-                var spriteCollisionArea = getSpriteCollisionAreaInWorld(srcSprite);
-                var npcCollisionArea = getSpriteCollisionAreaInWorld(otherSprite);
-                if (spriteCollisionArea.intersects(npcCollisionArea)) {
+    public int checkSprite(Sprite srcSprite, Sprite[] otherSprites) {
+        for (int i = 0; i < otherSprites.length; i++) {
+            Sprite otherSprite = otherSprites[i];
+            if (otherSprite == null || otherSprite.equals(srcSprite)) {
+                continue;
+            }
+            var spriteCollisionArea = getSpriteCollisionAreaInWorld(srcSprite);
+            var npcCollisionArea = getSpriteCollisionAreaInWorld(otherSprite);
+            if (spriteCollisionArea.intersects(npcCollisionArea)) {
+                if (isFacing(srcSprite, otherSprite)) {
                     srcSprite.setCollisionOn(true);
-                    // todo this is stupid maybe returning the idx of the sprite being hit was better after all
-                    //  because now this collision util will end up containing a bunch of logic that doesnt belong here
-                    if (srcSprite instanceof Monster monster && otherSprite instanceof Player) {
-                        monster.onPlayerTouch();
-                    }
-                    if (srcSprite instanceof Player && otherSprite instanceof Monster monster) {
-                        PLAYER.hit(monster);
-                    }
-                    return true;
                 }
+                return i;
             }
         }
-        return false;
+        return NO_HIT;
     }
 
     /**
      * Check whether the sprite is colliding with the player
      * Sets npc's collisionOn to true if a collision is met
      *
-     * @param sprite
+     * @param sprite non player character
      */
     public boolean checkPlayer(NonPlayerSprite sprite) {
-        return checkSprite(sprite, new Sprite[]{PLAYER});
+        return checkSprite(sprite, new Sprite[]{PLAYER}) != NO_HIT;
     }
 
     /**

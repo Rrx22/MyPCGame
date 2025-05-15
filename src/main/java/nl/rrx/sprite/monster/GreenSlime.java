@@ -36,7 +36,7 @@ public class GreenSlime extends Monster {
     }
 
     @Override
-    public void onPlayerTouch() {
+    public void attackPlayer() {
         PLAYER.doDamage(1);
     }
 }

@@ -14,15 +14,17 @@ public abstract class Monster extends NonPlayerSprite {
         super(startWorldX, startWorldY);
     }
 
-    public abstract void onPlayerTouch();
+    public abstract void attackPlayer();
 
     @Override
     protected void move() {
         COLLISION_UTIL.checkTile(this);
         COLLISION_UTIL.checkObject(this, false);
-        COLLISION_UTIL.checkPlayer(this);
         COLLISION_UTIL.checkSprite(this, NPC_MGR.getNPCs());
         COLLISION_UTIL.checkSprite(this, MONSTER_MGR.getMonsters());
+        if (COLLISION_UTIL.checkPlayer(this)) {
+            attackPlayer();
+        }
 
         if (!collisionOn) {
             worldX += direction.moveX(speed);

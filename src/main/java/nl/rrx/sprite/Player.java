@@ -23,6 +23,7 @@ import static nl.rrx.sprite.Direction.DOWN;
 import static nl.rrx.sprite.Direction.LEFT;
 import static nl.rrx.sprite.Direction.RIGHT;
 import static nl.rrx.sprite.Direction.UP;
+import static nl.rrx.util.CollisionUtil.NO_HIT;
 
 public class Player extends Sprite {
 
@@ -62,18 +63,17 @@ public class Player extends Sprite {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
         }
         if (isAttacking) {
-            drawAttackingImage(g2);
+            drawAttackImage(g2, spriteUtil.isNewDirection());
         } else {
-            drawMovingImage(g2);
+            drawWalkImage(g2, spriteUtil.isNewDirection());
         }
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f)); // reset transparant drawing
         COLLISION_UTIL.drawIfDebug(g2, Color.red, screenX, screenY, collisionArea);
     }
 
-    private void drawAttackingImage(Graphics2D g2) {
+    private void drawAttackImage(Graphics2D g2, boolean isNewDirection) {
         int offsetX = 0;
         int offsetY = 0;
-        boolean isNewDirection = spriteUtil.isNewDirection();
         BufferedImage image = switch (direction) {
             case DOWN -> isNewDirection ? attackUtil.attackDown1() : attackUtil.attackDown2();
             case RIGHT -> isNewDirection ? attackUtil.attackRight1() : attackUtil.attackRight2();
@@ -89,8 +89,7 @@ public class Player extends Sprite {
         g2.drawImage(image, screenX + offsetX, screenY + offsetY, null);
     }
 
-    private void drawMovingImage(Graphics2D g2) {
-        boolean isNewDirection = spriteUtil.isNewDirection();
+    private void drawWalkImage(Graphics2D g2, boolean isNewDirection) {
         BufferedImage image = switch (direction) {
             case UP -> isNewDirection ? up1 : up2;
             case DOWN -> isNewDirection ? down1 : down2;
@@ -103,8 +102,8 @@ public class Player extends Sprite {
     @Override
     protected void move() {
         if (isAttacking || KEY_HANDLER.isEnterPressed()) {
-            boolean doNotAttack = COLLISION_UTIL.checkSprite(this, NPC_MGR.getNPCs()) || // trigger npc dialogue instead
-                    EVENT_HANDLER.checkIfEnterWillTriggerAnEvent(); // trigger event instead
+            boolean doNotAttack = EVENT_HANDLER.checkIfEnterWillTriggerAnEvent() || // trigger event instead
+                    (COLLISION_UTIL.checkSprite(this, NPC_MGR.getNPCs()) != NO_HIT); // trigger npc dialogue instead
             if (doNotAttack) {
                 isAttacking = false;
             } else {

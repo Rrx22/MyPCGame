@@ -9,6 +9,7 @@ import static nl.rrx.config.DependencyManager.COLLISION_UTIL;
 import static nl.rrx.config.DependencyManager.MONSTER_MGR;
 import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
+import static nl.rrx.util.CollisionUtil.NO_HIT;
 
 public record AttackUtil(
         AttackType type,
@@ -38,6 +39,13 @@ public record AttackUtil(
     }
 
     public void handleAttack(Sprite sprite) {
+        switch (type) {
+            case MELEE -> doMeleeAttack(sprite);
+            case RANGED -> doRangedAttack(sprite);
+        }
+    }
+
+    private void doMeleeAttack(Sprite sprite) {
         // save current info to reset after hit
         int currentWorldX = sprite.getWorldX();
         int currentWorldY = sprite.getWorldY();
@@ -45,7 +53,7 @@ public record AttackUtil(
         int collisionAreaHeight = sprite.getCollisionArea().height;
 
         // adjust sprite's worldX/Y for attack area
-        switch(sprite.getDirection()) {
+        switch (sprite.getDirection()) {
             case UP -> sprite.setWorldY(sprite.getWorldY() - attackArea.height);
             case DOWN -> sprite.setWorldY(sprite.getWorldY() + attackArea.height);
             case LEFT -> sprite.setWorldX(sprite.getWorldX() - attackArea.width);
@@ -54,13 +62,24 @@ public record AttackUtil(
         sprite.getCollisionArea().width = attackArea.width;
         sprite.getCollisionArea().height = attackArea.height;
 
-        // todo this aint a great place for this .. ? make collisionutil return a list of monsters instead
-        COLLISION_UTIL.checkSprite(PLAYER, MONSTER_MGR.getMonsters());
+        if (sprite instanceof Player player) {
+            int monsterIdx = COLLISION_UTIL.checkSprite(PLAYER, MONSTER_MGR.getMonsters());
+            if (monsterIdx != NO_HIT) {
+                player.hit(MONSTER_MGR.get(monsterIdx));
+            }
+        } else {
+            // do whatever a npc would do if it attacks
+        }
 
         // restore original settings
         sprite.setWorldX(currentWorldX);
         sprite.setWorldY(currentWorldY);
         sprite.getCollisionArea().width = collisionAreaWidth;
         sprite.getCollisionArea().height = collisionAreaHeight;
+    }
+
+    private void doRangedAttack(Sprite sprite) {
+        // todo implement
+        System.out.println(sprite + " does a ranged attack!");
     }
 }
