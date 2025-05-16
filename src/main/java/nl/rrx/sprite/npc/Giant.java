@@ -9,7 +9,7 @@ public class Giant extends NPC {
         speed = 0;
         direction = Direction.RIGHT;
         actionLockInterval *= 3;
-        loadImages("boy");
+        loadImages("giant");
         setDialogues(
                 "I was guardin' this bridge for…\nuh… since lunch, I think!?",
                 "Oh! Hello tiny peoples. Wait..\nWhat was I here for again?",

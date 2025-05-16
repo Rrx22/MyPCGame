@@ -167,14 +167,14 @@ public class Player extends Sprite {
     }
 
     public void loadPlayerImages(String imageTypeName) {
-        up1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-up-1.png", TILE_SIZE, TILE_SIZE);
-        up2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-up-2.png", TILE_SIZE, TILE_SIZE);
-        down1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-down-1.png", TILE_SIZE, TILE_SIZE);
-        down2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-down-2.png", TILE_SIZE, TILE_SIZE);
-        left1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-left-1.png", TILE_SIZE, TILE_SIZE);
-        left2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-left-2.png", TILE_SIZE, TILE_SIZE);
-        right1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-right-1.png", TILE_SIZE, TILE_SIZE);
-        right2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-right-2.png", TILE_SIZE, TILE_SIZE);
+        up1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName +  "/up-1.png", TILE_SIZE, TILE_SIZE);
+        up2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName +  "/up-2.png", TILE_SIZE, TILE_SIZE);
+        down1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/down-1.png", TILE_SIZE, TILE_SIZE);
+        down2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/down-2.png", TILE_SIZE, TILE_SIZE);
+        left1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/left-1.png", TILE_SIZE, TILE_SIZE);
+        left2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/left-2.png", TILE_SIZE, TILE_SIZE);
+        right1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/right-1.png", TILE_SIZE, TILE_SIZE);
+        right2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/right-2.png", TILE_SIZE, TILE_SIZE);
         loadPlayerAttackImages(imageTypeName);
     }
 

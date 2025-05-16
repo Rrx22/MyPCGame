@@ -27,14 +27,14 @@ public record AttackUtil(
         return new AttackUtil(
                 attackType,
                 new Rectangle(0, 0, width, height),
-                PerformanceUtil.getScaledImage(fileStart + "-atk-up-1.png", TILE_SIZE, TILE_SIZE * 2),
-                PerformanceUtil.getScaledImage(fileStart + "-atk-up-2.png", TILE_SIZE, TILE_SIZE * 2),
-                PerformanceUtil.getScaledImage(fileStart + "-atk-down-1.png", TILE_SIZE, TILE_SIZE * 2),
-                PerformanceUtil.getScaledImage(fileStart + "-atk-down-2.png", TILE_SIZE, TILE_SIZE * 2),
-                PerformanceUtil.getScaledImage(fileStart + "-atk-left-1.png", TILE_SIZE * 2, TILE_SIZE),
-                PerformanceUtil.getScaledImage(fileStart + "-atk-left-2.png", TILE_SIZE * 2, TILE_SIZE),
-                PerformanceUtil.getScaledImage(fileStart + "-atk-right-1.png", TILE_SIZE * 2, TILE_SIZE),
-                PerformanceUtil.getScaledImage(fileStart + "-atk-right-2.png", TILE_SIZE * 2, TILE_SIZE)
+                PerformanceUtil.getScaledImage(fileStart + "/atk-up-1.png", TILE_SIZE, TILE_SIZE * 2),
+                PerformanceUtil.getScaledImage(fileStart + "/atk-up-2.png", TILE_SIZE, TILE_SIZE * 2),
+                PerformanceUtil.getScaledImage(fileStart + "/atk-down-1.png", TILE_SIZE, TILE_SIZE * 2),
+                PerformanceUtil.getScaledImage(fileStart + "/atk-down-2.png", TILE_SIZE, TILE_SIZE * 2),
+                PerformanceUtil.getScaledImage(fileStart + "/atk-left-1.png", TILE_SIZE * 2, TILE_SIZE),
+                PerformanceUtil.getScaledImage(fileStart + "/atk-left-2.png", TILE_SIZE * 2, TILE_SIZE),
+                PerformanceUtil.getScaledImage(fileStart + "/atk-right-1.png", TILE_SIZE * 2, TILE_SIZE),
+                PerformanceUtil.getScaledImage(fileStart + "/atk-right-2.png", TILE_SIZE * 2, TILE_SIZE)
         );
     }
 

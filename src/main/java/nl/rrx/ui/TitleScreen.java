@@ -18,10 +18,10 @@ import static nl.rrx.util.ScreenUtil.getXForCenteredText;
 
 public class TitleScreen {
 
-    private static final BufferedImage KNIGHT_IMAGE = PerformanceUtil.getScaledImage("/images/sprite/knight-down-2.png", TILE_SIZE, TILE_SIZE);
-    private static final BufferedImage WIZARD_IMAGE = PerformanceUtil.getScaledImage("/images/sprite/wizard-down-2.png", TILE_SIZE, TILE_SIZE);
-    private static final BufferedImage ROGUE_IMAGE = PerformanceUtil.getScaledImage("/images/sprite/rogue-down-2.png", TILE_SIZE, TILE_SIZE);
-    private static final BufferedImage BOY_IMAGE = PerformanceUtil.getScaledImage("/images/sprite/boy-down-2.png", TILE_SIZE, TILE_SIZE);
+    private static final BufferedImage KNIGHT_IMAGE = PerformanceUtil.getScaledImage("/images/sprite/knight/down-2.png", TILE_SIZE, TILE_SIZE);
+    private static final BufferedImage WIZARD_IMAGE = PerformanceUtil.getScaledImage("/images/sprite/wizard/down-2.png", TILE_SIZE, TILE_SIZE);
+    private static final BufferedImage ROGUE_IMAGE = PerformanceUtil.getScaledImage("/images/sprite/rogue/down-2.png", TILE_SIZE, TILE_SIZE);
+    private static final BufferedImage BOY_IMAGE = PerformanceUtil.getScaledImage("/images/sprite/giant/down-2.png", TILE_SIZE, TILE_SIZE);
     private static final int INDEX_LAST_MENU_ITEM = 2;
     private static final int LAST_INDEX_CLASS_SELECTION = 3;
 
