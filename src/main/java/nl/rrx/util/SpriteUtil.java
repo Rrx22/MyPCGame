@@ -35,7 +35,7 @@ public class SpriteUtil {
 
     public boolean doAttackAnimation(Sprite sprite, AttackUtil attackUtil) {
         spriteCounter++;
-        if (spriteCounter <= 5) {
+        if (spriteCounter <= 10) {
             spriteNum = 1;
             return true;
         }

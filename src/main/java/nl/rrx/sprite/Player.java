@@ -175,10 +175,6 @@ public class Player extends Sprite {
         left2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-left-2.png", TILE_SIZE, TILE_SIZE);
         right1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-right-1.png", TILE_SIZE, TILE_SIZE);
         right2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "-right-2.png", TILE_SIZE, TILE_SIZE);
-        // todo add atk images for all classes
-        if (!imageTypeName.equals("rogue")) {
-            return;
-        }
         loadPlayerAttackImages(imageTypeName);
     }
 
