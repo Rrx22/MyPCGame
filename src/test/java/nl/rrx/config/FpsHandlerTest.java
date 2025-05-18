@@ -12,7 +12,7 @@ class FpsHandlerTest {
     private final FpsHandler sut = new FpsHandler();
 
     @Test
-    void FpsHandler_shouldProduceExactlyTheConfiguredAmountOfFramesPerSecond() {
+    void fpsHandler_shouldProduceExactlyTheConfiguredAmountOfFramesPerSecond() {
         long timer = 0;
         long framesCount = 0;
         long lastTime = System.nanoTime();
