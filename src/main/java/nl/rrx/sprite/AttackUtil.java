@@ -13,7 +13,7 @@ import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.util.CollisionUtil.NO_HIT;
 
 public record AttackUtil(
-        AttackType type,
+        AttackType attackType,
         Rectangle attackArea,
         BufferedImage attackUp1,
         BufferedImage attackUp2,
@@ -40,7 +40,7 @@ public record AttackUtil(
     }
 
     public void handleAttack(Sprite sprite) {
-        switch (type) {
+        switch (attackType) {
             case SWORD, MAGIC -> doCloseRangeAttack(sprite);
         }
     }
@@ -62,13 +62,14 @@ public record AttackUtil(
         sprite.getCollisionArea().width = attackArea.width;
         sprite.getCollisionArea().height = attackArea.height;
 
+        // attack
         if (sprite instanceof Player player) {
             int monsterIdx = COLLISION_UTIL.checkSprite(PLAYER, MONSTER_MGR.getMonsters());
             if (monsterIdx != NO_HIT) {
                 player.hit(MONSTER_MGR.get(monsterIdx));
-                SOUND_MGR.playSoundEffect(type.hitSound);
+                SOUND_MGR.playSoundEffect(attackType.hitSound);
             } else {
-                SOUND_MGR.playSoundEffect(type.missSound);
+                SOUND_MGR.playSoundEffect(attackType.missSound);
             }
         } else if (sprite instanceof NonPlayerSprite nps) {
             // do NPC / monster attack stuff ?
