@@ -15,17 +15,15 @@ public class MonsterManager {
 
     public void loadMonsters() {
         this.monsters[0] = new GreenSlime(48, 17);
-        this.monsters[1] = new GreenSlime(48, 18);
-        this.monsters[2] = new GreenSlime(48, 19);
-        this.monsters[3] = new GreenSlime(47, 20);
-        this.monsters[4] = new GreenSlime(47, 21);
+        this.monsters[1] = new GreenSlime(30, 33);
+        this.monsters[2] = new GreenSlime(30, 34);
     }
 
     public void updateMonsters() {
         for (Monster monster : monsters) {
-            if (monster != null) {
-                monster.update();
-            }
+            if (monster == null) continue;
+            if (monster.isAlive() && !monster.isDying()) monster.update();
+            else if (!monster.isAlive()) remove(monster);
         }
     }
 
@@ -38,13 +36,10 @@ public class MonsterManager {
     }
 
     public void remove(Monster monster) {
-        for (int i = 0; i < monsters.length ; i++) {
+        for (int i = 0; i < monsters.length; i++) {
             if (monsters[i] == monster) {
                 monsters[i] = null;
             }
         }
-    }
-    public void remove(int idx) {
-        monsters[idx] = null;
     }
 }

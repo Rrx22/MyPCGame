@@ -63,7 +63,7 @@ public class TileManager {
                     Tile tile = tiles.get(tileNum);
                     g2.drawImage(tile.image(), screenX, screenY, null);
 
-                    if (DebugSettings.ENABLED) doDebugDrawing(g2, tile, screenX, screenY, worldCol, worldRow);
+                    doDebugDrawing(g2, tile, screenX, screenY, worldCol, worldRow);
                 }
             }
         }
@@ -78,8 +78,8 @@ public class TileManager {
         }
         if (DebugSettings.SHOW_COORDS) {
             g2.setFont(new Font("arial", Font.PLAIN, 10));
-            g2.drawString(String.format("x:%02d", worldCol), screenX +5, screenY +10);
-            g2.drawString(String.format("y:%02d", worldRow), screenX +5, screenY +20);
+            g2.drawString(String.format("x:%02d", worldCol), screenX + 5, screenY + 10);
+            g2.drawString(String.format("y:%02d", worldRow), screenX + 5, screenY + 20);
         }
     }
 

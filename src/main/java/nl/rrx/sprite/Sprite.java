@@ -3,6 +3,8 @@ package nl.rrx.sprite;
 import nl.rrx.common.SortedDrawable;
 import nl.rrx.util.SpriteUtil;
 
+import java.awt.AlphaComposite;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -25,7 +27,10 @@ public abstract class Sprite implements SortedDrawable {
     protected Rectangle collisionArea;
     protected boolean collisionOn;
 
+    protected boolean isAlive = true;
+    protected boolean isDying = false;
     protected boolean isTemporarilyInvincible = false;
+    private int dyingCounter = 0;
     private int invincibleCounter = 0;
 
     protected BufferedImage up1;
@@ -54,6 +59,24 @@ public abstract class Sprite implements SortedDrawable {
         if (isTemporarilyInvincible && ++invincibleCounter > FPS) {
             isTemporarilyInvincible = false;
             invincibleCounter = 0;
+        }
+    }
+
+    protected void handleDying(Graphics2D g2) {
+        dyingCounter++;
+        if (dyingCounter > 40) {
+            isAlive = false;
+            isDying = false;
+        }
+
+        int blinkInterval = 5;
+        if (dyingCounter % blinkInterval != 0) {
+            return;
+        }
+        if ((dyingCounter / blinkInterval) % 2 == 0) {
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0f));
+        } else {
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
     }
 
@@ -100,5 +123,13 @@ public abstract class Sprite implements SortedDrawable {
 
     public int getHealthPoints() {
         return healthPoints;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public boolean isDying() {
+        return isDying;
     }
 }

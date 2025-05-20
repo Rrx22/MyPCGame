@@ -1,10 +1,8 @@
 package nl.rrx.sound;
 
+import com.adonax.audiocue.AudioCue;
 import nl.rrx.config.settings.DebugSettings;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
@@ -14,40 +12,35 @@ import java.util.Map;
 
 public class SoundManager {
 
-    private final Clip backgroundMusic;
-    private final Map<SoundEffect, URL> soundEffectUrlMap = new EnumMap<>(SoundEffect.class);
+    private final AudioCue backgroundMusic;
+    private final Map<SoundEffect, AudioCue> soundEffectMap = new EnumMap<>(SoundEffect.class);
 
     public SoundManager() {
         URL musicFile = getClass().getResource("/sounds/music/adventure.wav");
-        backgroundMusic = getClip(musicFile);
-
+        backgroundMusic = getAudioCue(musicFile);
         for (var soundEffect : SoundEffect.values()) {
-            soundEffectUrlMap.put(soundEffect, getClass().getResource(soundEffect.uri));
+            soundEffectMap.put(soundEffect, getAudioCue(getClass().getResource(soundEffect.uri)));
+
         }
     }
 
     public void playMusic() {
         if (DebugSettings.NO_MUSIC) return;
-        backgroundMusic.start();
-        backgroundMusic.loop(Clip.LOOP_CONTINUOUSLY);
-    }
-
-    public void stopMusic() {
-        if (DebugSettings.NO_MUSIC) return;
-        backgroundMusic.stop();
+        int instanceID = backgroundMusic.obtainInstance();
+        backgroundMusic.setLooping(instanceID, -1);
+        backgroundMusic.setVolume(instanceID, 0.5);
+        backgroundMusic.start(instanceID);
     }
 
     public void playSoundEffect(SoundEffect key) {
-        Clip soundEffect = getClip(soundEffectUrlMap.get(key));
-        soundEffect.start();
+        soundEffectMap.get(key).play();
     }
 
-    private Clip getClip(URL url) {
+    private AudioCue getAudioCue(URL url) {
         try {
-            AudioInputStream ais = AudioSystem.getAudioInputStream(url);
-            Clip clip = AudioSystem.getClip();
-            clip.open(ais);
-            return clip;
+            AudioCue soundEffect = AudioCue.makeStereoCue(url, 1);
+            soundEffect.open();
+            return soundEffect;
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             throw new RuntimeException(e);
         }

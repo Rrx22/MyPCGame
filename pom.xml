@@ -21,6 +21,12 @@
             <version>5.8.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <!-- better performance than javax.sound. See docs: https://github.com/philfrei/AudioCue-maven -->
+            <groupId>com.adonax</groupId>
+            <artifactId>audiocue</artifactId>
+            <version>2.1.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

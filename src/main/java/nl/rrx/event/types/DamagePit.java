@@ -19,7 +19,7 @@ public class DamagePit extends Event {
         super.interact();
         STATE_MGR.setState(GameState.DIALOGUE);
         UI.setDialogue("You fell into a pit!");
-        PLAYER.doDamage(1);
+        PLAYER.receiveDamage(1);
     }
 
     @Override

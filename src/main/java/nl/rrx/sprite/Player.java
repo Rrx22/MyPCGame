@@ -1,6 +1,7 @@
 package nl.rrx.sprite;
 
 import nl.rrx.config.settings.SpriteSettings;
+import nl.rrx.sound.SoundEffect;
 import nl.rrx.sprite.monster.Monster;
 import nl.rrx.util.PerformanceUtil;
 
@@ -16,6 +17,7 @@ import static nl.rrx.config.DependencyManager.KEY_HANDLER;
 import static nl.rrx.config.DependencyManager.MONSTER_MGR;
 import static nl.rrx.config.DependencyManager.NPC_MGR;
 import static nl.rrx.config.DependencyManager.OBJECT_MGR;
+import static nl.rrx.config.DependencyManager.SOUND_MGR;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 import static nl.rrx.config.settings.WorldSettings.SPEED_BOOST;
@@ -190,10 +192,11 @@ public class Player extends Sprite {
         return screenY;
     }
 
-    public void doDamage(int damage) {
+    public void receiveDamage(int damage) {
         if (!isTemporarilyInvincible) {
             healthPoints -= damage;
             isTemporarilyInvincible = true;
+            SOUND_MGR.playSoundEffect(SoundEffect.RECEIVE_DMG);
         }
     }
 

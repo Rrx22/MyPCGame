@@ -37,6 +37,6 @@ public class GreenSlime extends Monster {
 
     @Override
     public void attackPlayer() {
-        PLAYER.doDamage(1);
+        PLAYER.receiveDamage(1);
     }
 }

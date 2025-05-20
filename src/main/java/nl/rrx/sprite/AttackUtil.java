@@ -1,5 +1,6 @@
 package nl.rrx.sprite;
 
+import nl.rrx.sound.SoundEffect;
 import nl.rrx.util.PerformanceUtil;
 
 import java.awt.Rectangle;
@@ -8,6 +9,7 @@ import java.awt.image.BufferedImage;
 import static nl.rrx.config.DependencyManager.COLLISION_UTIL;
 import static nl.rrx.config.DependencyManager.MONSTER_MGR;
 import static nl.rrx.config.DependencyManager.PLAYER;
+import static nl.rrx.config.DependencyManager.SOUND_MGR;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.util.CollisionUtil.NO_HIT;
 
@@ -66,9 +68,12 @@ public record AttackUtil(
             int monsterIdx = COLLISION_UTIL.checkSprite(PLAYER, MONSTER_MGR.getMonsters());
             if (monsterIdx != NO_HIT) {
                 player.hit(MONSTER_MGR.get(monsterIdx));
+                SOUND_MGR.playSoundEffect(SoundEffect.HIT_MONSTER);
+            } else {
+                SOUND_MGR.playSoundEffect(SoundEffect.SWING_WEAPON);
             }
-        } else {
-            // do whatever a npc would do if it attacks
+        } else if (sprite instanceof NonPlayerSprite nps) {
+            // do NPC / monster attack stuff ?
         }
 
         // restore original settings

@@ -42,6 +42,9 @@ public abstract class NonPlayerSprite extends Sprite {
             if (isTemporarilyInvincible) { // transparant if invincible
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
             }
+            if (isDying) {
+                handleDying(g2);
+            }
             g2.drawImage(image, screenX, screenY, null);
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f)); // reset transparency
             COLLISION_UTIL.drawIfDebug(g2, Color.YELLOW, screenX, screenY, collisionArea);

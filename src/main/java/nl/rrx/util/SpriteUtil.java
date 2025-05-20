@@ -40,8 +40,10 @@ public class SpriteUtil {
             return true;
         }
         if (spriteCounter <= 25) {
+            if (spriteCounter == 11) {
+                attackUtil.handleAttack(sprite);
+            }
             spriteNum = 2;
-            attackUtil.handleAttack(sprite);
             return true;
         }
         spriteNum = 1;

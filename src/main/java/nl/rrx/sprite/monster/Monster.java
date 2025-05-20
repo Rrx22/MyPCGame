@@ -45,8 +45,8 @@ public abstract class Monster extends NonPlayerSprite {
 
         healthPoints -= 1;
         isTemporarilyInvincible = true;
-        if (healthPoints < 1) {
-            MONSTER_MGR.remove(this);
+        if (healthPoints <= 0) {
+            this.isDying = true;
         }
     }
 }
