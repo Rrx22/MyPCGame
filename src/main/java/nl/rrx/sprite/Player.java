@@ -181,7 +181,8 @@ public class Player extends Sprite {
     }
 
     private void loadPlayerAttackImages(String imageTypeName) {
-        attackUtil = AttackUtil.buildAndLoadImages(AttackType.MELEE, 36, 36, IMG_ROOT + imageTypeName);
+        AttackType attackType = "wizard".equals(imageTypeName) ? AttackType.MAGIC : AttackType.SWORD;
+        attackUtil = AttackUtil.buildAndLoadImages(attackType, 36, 36, IMG_ROOT + imageTypeName);
     }
 
     public int getScreenX() {

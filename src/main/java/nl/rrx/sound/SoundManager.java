@@ -32,8 +32,8 @@ public class SoundManager {
         backgroundMusic.start(instanceID);
     }
 
-    public void playSoundEffect(SoundEffect key) {
-        soundEffectMap.get(key).play();
+    public void playSoundEffect(SoundEffect soundEffect) {
+        soundEffectMap.get(soundEffect).play(soundEffect.volume);
     }
 
     private AudioCue getAudioCue(URL url) {

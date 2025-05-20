@@ -1,6 +1,5 @@
 package nl.rrx.sprite;
 
-import nl.rrx.sound.SoundEffect;
 import nl.rrx.util.PerformanceUtil;
 
 import java.awt.Rectangle;
@@ -42,12 +41,11 @@ public record AttackUtil(
 
     public void handleAttack(Sprite sprite) {
         switch (type) {
-            case MELEE -> doMeleeAttack(sprite);
-            case RANGED -> doRangedAttack(sprite);
+            case SWORD, MAGIC -> doCloseRangeAttack(sprite);
         }
     }
 
-    private void doMeleeAttack(Sprite sprite) {
+    private void doCloseRangeAttack(Sprite sprite) {
         // save current info to reset after hit
         int currentWorldX = sprite.getWorldX();
         int currentWorldY = sprite.getWorldY();
@@ -68,9 +66,9 @@ public record AttackUtil(
             int monsterIdx = COLLISION_UTIL.checkSprite(PLAYER, MONSTER_MGR.getMonsters());
             if (monsterIdx != NO_HIT) {
                 player.hit(MONSTER_MGR.get(monsterIdx));
-                SOUND_MGR.playSoundEffect(SoundEffect.HIT_MONSTER);
+                SOUND_MGR.playSoundEffect(type.hitSound);
             } else {
-                SOUND_MGR.playSoundEffect(SoundEffect.SWING_WEAPON);
+                SOUND_MGR.playSoundEffect(type.missSound);
             }
         } else if (sprite instanceof NonPlayerSprite nps) {
             // do NPC / monster attack stuff ?
@@ -81,10 +79,5 @@ public record AttackUtil(
         sprite.setWorldY(currentWorldY);
         sprite.getCollisionArea().width = collisionAreaWidth;
         sprite.getCollisionArea().height = collisionAreaHeight;
-    }
-
-    private void doRangedAttack(Sprite sprite) {
-        // todo implement
-        System.out.println(sprite + " does a ranged attack!");
     }
 }
