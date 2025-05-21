@@ -19,8 +19,8 @@ public class SpriteSettings {
     public static final int PLAYER_RECT_Y = TILE_SIZE / 2;
     public static final int PLAYER_RECT_WIDTH_HEIGHT = (TILE_SIZE / 4) * 2;
     //  - WORLD POSITION
-    public static final int INIT_WORLD_X = 23;
-    public static final int INIT_WORLD_Y = 22;
+    public static final int INIT_WORLD_X = 28;
+    public static final int INIT_WORLD_Y = 28;
     public static final int INIT_SCREEN_X = SCREEN_WIDTH / 2 - (TILE_SIZE / 2);
     public static final int INIT_SCREEN_Y = SCREEN_HEIGHT / 2 - (TILE_SIZE / 2);
     public static final int INIT_SPEED = 4;

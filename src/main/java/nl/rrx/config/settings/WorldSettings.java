@@ -17,7 +17,7 @@ public class WorldSettings {
     public static final int SPEED_BOOST = 2;
 
     // EVENT
-    public static final int DEFAULT_EVENT_OUTLINER = TILE_SIZE / 2 - 1;
-    public static final int DEFAULT_EVENT_SIZE = 2;
+    public static final int DEFAULT_EVENT_SIZE = TILE_SIZE / 3;
+    public static final int DEFAULT_EVENT_OUTLINER = TILE_SIZE / 3 - 1;
 
 }

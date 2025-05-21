@@ -2,6 +2,7 @@ package nl.rrx.event.types;
 
 import nl.rrx.event.Event;
 import nl.rrx.sound.SoundEffect;
+import nl.rrx.sprite.Direction;
 import nl.rrx.state.GameState;
 
 import static nl.rrx.config.DependencyManager.KEY_HANDLER;
@@ -14,8 +15,8 @@ public class HealingPool extends Event {
 
     private static final int MAX_HEALING_INTERACTIONS = 3;
 
-    public HealingPool(int x, int y) {
-        super(x, y, null, true);
+    public HealingPool(int x, int y, Direction direction) {
+        super(x, y, direction, true);
     }
 
     @Override

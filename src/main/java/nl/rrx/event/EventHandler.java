@@ -22,9 +22,11 @@ public class EventHandler {
 
     public EventHandler() {
         events = new Event[]{
-                new DamagePit(29, 20, Direction.RIGHT),
-                new HealingPool(23, 22),
-                new Teleport(22, 22, 46, 21),
+                new DamagePit(32, 30, Direction.RIGHT),
+                new DamagePit(29, 37, Direction.DOWN),
+                new HealingPool(28, 16, Direction.UP),
+                new Teleport(14, 15, 3, 5),
+                new Teleport(3, 6, 14, 14),
         };
     }
 

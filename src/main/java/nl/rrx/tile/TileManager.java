@@ -20,7 +20,7 @@ import static nl.rrx.util.ScreenUtil.isWithinScreenBoundary;
 
 public class TileManager {
 
-    private static final String MAP_TXT_FILE = "/maps/woodlands.txt";
+    private static final String MAP_TXT_FILE = "/maps/island.txt";
 
     private final Map<Integer, Tile> tiles = new HashMap<>();
     private final int[][] mapTileNum = new int[MAX_WORLD_COL][MAX_WORLD_ROW];

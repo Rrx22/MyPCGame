@@ -14,11 +14,10 @@ public class NPCManager {
     }
 
     public void loadNPCs() {
-        this.npcs[0] = new Wizard(16, 12);
-        this.npcs[1] = new Rogue(15, 15);
-        this.npcs[2] = new Knight(9, 15);
-        this.npcs[3] = new Giant(9, 23);
-        this.npcs[4] = new Knight(47, 22);
+        this.npcs[0] = new Wizard(26, 30);
+        this.npcs[1] = new Rogue(30, 28);
+        this.npcs[2] = new Knight(32, 33);
+        this.npcs[3] = new Giant(11, 17);
     }
 
     public void updateNPCs() {
