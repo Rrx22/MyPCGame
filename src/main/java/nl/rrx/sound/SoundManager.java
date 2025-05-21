@@ -28,7 +28,7 @@ public class SoundManager {
         if (DebugSettings.NO_MUSIC) return;
         int instanceID = backgroundMusic.obtainInstance();
         backgroundMusic.setLooping(instanceID, -1);
-        backgroundMusic.setVolume(instanceID, 0.5);
+        backgroundMusic.setVolume(instanceID, 0.6);
         backgroundMusic.start(instanceID);
     }
 
@@ -38,7 +38,7 @@ public class SoundManager {
 
     private AudioCue getAudioCue(URL url) {
         try {
-            AudioCue soundEffect = AudioCue.makeStereoCue(url, 1);
+            AudioCue soundEffect = AudioCue.makeStereoCue(url, 4);
             soundEffect.open();
             return soundEffect;
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {

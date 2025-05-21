@@ -8,6 +8,7 @@ public enum SoundEffect {
     HIT_MONSTER("hitmonster.wav"),
     RECEIVE_DMG("receivedmg.wav"),
     SWING_WEAPON("swingweapon.wav"),
+    FIRE_SPELL("fire_spell.wav")
     // https://freesound.org/
     ;
 

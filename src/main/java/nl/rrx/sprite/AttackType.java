@@ -4,7 +4,7 @@ import nl.rrx.sound.SoundEffect;
 
 public enum AttackType {
     SWORD(SoundEffect.HIT_MONSTER, SoundEffect.SWING_WEAPON),
-    MAGIC(SoundEffect.UNLOCK); // todo find a proper sound effect for this
+    MAGIC(SoundEffect.FIRE_SPELL);
 
     public final SoundEffect hitSound;
     public final SoundEffect missSound;
