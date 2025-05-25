@@ -10,13 +10,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import static nl.rrx.config.DependencyManager.EVENT_HANDLER;
+import static nl.rrx.config.DependencyManager.EVENT_MGR;
 import static nl.rrx.config.DependencyManager.KEY_HANDLER;
 import static nl.rrx.config.DependencyManager.MONSTER_MGR;
 import static nl.rrx.config.DependencyManager.NPC_MGR;
 import static nl.rrx.config.DependencyManager.PLAYER;
-import static nl.rrx.config.DependencyManager.STATE_MGR;
-import static nl.rrx.config.DependencyManager.TILE_MGR;
+import static nl.rrx.config.DependencyManager.STATE_HANDLER;
+import static nl.rrx.config.DependencyManager.TILE_HANDLER;
 import static nl.rrx.config.DependencyManager.UI;
 import static nl.rrx.config.settings.ScreenSettings.SCREEN_SIZE;
 
@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setUpGame() {
-        STATE_MGR.setStartState();
+        STATE_HANDLER.setStartState();
     }
 
     public void startGameThread() {
@@ -53,12 +53,12 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void update() {
-        if (STATE_MGR.currentState() == GameState.PLAY) {
+        if (STATE_HANDLER.currentState() == GameState.PLAY) {
             PLAYER.update();
             NPC_MGR.updateNPCs();
             MONSTER_MGR.updateMonsters();
-            EVENT_HANDLER.checkEvent();
-        } else if (STATE_MGR.currentState() == GameState.PAUSE) {
+            EVENT_MGR.checkEvent();
+        } else if (STATE_HANDLER.currentState() == GameState.PAUSE) {
             // add options such as LOAD GAME
         }
     }
@@ -70,9 +70,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D) g;
 
-        if (STATE_MGR.currentState() != GameState.TITLE_SCREEN) {
-            TILE_MGR.draw(g2);
-            EVENT_HANDLER.draw(g2);
+        if (STATE_HANDLER.currentState() != GameState.TITLE_SCREEN) {
+            TILE_HANDLER.draw(g2);
+            EVENT_MGR.draw(g2);
             SortedDrawable.drawSpritesAndObjectsInOrder(g2);
             if (DebugSettings.DRAW_DEBUG_STATS) UI.drawDebugStats(g2, drawStart); // this needs to happen right here
         }

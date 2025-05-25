@@ -2,7 +2,7 @@ package nl.rrx.state;
 
 import nl.rrx.config.settings.DebugSettings;
 
-public class StateManager {
+public class StateHandler {
 
     private GameState currentState;
 

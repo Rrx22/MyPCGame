@@ -12,12 +12,12 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import static nl.rrx.config.DependencyManager.COLLISION_UTIL;
-import static nl.rrx.config.DependencyManager.EVENT_HANDLER;
+import static nl.rrx.config.DependencyManager.EVENT_MGR;
 import static nl.rrx.config.DependencyManager.KEY_HANDLER;
 import static nl.rrx.config.DependencyManager.MONSTER_MGR;
 import static nl.rrx.config.DependencyManager.NPC_MGR;
 import static nl.rrx.config.DependencyManager.OBJECT_MGR;
-import static nl.rrx.config.DependencyManager.SOUND_MGR;
+import static nl.rrx.config.DependencyManager.SOUND_HANDLER;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 import static nl.rrx.config.settings.WorldSettings.SPEED_BOOST;
@@ -104,7 +104,7 @@ public class Player extends Sprite {
     @Override
     protected void move() {
         if (isAttacking || KEY_HANDLER.isEnterPressed()) {
-            boolean doNotAttack = EVENT_HANDLER.checkIfEnterWillTriggerAnEvent() || // trigger event instead
+            boolean doNotAttack = EVENT_MGR.checkIfEnterWillTriggerAnEvent() || // trigger event instead
                     (COLLISION_UTIL.checkSprite(this, NPC_MGR.getNPCs()) != NO_HIT); // trigger npc dialogue instead
             if (doNotAttack) {
                 isAttacking = false;
@@ -197,7 +197,7 @@ public class Player extends Sprite {
         if (!isTemporarilyInvincible) {
             healthPoints -= damage;
             isTemporarilyInvincible = true;
-            SOUND_MGR.playSoundEffect(SoundEffect.RECEIVE_DMG);
+            SOUND_HANDLER.playSoundEffect(SoundEffect.RECEIVE_DMG);
         }
     }
 

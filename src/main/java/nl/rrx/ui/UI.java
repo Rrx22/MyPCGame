@@ -7,7 +7,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 import static nl.rrx.config.DependencyManager.PLAYER;
-import static nl.rrx.config.DependencyManager.STATE_MGR;
+import static nl.rrx.config.DependencyManager.STATE_HANDLER;
 import static nl.rrx.ui.UIUtil.importFont;
 
 public class UI {
@@ -25,7 +25,7 @@ public class UI {
     public void draw(Graphics2D g2) {
         g2.setColor(Color.white);
 
-        switch (STATE_MGR.currentState()) {
+        switch (STATE_HANDLER.currentState()) {
             case PLAY -> PlayUI.draw(g2, PLAYER);
             case PAUSE -> PauseUI.draw(g2, fontBold);
             case DIALOGUE -> DialogueUI.draw(g2, fontPlain, dialogue);

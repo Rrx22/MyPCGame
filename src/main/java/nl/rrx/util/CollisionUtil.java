@@ -15,7 +15,7 @@ import java.awt.Rectangle;
 
 import static nl.rrx.config.DependencyManager.OBJECT_MGR;
 import static nl.rrx.config.DependencyManager.PLAYER;
-import static nl.rrx.config.DependencyManager.TILE_MGR;
+import static nl.rrx.config.DependencyManager.TILE_HANDLER;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_OUTLINER;
 import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_SIZE;
@@ -47,33 +47,33 @@ public class CollisionUtil {
         switch (sprite.getDirection()) {
             case UP -> {
                 spriteTopRow = (spriteTopWorldY - sprite.getSpeed()) / TILE_SIZE;
-                int tileUpperLeft = TILE_MGR.getTileNum(spriteLeftCol, spriteTopRow);
-                int tileUpperRight = TILE_MGR.getTileNum(spriteRightCol, spriteTopRow);
-                if (TILE_MGR.getTile(tileUpperLeft).isCollision() || TILE_MGR.getTile(tileUpperRight).isCollision()) {
+                int tileUpperLeft = TILE_HANDLER.getTileNum(spriteLeftCol, spriteTopRow);
+                int tileUpperRight = TILE_HANDLER.getTileNum(spriteRightCol, spriteTopRow);
+                if (TILE_HANDLER.getTile(tileUpperLeft).isCollision() || TILE_HANDLER.getTile(tileUpperRight).isCollision()) {
                     sprite.setCollisionOn(true);
                 }
             }
             case DOWN -> {
                 spriteBottomRow = (spriteBottomWorldY + sprite.getSpeed()) / TILE_SIZE;
-                int tileLowerLeft = TILE_MGR.getTileNum(spriteLeftCol, spriteBottomRow);
-                int tileLowerRight = TILE_MGR.getTileNum(spriteRightCol, spriteBottomRow);
-                if (TILE_MGR.getTile(tileLowerLeft).isCollision() || TILE_MGR.getTile(tileLowerRight).isCollision()) {
+                int tileLowerLeft = TILE_HANDLER.getTileNum(spriteLeftCol, spriteBottomRow);
+                int tileLowerRight = TILE_HANDLER.getTileNum(spriteRightCol, spriteBottomRow);
+                if (TILE_HANDLER.getTile(tileLowerLeft).isCollision() || TILE_HANDLER.getTile(tileLowerRight).isCollision()) {
                     sprite.setCollisionOn(true);
                 }
             }
             case LEFT -> {
                 spriteLeftCol = (spriteLeftWorldX - sprite.getSpeed()) / TILE_SIZE;
-                int tileUpperLeft = TILE_MGR.getTileNum(spriteLeftCol, spriteTopRow);
-                int tileLowerLeft = TILE_MGR.getTileNum(spriteLeftCol, spriteBottomRow);
-                if (TILE_MGR.getTile(tileUpperLeft).isCollision() || TILE_MGR.getTile(tileLowerLeft).isCollision()) {
+                int tileUpperLeft = TILE_HANDLER.getTileNum(spriteLeftCol, spriteTopRow);
+                int tileLowerLeft = TILE_HANDLER.getTileNum(spriteLeftCol, spriteBottomRow);
+                if (TILE_HANDLER.getTile(tileUpperLeft).isCollision() || TILE_HANDLER.getTile(tileLowerLeft).isCollision()) {
                     sprite.setCollisionOn(true);
                 }
             }
             case RIGHT -> {
                 spriteRightCol = (spriteRightWorldX + sprite.getSpeed()) / TILE_SIZE;
-                int tileUpperRight = TILE_MGR.getTileNum(spriteRightCol, spriteTopRow);
-                int tileLowerRight = TILE_MGR.getTileNum(spriteRightCol, spriteBottomRow);
-                if (TILE_MGR.getTile(tileUpperRight).isCollision() || TILE_MGR.getTile(tileLowerRight).isCollision()) {
+                int tileUpperRight = TILE_HANDLER.getTileNum(spriteRightCol, spriteTopRow);
+                int tileLowerRight = TILE_HANDLER.getTileNum(spriteRightCol, spriteBottomRow);
+                if (TILE_HANDLER.getTile(tileUpperRight).isCollision() || TILE_HANDLER.getTile(tileLowerRight).isCollision()) {
                     sprite.setCollisionOn(true);
                 }
             }

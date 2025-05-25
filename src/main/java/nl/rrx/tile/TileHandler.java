@@ -18,14 +18,14 @@ import static nl.rrx.config.settings.WorldSettings.MAX_WORLD_COL;
 import static nl.rrx.config.settings.WorldSettings.MAX_WORLD_ROW;
 import static nl.rrx.util.ScreenUtil.isWithinScreenBoundary;
 
-public class TileManager {
+public class TileHandler {
 
     private static final String MAP_TXT_FILE = "/maps/island.txt";
 
     private final Map<Integer, Tile> tiles = new HashMap<>();
     private final int[][] mapTileNum = new int[MAX_WORLD_COL][MAX_WORLD_ROW];
 
-    public TileManager() {
+    public TileHandler() {
         loadTileImages();
         loadMap();
     }

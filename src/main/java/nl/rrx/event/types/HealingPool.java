@@ -7,8 +7,8 @@ import nl.rrx.state.GameState;
 
 import static nl.rrx.config.DependencyManager.KEY_HANDLER;
 import static nl.rrx.config.DependencyManager.PLAYER;
-import static nl.rrx.config.DependencyManager.SOUND_MGR;
-import static nl.rrx.config.DependencyManager.STATE_MGR;
+import static nl.rrx.config.DependencyManager.SOUND_HANDLER;
+import static nl.rrx.config.DependencyManager.STATE_HANDLER;
 import static nl.rrx.config.DependencyManager.UI;
 
 public class HealingPool extends Event {
@@ -22,10 +22,10 @@ public class HealingPool extends Event {
     @Override
     public void interact() {
         super.interact();
-        STATE_MGR.setState(GameState.DIALOGUE);
+        STATE_HANDLER.setState(GameState.DIALOGUE);
         if (interactCount <= MAX_HEALING_INTERACTIONS) {
             UI.setDialogue("You drank some water.\nYour life has been recovered!");
-            SOUND_MGR.playSoundEffect(SoundEffect.COIN);
+            SOUND_HANDLER.playSoundEffect(SoundEffect.COIN);
             PLAYER.recoverHP();
         } else {
             UI.setDialogue("This healing pool is depleted.");

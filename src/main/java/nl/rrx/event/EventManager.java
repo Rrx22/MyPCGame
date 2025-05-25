@@ -16,11 +16,11 @@ import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_OUTLINER;
 import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_SIZE;
 
-public class EventHandler {
+public class EventManager {
 
     private final Event[] events;
 
-    public EventHandler() {
+    public EventManager() {
         events = new Event[]{
                 new DamagePit(32, 30, Direction.RIGHT),
                 new DamagePit(29, 37, Direction.DOWN),

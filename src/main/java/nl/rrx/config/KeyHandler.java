@@ -7,7 +7,7 @@ import nl.rrx.ui.TitleScreen;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import static nl.rrx.config.DependencyManager.STATE_MGR;
+import static nl.rrx.config.DependencyManager.STATE_HANDLER;
 
 public class KeyHandler implements KeyListener {
 
@@ -26,7 +26,7 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        switch (STATE_MGR.currentState()) {
+        switch (STATE_HANDLER.currentState()) {
             case PLAY -> handleKeysForPlayState(code);
             case PAUSE -> handleKeysForPauseState(code);
             case DIALOGUE -> handleKeysForDialogueState(code);
@@ -38,7 +38,7 @@ public class KeyHandler implements KeyListener {
         if (DebugSettings.ENABLED && code == KeyEvent.VK_Q) System.exit(0);
 
         if (code == KeyEvent.VK_P) {
-            STATE_MGR.pressPause();
+            STATE_HANDLER.pressPause();
             return;
         }
         if (code == KeyEvent.VK_ENTER) {
@@ -61,13 +61,13 @@ public class KeyHandler implements KeyListener {
 
     private void handleKeysForPauseState(int code) {
         if (code == KeyEvent.VK_P) {
-            STATE_MGR.pressPause();
+            STATE_HANDLER.pressPause();
         }
     }
 
     private void handleKeysForDialogueState(int code) {
         if (code == KeyEvent.VK_ENTER) {
-            STATE_MGR.setState(GameState.PLAY);
+            STATE_HANDLER.setState(GameState.PLAY);
         }
     }
 

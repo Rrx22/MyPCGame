@@ -9,8 +9,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import static nl.rrx.config.DependencyManager.PLAYER;
-import static nl.rrx.config.DependencyManager.SOUND_MGR;
-import static nl.rrx.config.DependencyManager.STATE_MGR;
+import static nl.rrx.config.DependencyManager.SOUND_HANDLER;
+import static nl.rrx.config.DependencyManager.STATE_HANDLER;
 import static nl.rrx.config.settings.ScreenSettings.SCREEN_HEIGHT;
 import static nl.rrx.config.settings.ScreenSettings.SCREEN_WIDTH;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
@@ -92,8 +92,8 @@ public class TitleScreen {
                 default -> "boy";
             };
             PLAYER.loadPlayerImages(playerClass);
-            SOUND_MGR.playMusic();
-            STATE_MGR.setState(GameState.PLAY);
+            SOUND_HANDLER.playMusic();
+            STATE_HANDLER.setState(GameState.PLAY);
         }
     }
 
