@@ -13,6 +13,8 @@ import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.DependencyManager.SOUND_HANDLER;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.util.CollisionUtil.NO_HIT;
+import static nl.rrx.util.ScreenUtil.getScreenX;
+import static nl.rrx.util.ScreenUtil.getScreenY;
 
 public record AttackUtil(
         AttackType attackType,
@@ -86,8 +88,8 @@ public record AttackUtil(
             int[] worldXY = computeAttackWorldXY(sprite);
             int worldX = worldXY[0];
             int worldY = worldXY[1];
-            int screenX = worldX - PLAYER.getWorldX() + PLAYER.getScreenX();
-            int screenY = worldY - PLAYER.getWorldY() + PLAYER.getScreenY();
+            int screenX = getScreenX(worldX);
+            int screenY = getScreenY(worldY);
             var atkCollisionArea = new Rectangle(sprite.getCollisionArea().x, sprite.getCollisionArea().y, attackArea.width, attackArea.height);
             COLLISION_UTIL.drawIfDebug(g2, color, screenX, screenY, atkCollisionArea);
         }

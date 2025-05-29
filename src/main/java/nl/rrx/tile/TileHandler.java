@@ -16,6 +16,8 @@ import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.MAX_WORLD_COL;
 import static nl.rrx.config.settings.WorldSettings.MAX_WORLD_ROW;
+import static nl.rrx.util.ScreenUtil.getScreenX;
+import static nl.rrx.util.ScreenUtil.getScreenY;
 import static nl.rrx.util.ScreenUtil.isWithinScreenBoundary;
 
 public class TileHandler {
@@ -53,10 +55,10 @@ public class TileHandler {
     public void draw(Graphics2D g2) {
         for (int worldCol = 0; worldCol < MAX_WORLD_COL; worldCol++) {
             int worldX = worldCol * TILE_SIZE;
-            int screenX = worldX - PLAYER.getWorldX() + PLAYER.getScreenX();
+            int screenX = getScreenX(worldX);
             for (int worldRow = 0; worldRow < MAX_WORLD_ROW; worldRow++) {
                 int worldY = worldRow * TILE_SIZE;
-                int screenY = worldY - PLAYER.getWorldY() + PLAYER.getScreenY();
+                int screenY = getScreenY(worldY);
 
                 if (isWithinScreenBoundary(PLAYER, worldX, worldY)) {
                     int tileNum = mapTileNum[worldCol][worldRow];

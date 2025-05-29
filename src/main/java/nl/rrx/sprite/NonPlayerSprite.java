@@ -15,6 +15,8 @@ import java.util.Random;
 import static nl.rrx.config.DependencyManager.COLLISION_UTIL;
 import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
+import static nl.rrx.util.ScreenUtil.getScreenX;
+import static nl.rrx.util.ScreenUtil.getScreenY;
 
 public abstract class NonPlayerSprite extends Sprite {
 
@@ -37,8 +39,8 @@ public abstract class NonPlayerSprite extends Sprite {
     public void draw(Graphics2D g2) {
         if (ScreenUtil.isWithinScreenBoundary(PLAYER, worldX, worldY)) {
             BufferedImage image = getBufferedImage();
-            int screenX = worldX - PLAYER.getWorldX() + PLAYER.getScreenX();
-            int screenY = worldY - PLAYER.getWorldY() + PLAYER.getScreenY();
+            int screenX = getScreenX(worldX);
+            int screenY = getScreenY(worldY);
             if (isTemporarilyInvincible) { // transparant if invincible
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
             }

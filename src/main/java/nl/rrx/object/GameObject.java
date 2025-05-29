@@ -12,6 +12,8 @@ import java.awt.image.BufferedImage;
 
 import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
+import static nl.rrx.util.ScreenUtil.getScreenX;
+import static nl.rrx.util.ScreenUtil.getScreenY;
 import static nl.rrx.util.ScreenUtil.isWithinScreenBoundary;
 
 public class GameObject implements SortedDrawable {
@@ -45,8 +47,8 @@ public class GameObject implements SortedDrawable {
     @Override
     public void draw(Graphics2D g2) {
         if (isWithinScreenBoundary(PLAYER, worldX, worldY)) {
-            int screenX = worldX - PLAYER.getWorldX() + PLAYER.getScreenX() - offsetX;
-            int screenY = worldY - PLAYER.getWorldY() + PLAYER.getScreenY() - offsetY;
+            int screenX = getScreenX(worldX) - offsetX;
+            int screenY = getScreenY(worldY) - offsetY;
             g2.drawImage(image, screenX, screenY, null);
             if (DebugSettings.SHOW_COLLISION) drawCollision(g2, screenX, screenY);
         }

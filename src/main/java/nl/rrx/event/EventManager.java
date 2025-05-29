@@ -11,10 +11,11 @@ import java.awt.Rectangle;
 import java.util.Arrays;
 
 import static nl.rrx.config.DependencyManager.COLLISION_UTIL;
-import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_OUTLINER;
 import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_SIZE;
+import static nl.rrx.util.ScreenUtil.getScreenX;
+import static nl.rrx.util.ScreenUtil.getScreenY;
 
 public class EventManager {
 
@@ -45,8 +46,8 @@ public class EventManager {
             }
             int x = event.x * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
             int y = event.y * TILE_SIZE + DEFAULT_EVENT_OUTLINER;
-            int screenX = x - PLAYER.getWorldX() + PLAYER.getScreenX();
-            int screenY = y - PLAYER.getWorldY() + PLAYER.getScreenY();
+            int screenX = getScreenX(x);
+            int screenY = getScreenY(y);
             COLLISION_UTIL.drawIfDebug(g2, Color.magenta, screenX, screenY, new Rectangle(0, 0, DEFAULT_EVENT_SIZE, DEFAULT_EVENT_SIZE));
         }
     }
