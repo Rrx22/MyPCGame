@@ -89,7 +89,7 @@ public class Player extends Sprite {
             }
         };
         g2.drawImage(image, screenX + offsetX, screenY + offsetY, null);
-        attackUtil.drawIfDebug(g2, this);
+        attackUtil.drawIfDebug(g2, this, Color.red);
     }
 
     private void drawWalkImage(Graphics2D g2, boolean isNewDirection) {

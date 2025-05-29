@@ -42,8 +42,8 @@ public record AttackUtil(
     }
 
     public void handleAttack(Sprite sprite) {
-        switch (attackType) {
-            case SWORD, MAGIC -> doCloseRangeAttack(sprite);
+        if (attackType.isCloseRange()) {
+            doCloseRangeAttack(sprite);
         }
     }
 
@@ -81,14 +81,16 @@ public record AttackUtil(
         sprite.getCollisionArea().height = collisionAreaHeight;
     }
 
-    public void drawIfDebug(Graphics2D g2, Sprite sprite) {
-        int[] worldXY = computeAttackWorldXY(sprite);
-        int worldX = worldXY[0];
-        int worldY = worldXY[1];
-        int screenX = worldX - PLAYER.getWorldX() + PLAYER.getScreenX();
-        int screenY = worldY - PLAYER.getWorldY() + PLAYER.getScreenY();
-        var atkCollisionArea = new Rectangle(sprite.getCollisionArea().x, sprite.getCollisionArea().y, attackArea.width, attackArea.height);
-        COLLISION_UTIL.drawIfDebug(g2, Color.blue, screenX, screenY, atkCollisionArea);
+    public void drawIfDebug(Graphics2D g2, Sprite sprite, Color color) {
+        if (attackType.isCloseRange()) {
+            int[] worldXY = computeAttackWorldXY(sprite);
+            int worldX = worldXY[0];
+            int worldY = worldXY[1];
+            int screenX = worldX - PLAYER.getWorldX() + PLAYER.getScreenX();
+            int screenY = worldY - PLAYER.getWorldY() + PLAYER.getScreenY();
+            var atkCollisionArea = new Rectangle(sprite.getCollisionArea().x, sprite.getCollisionArea().y, attackArea.width, attackArea.height);
+            COLLISION_UTIL.drawIfDebug(g2, color, screenX, screenY, atkCollisionArea);
+        }
     }
 
     private int[] computeAttackWorldXY(Sprite sprite) {
@@ -106,6 +108,6 @@ public record AttackUtil(
             case LEFT -> worldX -= TILE_SIZE - attackArea.width / 4;
             case RIGHT -> worldX += TILE_SIZE - attackArea.width / 4;
         }
-        return new int[] {worldX, worldY};
+        return new int[]{worldX, worldY};
     }
 }

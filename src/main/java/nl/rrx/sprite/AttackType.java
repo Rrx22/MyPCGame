@@ -17,4 +17,9 @@ public enum AttackType {
     AttackType(SoundEffect oneSound) {
         this(oneSound, oneSound);
     }
+
+    public boolean isCloseRange() {
+        return this.equals(SWORD)
+                || this.equals(MAGIC);
+    }
 }
