@@ -89,6 +89,7 @@ public class Player extends Sprite {
             }
         };
         g2.drawImage(image, screenX + offsetX, screenY + offsetY, null);
+        attackUtil.drawIfDebug(g2, this);
     }
 
     private void drawWalkImage(Graphics2D g2, boolean isNewDirection) {
@@ -182,7 +183,7 @@ public class Player extends Sprite {
 
     private void loadPlayerAttackImages(String imageTypeName) {
         AttackType attackType = "wizard".equals(imageTypeName) ? AttackType.MAGIC : AttackType.SWORD;
-        attackUtil = AttackUtil.buildAndLoadImages(attackType, 36, 36, IMG_ROOT + imageTypeName);
+        attackUtil = AttackUtil.buildAndLoadImages(attackType, 24, 24, IMG_ROOT + imageTypeName);
     }
 
     public int getScreenX() {

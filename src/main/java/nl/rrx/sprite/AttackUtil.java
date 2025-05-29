@@ -2,6 +2,8 @@ package nl.rrx.sprite;
 
 import nl.rrx.util.PerformanceUtil;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -53,12 +55,9 @@ public record AttackUtil(
         int collisionAreaHeight = sprite.getCollisionArea().height;
 
         // adjust sprite's worldX/Y for attack area
-        switch (sprite.getDirection()) {
-            case UP -> sprite.setWorldY(sprite.getWorldY() - attackArea.height);
-            case DOWN -> sprite.setWorldY(sprite.getWorldY() + attackArea.height);
-            case LEFT -> sprite.setWorldX(sprite.getWorldX() - attackArea.width);
-            case RIGHT -> sprite.setWorldX(sprite.getWorldX() + attackArea.width);
-        }
+        int[] newWorldXY = computeAttackWorldXY(sprite);
+        sprite.setWorldX(newWorldXY[0]);
+        sprite.setWorldY(newWorldXY[1]);
         sprite.getCollisionArea().width = attackArea.width;
         sprite.getCollisionArea().height = attackArea.height;
 
@@ -80,5 +79,33 @@ public record AttackUtil(
         sprite.setWorldY(currentWorldY);
         sprite.getCollisionArea().width = collisionAreaWidth;
         sprite.getCollisionArea().height = collisionAreaHeight;
+    }
+
+    public void drawIfDebug(Graphics2D g2, Sprite sprite) {
+        int[] worldXY = computeAttackWorldXY(sprite);
+        int worldX = worldXY[0];
+        int worldY = worldXY[1];
+        int screenX = worldX - PLAYER.getWorldX() + PLAYER.getScreenX();
+        int screenY = worldY - PLAYER.getWorldY() + PLAYER.getScreenY();
+        var atkCollisionArea = new Rectangle(sprite.getCollisionArea().x, sprite.getCollisionArea().y, attackArea.width, attackArea.height);
+        COLLISION_UTIL.drawIfDebug(g2, Color.blue, screenX, screenY, atkCollisionArea);
+    }
+
+    private int[] computeAttackWorldXY(Sprite sprite) {
+        int worldX = sprite.getWorldX();
+        int worldY = sprite.getWorldY();
+        switch (sprite.getDirection()) {
+            case UP -> {
+                worldX -= attackArea.width / 4;
+                worldY -= TILE_SIZE;
+            }
+            case DOWN -> {
+                worldX -= attackArea.width / 4;
+                worldY += TILE_SIZE - attackArea.height / 2;
+            }
+            case LEFT -> worldX -= TILE_SIZE - attackArea.width / 4;
+            case RIGHT -> worldX += TILE_SIZE - attackArea.width / 4;
+        }
+        return new int[] {worldX, worldY};
     }
 }

@@ -69,7 +69,7 @@ public abstract class Sprite implements SortedDrawable {
             isDying = false;
         }
 
-        int blinkInterval = 5;
+        int blinkInterval = 2;
         if (dyingCounter % blinkInterval != 0) {
             return;
         }
