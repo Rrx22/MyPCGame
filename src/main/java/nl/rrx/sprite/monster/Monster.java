@@ -15,6 +15,7 @@ import static nl.rrx.util.ScreenUtil.getScreenY;
 public abstract class Monster extends NonPlayerSprite {
 
     private static final String MONSTER_IMG_ROOT = "/images/monster/";
+    private static final int HPBAR_OFFSET = TILE_SIZE / 5;
 
     private boolean showHpBar = false;
     private int showHpBarCounter = 0;
@@ -30,7 +31,7 @@ public abstract class Monster extends NonPlayerSprite {
     }
 
     private void drawHpBar(Graphics2D g2) {
-        if (isTemporarilyInvincible) {
+        if (isTemporarilyInvincible && !showHpBar) {
             showHpBar = true;
         }
         if (showHpBarCounter > 300) {
@@ -49,9 +50,9 @@ public abstract class Monster extends NonPlayerSprite {
         double hpBarValue = oneScale * healthPoints;
 
         g2.setColor(new Color(35, 35, 35));
-        g2.fillRect(screenX - 1, screenY - 11, TILE_SIZE + 2, 12); // todo make the scalable
+        g2.fillRect(screenX - 1, screenY - (HPBAR_OFFSET + 1), TILE_SIZE + 2, HPBAR_OFFSET + 2);
         g2.setColor(new Color(255, 0, 30));
-        g2.fillRect(screenX, screenY - 10, (int) hpBarValue, 10);
+        g2.fillRect(screenX, screenY - HPBAR_OFFSET, (int) hpBarValue, HPBAR_OFFSET);
     }
 
     public abstract void attackPlayer();
