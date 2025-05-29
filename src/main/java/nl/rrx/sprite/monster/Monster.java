@@ -16,6 +16,9 @@ public abstract class Monster extends NonPlayerSprite {
 
     private static final String MONSTER_IMG_ROOT = "/images/monster/";
 
+    private boolean showHpBar = false;
+    private int showHpBarCounter = 0;
+
     protected Monster(int startWorldX, int startWorldY) {
         super(startWorldX, startWorldY);
     }
@@ -23,12 +26,32 @@ public abstract class Monster extends NonPlayerSprite {
     @Override
     public void draw(Graphics2D g2) {
         super.draw(g2);
+        drawHpBar(g2);
+    }
+
+    private void drawHpBar(Graphics2D g2) {
+        if (isTemporarilyInvincible) {
+            showHpBar = true;
+        }
+        if (showHpBarCounter > 300) {
+            showHpBar = false;
+            showHpBarCounter = 0;
+        }
+        if (!showHpBar) {
+            return;
+        }
+
+        showHpBarCounter++;
         int screenX = getScreenX(worldX);
         int screenY = getScreenY(worldY);
+
+        double oneScale = (double) TILE_SIZE / maxHP;
+        double hpBarValue = oneScale * healthPoints;
+
         g2.setColor(new Color(35, 35, 35));
-        g2.fillRect(screenX - 1, screenY - 16, TILE_SIZE + 2, 12); // todo make the scalable
+        g2.fillRect(screenX - 1, screenY - 11, TILE_SIZE + 2, 12); // todo make the scalable
         g2.setColor(new Color(255, 0, 30));
-        g2.fillRect(screenX, screenY - 15, TILE_SIZE, 10);
+        g2.fillRect(screenX, screenY - 10, (int) hpBarValue, 10);
     }
 
     public abstract void attackPlayer();

@@ -7,7 +7,7 @@ public class Knight extends NPC {
     protected Knight(int startWorldX, int startWorldY) {
         super(startWorldX, startWorldY);
         speed = 1;
-        actionLockInterval *= 3;
+        slowerActionInterval(3);
         loadImages("knight");
         setDialogues(
                 "For honor and the realm!",

@@ -3,7 +3,7 @@ package nl.rrx.sound;
 public enum SoundEffect {
     FANFARE("fanfare.wav"),
     COIN("coin.wav", 0.7f),
-    POWERUP("powerup.wav"),
+    POWERUP("powerup.wav", 0.7f),
     UNLOCK("unlock.wav"),
     HIT_MONSTER("hitmonster.wav"),
     RECEIVE_DMG("receivedmg.wav"),

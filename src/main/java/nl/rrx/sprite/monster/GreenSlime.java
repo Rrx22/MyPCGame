@@ -10,6 +10,7 @@ public class GreenSlime extends Monster {
 
     public GreenSlime(int startWorldX, int startWorldY) {
         super(startWorldX, startWorldY);
+        slowerActionInterval(2);
         imageTypeAny = true;
         speed = 1;
         maxHP = 4;
@@ -38,5 +39,16 @@ public class GreenSlime extends Monster {
     @Override
     public void attackPlayer() {
         PLAYER.receiveDamage(1);
+    }
+
+    @Override
+    public void doDamage() {
+        super.doDamage();
+        runAwayFromPlayer();
+    }
+
+    private void runAwayFromPlayer() {
+        resetActionLockCounter();
+        this.direction = PLAYER.getDirection();
     }
 }

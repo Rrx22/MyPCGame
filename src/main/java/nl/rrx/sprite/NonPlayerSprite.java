@@ -105,4 +105,12 @@ public abstract class NonPlayerSprite extends Sprite {
             right2 = PerformanceUtil.getScaledImage(getImageDir() + identifier + "/right-2.png", TILE_SIZE, TILE_SIZE);
         }
     }
+
+    protected void slowerActionInterval(int factor) {
+        this.actionLockInterval *= factor;
+    }
+
+    protected void resetActionLockCounter() {
+        this.actionLockCounter = 0;
+    }
 }

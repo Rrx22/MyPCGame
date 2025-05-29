@@ -8,7 +8,7 @@ public class Giant extends NPC {
         super(startWorldX, startWorldY);
         speed = 0;
         direction = Direction.RIGHT;
-        actionLockInterval *= 3;
+        slowerActionInterval(3);
         loadImages("giant");
         setDialogues(
                 "I was guardin' this bridge for…\nuh… since lunch, I think!?",

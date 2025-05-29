@@ -7,7 +7,7 @@ public class Wizard extends NPC {
     protected Wizard(int startWorldX, int startWorldY) {
         super(startWorldX, startWorldY);
         speed = 1;
-        actionLockInterval *= 2;
+        slowerActionInterval(2);
         loadImages("wizard");
         setDialogues(
                 "Hello, lad.",
