@@ -34,6 +34,28 @@ public class Player extends Sprite {
     private final int screenY;
     private boolean isAttacking = false;
 
+
+    //todo  ## LEVEL ##
+    //   and some experience mechanism
+    public int level = 1;
+    public int expUntilNextLevel = 5;
+    public int coins = 0;
+    //todo  ## ATTRIBUTES ##
+    //  - strength
+    //  - dexterity
+    //  - defence
+    //  - magic
+    //  - ...
+    public int strength = 0;
+    public int dexterity = 0;
+    public int magic = 0;
+    public int attack = 0;
+    public int defence = 0;
+    public int exp = 0;
+    //todo  ## GEAR ##
+    //  no longer select a class
+    //  instead, let player gather weapons and gear with stats and different looks
+
     public Player() {
         super(SpriteSettings.INIT_WORLD_X, SpriteSettings.INIT_WORLD_Y);
         screenX = SpriteSettings.INIT_SCREEN_X;
@@ -170,8 +192,8 @@ public class Player extends Sprite {
     }
 
     public void loadPlayerImages(String imageTypeName) {
-        up1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName +  "/up-1.png", TILE_SIZE, TILE_SIZE);
-        up2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName +  "/up-2.png", TILE_SIZE, TILE_SIZE);
+        up1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/up-1.png", TILE_SIZE, TILE_SIZE);
+        up2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/up-2.png", TILE_SIZE, TILE_SIZE);
         down1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/down-1.png", TILE_SIZE, TILE_SIZE);
         down2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/down-2.png", TILE_SIZE, TILE_SIZE);
         left1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/left-1.png", TILE_SIZE, TILE_SIZE);

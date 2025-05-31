@@ -21,8 +21,14 @@ public class StateHandler {
     }
 
     public void pressPause() {
-        currentState = (currentState == GameState.PLAY)
+        currentState = currentState.isPlayState()
                 ? GameState.PAUSE
+                : GameState.PLAY;
+    }
+
+    public void toggleCharacterScreen() {
+        currentState = currentState.isPlayState()
+                ? GameState.CHARACTER_SCREEN
                 : GameState.PLAY;
     }
 }

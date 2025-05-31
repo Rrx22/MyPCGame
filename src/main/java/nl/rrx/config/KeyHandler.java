@@ -31,6 +31,7 @@ public class KeyHandler implements KeyListener {
             case PAUSE -> handleKeysForPauseState(code);
             case DIALOGUE -> handleKeysForDialogueState(code);
             case TITLE_SCREEN -> handleKeysForTitleScreen(code);
+            case CHARACTER_SCREEN -> handleKeysForCharacterState(code);
         }
     }
 
@@ -39,6 +40,10 @@ public class KeyHandler implements KeyListener {
 
         if (code == KeyEvent.VK_P) {
             STATE_HANDLER.pressPause();
+            return;
+        }
+        if (code == KeyEvent.VK_C) {
+            STATE_HANDLER.toggleCharacterScreen();
             return;
         }
         if (code == KeyEvent.VK_ENTER) {
@@ -62,6 +67,12 @@ public class KeyHandler implements KeyListener {
     private void handleKeysForPauseState(int code) {
         if (code == KeyEvent.VK_P) {
             STATE_HANDLER.pressPause();
+        }
+    }
+
+    private void handleKeysForCharacterState(int code) {
+        if (code == KeyEvent.VK_C) {
+            STATE_HANDLER.toggleCharacterScreen();
         }
     }
 

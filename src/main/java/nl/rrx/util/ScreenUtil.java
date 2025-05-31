@@ -24,6 +24,11 @@ public class ScreenUtil {
         return SCREEN_WIDTH / 2 - textLength /2;
     }
 
+    public static int getXForAlignToRightText(Graphics2D g2, String text, int tailX) {
+        int textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        return tailX - textLength;
+    }
+
     public static int getScreenX(int worldX) {
         return worldX - PLAYER.getWorldX() + PLAYER.getScreenX();
     }

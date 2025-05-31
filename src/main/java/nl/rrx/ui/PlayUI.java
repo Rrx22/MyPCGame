@@ -1,12 +1,12 @@
 package nl.rrx.ui;
 
 import nl.rrx.object.GameObjectType;
-import nl.rrx.sprite.Player;
 import nl.rrx.util.PerformanceUtil;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
 class PlayUI {
@@ -18,13 +18,13 @@ class PlayUI {
     private PlayUI() {
     }
 
-    static void draw(Graphics2D g2, Player player) {
-        drawPlayerLife(g2, player);
+    static void draw(Graphics2D g2) {
+        drawPlayerLife(g2);
     }
 
-    private static void drawPlayerLife(Graphics2D g2, Player player) {
-        final int playerHP = player.getHealthPoints();
-        final int playerHearts = player.getMaxHP() / 2;
+    private static void drawPlayerLife(Graphics2D g2) {
+        final int playerHP = PLAYER.getHealthPoints();
+        final int playerHearts = PLAYER.getMaxHP() / 2;
         int x = TILE_SIZE / 2;
         int y = TILE_SIZE / 2;
 

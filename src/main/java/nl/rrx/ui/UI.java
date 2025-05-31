@@ -26,10 +26,11 @@ public class UI {
         g2.setColor(Color.white);
 
         switch (STATE_HANDLER.currentState()) {
-            case PLAY -> PlayUI.draw(g2, PLAYER);
+            case PLAY -> PlayUI.draw(g2);
             case PAUSE -> PauseUI.draw(g2, fontBold);
             case DIALOGUE -> DialogueUI.draw(g2, fontPlain, dialogue);
             case TITLE_SCREEN -> TitleScreen.draw(g2, fontBold);
+            case CHARACTER_SCREEN -> CharacterScreen.draw(g2, fontPlain);
         }
     }
 
