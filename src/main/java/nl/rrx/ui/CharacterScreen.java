@@ -1,6 +1,5 @@
 package nl.rrx.ui;
 
-import nl.rrx.object.GameObjectType;
 import nl.rrx.util.PerformanceUtil;
 
 import java.awt.Color;
@@ -36,14 +35,13 @@ public class CharacterScreen {
         textY = writeLine("Strength", String.valueOf(PLAYER.strength), g2, textX, textY, tailX);
         textY = writeLine("Dexterity", String.valueOf(PLAYER.dexterity), g2, textX, textY, tailX);
         textY = writeLine("Magic", String.valueOf(PLAYER.magic), g2, textX, textY, tailX);
-        textY = writeLine("Attack", String.valueOf(PLAYER.attack), g2, textX, textY, tailX);
-        textY = writeLine("Defence", String.valueOf(PLAYER.defence), g2, textX, textY, tailX);
+        textY = writeLine("Attack", String.valueOf(PLAYER.getAttack()), g2, textX, textY, tailX);
+        textY = writeLine("Defence", String.valueOf(PLAYER.getDefence()), g2, textX, textY, tailX);
         textY = writeLine("Exp", String.valueOf(PLAYER.exp), g2, textX, textY, tailX);
         textY = writeLine("Next level", String.valueOf(PLAYER.expUntilNextLevel), g2, textX, textY, tailX);
         textY = writeLine("Coins", String.valueOf(PLAYER.coins), g2, textX, textY, tailX);
-        // todo show correct images once I created them (fetch from player instead)
-        textY = writeLineWithImg("Weapon", GameObjectType.HEART.imageUri, g2, textX, textY, tailX);
-        textY = writeLineWithImg("Shield", GameObjectType.HEART.imageUri, g2, textX, textY, tailX);
+        textY = writeLineWithImg("Weapon", PLAYER.weapon.imageUri, g2, textX, textY, tailX);
+        writeLineWithImg("Shield", PLAYER.shield.imageUri, g2, textX, textY, tailX);
     }
 
     private static int writeLine(String key, String value, Graphics2D g2, int textX, int textY, int tailX) {

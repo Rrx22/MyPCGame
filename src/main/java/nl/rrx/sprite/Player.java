@@ -1,6 +1,8 @@
 package nl.rrx.sprite;
 
 import nl.rrx.config.settings.SpriteSettings;
+import nl.rrx.object.Shield;
+import nl.rrx.object.Weapon;
 import nl.rrx.sound.SoundEffect;
 import nl.rrx.sprite.monster.Monster;
 import nl.rrx.util.PerformanceUtil;
@@ -49,12 +51,19 @@ public class Player extends Sprite {
     public int strength = 0;
     public int dexterity = 0;
     public int magic = 0;
-    public int attack = 0;
-    public int defence = 0;
     public int exp = 0;
     //todo  ## GEAR ##
     //  no longer select a class
     //  instead, let player gather weapons and gear with stats and different looks
+    public Weapon weapon = Weapon.COMMON_SWORD;
+    public Shield shield = Shield.COMMON;
+
+    public int getAttack() {
+        return strength + weapon.attack;
+    }
+    public int getDefence() {
+        return dexterity + shield.defence;
+    }
 
     public Player() {
         super(SpriteSettings.INIT_WORLD_X, SpriteSettings.INIT_WORLD_Y);
@@ -72,7 +81,7 @@ public class Player extends Sprite {
         collisionArea.width = SpriteSettings.PLAYER_RECT_WIDTH_HEIGHT;
         collisionArea.height = SpriteSettings.PLAYER_RECT_WIDTH_HEIGHT;
 
-        loadPlayerImages("rogue");
+        loadPlayerImages("hero");
     }
 
     @Override
