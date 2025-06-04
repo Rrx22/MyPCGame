@@ -1,6 +1,7 @@
 package nl.rrx.sprite.monster;
 
 import nl.rrx.sprite.NonPlayerSprite;
+import nl.rrx.ui.FloatingBattleMessagesUI;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -20,7 +21,7 @@ public abstract class Monster extends NonPlayerSprite {
 
     protected int attack;
     protected int defense;
-    protected int expReward;
+    protected int exp;
     private boolean showHpBar = false;
     private int showHpBarCounter = 0;
 
@@ -28,7 +29,7 @@ public abstract class Monster extends NonPlayerSprite {
         super(startWorldX, startWorldY);
         this.attack = baseAttack() + level;
         this.defense = baseDefense() + level;
-        this.expReward = baseExpReward() + level;
+        this.exp = baseExp() + level;
         this.maxHP = baseMaxHP() + level;
     }
 
@@ -67,7 +68,7 @@ public abstract class Monster extends NonPlayerSprite {
     public abstract int baseMaxHP();
     public abstract int baseAttack();
     public abstract int baseDefense();
-    public abstract int baseExpReward();
+    public abstract int baseExp();
 
     @Override
     protected void move() {
@@ -95,17 +96,20 @@ public abstract class Monster extends NonPlayerSprite {
         int damage = attack - this.defense;
         if (damage < 1) {
             damage = 1;
+        } else if (damage > healthPoints) {
+            damage = healthPoints;
         }
 
         if (isTemporarilyInvincible) {
             return;
         }
 
+        FloatingBattleMessagesUI.add(this, String.valueOf(damage), FloatingBattleMessagesUI.MessageType.MONSTER_DMG);
         healthPoints -= damage;
         isTemporarilyInvincible = true;
         if (healthPoints <= 0) {
             this.isDying = true;
-            PLAYER.gainExp(1);
+            PLAYER.gainExp(this.exp);
         }
     }
 }

@@ -5,6 +5,7 @@ import nl.rrx.object.Shield;
 import nl.rrx.object.Weapon;
 import nl.rrx.sound.SoundEffect;
 import nl.rrx.sprite.monster.Monster;
+import nl.rrx.ui.FloatingBattleMessagesUI;
 import nl.rrx.util.PerformanceUtil;
 
 import java.awt.AlphaComposite;
@@ -20,6 +21,7 @@ import static nl.rrx.config.DependencyManager.MONSTER_MGR;
 import static nl.rrx.config.DependencyManager.NPC_MGR;
 import static nl.rrx.config.DependencyManager.OBJECT_MGR;
 import static nl.rrx.config.DependencyManager.SOUND_HANDLER;
+import static nl.rrx.config.DependencyManager.UI;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 import static nl.rrx.config.settings.WorldSettings.SPEED_BOOST;
@@ -62,6 +64,7 @@ public class Player extends Sprite {
     public int getAttack() {
         return strength + weapon.attack;
     }
+
     public int getDefence() {
         return dexterity + shield.defence;
     }
@@ -230,10 +233,15 @@ public class Player extends Sprite {
         int damage = attack - getDefence();
         if (damage < 1) {
             damage = 1;
+        } else if (damage > healthPoints) {
+            // todo handle player dying here ?
+            damage = healthPoints;
         }
+
         if (!isTemporarilyInvincible) {
             healthPoints -= damage;
             isTemporarilyInvincible = true;
+            FloatingBattleMessagesUI.add(this, String.valueOf(damage), FloatingBattleMessagesUI.MessageType.PLAYER_DMG);
             SOUND_HANDLER.playSoundEffect(SoundEffect.RECEIVE_DMG);
         }
     }
@@ -258,9 +266,18 @@ public class Player extends Sprite {
         if (this.exp >= expUntilNextLevel) {
             level++;
             skillPoints++;
+            recoverHP();
             this.exp -= expUntilNextLevel;
-            this.expUntilNextLevel *= level;
+            this.expUntilNextLevel *= 2;
             SOUND_HANDLER.playSoundEffect(SoundEffect.POWERUP);
+            UI.setDialogue("You are level " + level + "now!\nYou feel stronger!\n(Press C to power up!)");
         }
+        FloatingBattleMessagesUI.add(this, exp + "xp", FloatingBattleMessagesUI.MessageType.EXP_GAINED);
+    }
+
+    public void skillMaxHp() {
+        maxHP += 2;
+        healthPoints = maxHP;
+        skillPoints--;
     }
 }

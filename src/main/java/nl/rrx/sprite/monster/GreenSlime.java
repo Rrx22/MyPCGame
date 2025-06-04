@@ -11,7 +11,7 @@ public class GreenSlime extends Monster {
     public int baseMaxHP() { return 3; }
     public int baseAttack() { return 3; }
     public int baseDefense() { return 0; }
-    public int baseExpReward() { return 0; }
+    public int baseExp() { return 0; }
 
     public GreenSlime(int level, int startWorldX, int startWorldY) {
         super(level, startWorldX, startWorldY);

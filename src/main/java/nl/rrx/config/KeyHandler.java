@@ -79,14 +79,14 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_S) {
                 PLAYER.strength++;
                 PLAYER.skillPoints--;
-            }
-            if (code == KeyEvent.VK_D) {
+            } else if (code == KeyEvent.VK_D) {
                 PLAYER.dexterity++;
                 PLAYER.skillPoints--;
-            }
-            if (code == KeyEvent.VK_M) {
+            } else if (code == KeyEvent.VK_M) {
                 PLAYER.magic++;
                 PLAYER.skillPoints--;
+            } else if (code == KeyEvent.VK_H) {
+                PLAYER.skillMaxHp();
             }
         }
     }
@@ -94,6 +94,8 @@ public class KeyHandler implements KeyListener {
     private void handleKeysForDialogueState(int code) {
         if (code == KeyEvent.VK_ENTER) {
             STATE_HANDLER.setState(GameState.PLAY);
+        } else if (code == KeyEvent.VK_C) {
+            STATE_HANDLER.setState(GameState.CHARACTER_SCREEN);
         }
     }
 

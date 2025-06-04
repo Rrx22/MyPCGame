@@ -1,6 +1,7 @@
 package nl.rrx.ui;
 
 import nl.rrx.sprite.Sprite;
+import nl.rrx.state.GameState;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -41,6 +42,7 @@ public class UI {
     }
 
     public void setDialogue(String dialogue) {
+        STATE_HANDLER.setState(GameState.DIALOGUE);
         this.dialogue = dialogue;
     }
 }

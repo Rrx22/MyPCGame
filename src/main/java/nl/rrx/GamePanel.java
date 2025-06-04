@@ -4,6 +4,7 @@ import nl.rrx.common.SortedDrawable;
 import nl.rrx.config.FpsHandler;
 import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.state.GameState;
+import nl.rrx.ui.FloatingBattleMessagesUI;
 
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -74,6 +75,7 @@ public class GamePanel extends JPanel implements Runnable {
             TILE_HANDLER.draw(g2);
             EVENT_MGR.draw(g2);
             SortedDrawable.drawSpritesAndObjectsInOrder(g2);
+            FloatingBattleMessagesUI.draw(g2);
             if (DebugSettings.DRAW_DEBUG_STATS) UI.drawDebugStats(g2, drawStart); // this needs to happen right here
         }
         UI.draw(g2);

@@ -2,14 +2,12 @@ package nl.rrx.sprite.npc;
 
 import nl.rrx.sprite.Direction;
 import nl.rrx.sprite.NonPlayerSprite;
-import nl.rrx.state.GameState;
 
 import static nl.rrx.config.DependencyManager.COLLISION_UTIL;
 import static nl.rrx.config.DependencyManager.KEY_HANDLER;
 import static nl.rrx.config.DependencyManager.MONSTER_MGR;
 import static nl.rrx.config.DependencyManager.NPC_MGR;
 import static nl.rrx.config.DependencyManager.PLAYER;
-import static nl.rrx.config.DependencyManager.STATE_HANDLER;
 import static nl.rrx.config.DependencyManager.UI;
 
 public abstract class NPC extends NonPlayerSprite {
@@ -32,7 +30,6 @@ public abstract class NPC extends NonPlayerSprite {
         COLLISION_UTIL.checkSprite(this, MONSTER_MGR.getMonsters());
         if (playerHit && KEY_HANDLER.isEnterPressed() && COLLISION_UTIL.isFacing(PLAYER, this)) {
             speak();
-            STATE_HANDLER.setState(GameState.DIALOGUE);
         }
 
         if (speed == 0) {
