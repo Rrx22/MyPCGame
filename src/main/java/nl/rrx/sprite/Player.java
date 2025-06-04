@@ -227,12 +227,12 @@ public class Player extends Sprite {
     }
 
     public void hurtPlayer(int attack) {
-        int actualDmg = attack - getDefence();
-        if (actualDmg < 1) {
-            return;
+        int damage = attack - getDefence();
+        if (damage < 1) {
+            damage = 1;
         }
         if (!isTemporarilyInvincible) {
-            healthPoints -= actualDmg;
+            healthPoints -= damage;
             isTemporarilyInvincible = true;
             SOUND_HANDLER.playSoundEffect(SoundEffect.RECEIVE_DMG);
         }

@@ -24,11 +24,12 @@ public abstract class Monster extends NonPlayerSprite {
     private boolean showHpBar = false;
     private int showHpBarCounter = 0;
 
-    protected Monster(int attack, int defense, int expReward, int startWorldX, int startWorldY) {
+    protected Monster(int level, int startWorldX, int startWorldY) {
         super(startWorldX, startWorldY);
-        this.attack = attack;
-        this.defense = defense;
-        this.expReward = expReward;
+        this.attack = baseAttack() + level;
+        this.defense = baseDefense() + level;
+        this.expReward = baseExpReward() + level;
+        this.maxHP = baseMaxHP() + level;
     }
 
     @Override
@@ -63,6 +64,10 @@ public abstract class Monster extends NonPlayerSprite {
     }
 
     public abstract void attackPlayer();
+    public abstract int baseMaxHP();
+    public abstract int baseAttack();
+    public abstract int baseDefense();
+    public abstract int baseExpReward();
 
     @Override
     protected void move() {
@@ -89,7 +94,7 @@ public abstract class Monster extends NonPlayerSprite {
     public void hurtMonster(int attack) {
         int damage = attack - this.defense;
         if (damage < 1) {
-            return;
+            damage = 1;
         }
 
         if (isTemporarilyInvincible) {

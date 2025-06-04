@@ -8,12 +8,16 @@ import static nl.rrx.config.DependencyManager.PLAYER;
 
 public class GreenSlime extends Monster {
 
-    public GreenSlime(int startWorldX, int startWorldY) {
-        super(4, 1, 1, startWorldX, startWorldY);
+    public int baseMaxHP() { return 3; }
+    public int baseAttack() { return 3; }
+    public int baseDefense() { return 0; }
+    public int baseExpReward() { return 0; }
+
+    public GreenSlime(int level, int startWorldX, int startWorldY) {
+        super(level, startWorldX, startWorldY);
         slowerActionInterval(2);
         imageTypeAny = true;
         speed = 1;
-        maxHP = 4;
         healthPoints = maxHP;
         collisionArea = new Rectangle();
         collisionArea.x = 3;
