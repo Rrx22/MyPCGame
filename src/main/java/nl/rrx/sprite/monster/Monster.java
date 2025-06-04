@@ -87,7 +87,7 @@ public abstract class Monster extends NonPlayerSprite {
     }
 
     public void hurtMonster(int attack) {
-        int damage = attack - defense;
+        int damage = attack - this.defense;
         if (damage < 1) {
             return;
         }
