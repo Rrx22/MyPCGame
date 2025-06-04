@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import static nl.rrx.config.DependencyManager.COLLISION_UTIL;
 import static nl.rrx.config.DependencyManager.MONSTER_MGR;
 import static nl.rrx.config.DependencyManager.NPC_MGR;
+import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.util.ScreenUtil.getScreenX;
 import static nl.rrx.util.ScreenUtil.getScreenY;
@@ -17,11 +18,17 @@ public abstract class Monster extends NonPlayerSprite {
     private static final String MONSTER_IMG_ROOT = "/images/monster/";
     private static final int HPBAR_OFFSET = TILE_SIZE / 5;
 
+    protected int attack;
+    protected int defense;
+    protected int expReward;
     private boolean showHpBar = false;
     private int showHpBarCounter = 0;
 
-    protected Monster(int startWorldX, int startWorldY) {
+    protected Monster(int attack, int defense, int expReward, int startWorldX, int startWorldY) {
         super(startWorldX, startWorldY);
+        this.attack = attack;
+        this.defense = defense;
+        this.expReward = expReward;
     }
 
     @Override
@@ -79,15 +86,21 @@ public abstract class Monster extends NonPlayerSprite {
         return MONSTER_IMG_ROOT;
     }
 
-    public void doDamage() {
+    public void hurtMonster(int attack) {
+        int damage = attack - defense;
+        if (damage < 1) {
+            return;
+        }
+
         if (isTemporarilyInvincible) {
             return;
         }
 
-        healthPoints -= 1;
+        healthPoints -= damage;
         isTemporarilyInvincible = true;
         if (healthPoints <= 0) {
             this.isDying = true;
+            PLAYER.gainExp(1);
         }
     }
 }

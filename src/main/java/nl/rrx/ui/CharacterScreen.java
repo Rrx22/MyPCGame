@@ -32,19 +32,28 @@ public class CharacterScreen {
 
         textY = writeLine("Level", String.valueOf(PLAYER.level), g2, textX, textY, tailX);
         textY = writeLine("Health", PLAYER.getHealthPoints() + "/" + PLAYER.getMaxHP(), g2, textX, textY, tailX);
-        textY = writeLine("Strength", String.valueOf(PLAYER.strength), g2, textX, textY, tailX);
-        textY = writeLine("Dexterity", String.valueOf(PLAYER.dexterity), g2, textX, textY, tailX);
-        textY = writeLine("Magic", String.valueOf(PLAYER.magic), g2, textX, textY, tailX);
+        textY = writeSkillLine("Strength", String.valueOf(PLAYER.strength), g2, textX, textY, tailX);
+        textY = writeSkillLine("Dexterity", String.valueOf(PLAYER.dexterity), g2, textX, textY, tailX);
+        textY = writeSkillLine("Magic", String.valueOf(PLAYER.magic), g2, textX, textY, tailX);
         textY = writeLine("Attack", String.valueOf(PLAYER.getAttack()), g2, textX, textY, tailX);
         textY = writeLine("Defence", String.valueOf(PLAYER.getDefence()), g2, textX, textY, tailX);
-        textY = writeLine("Exp", String.valueOf(PLAYER.exp), g2, textX, textY, tailX);
-        textY = writeLine("Next level", String.valueOf(PLAYER.expUntilNextLevel), g2, textX, textY, tailX);
+        textY = writeLine("XP", PLAYER.exp + "xp", g2, textX, textY, tailX);
+        textY = writeLine("Next level", PLAYER.expUntilNextLevel + "xp", g2, textX, textY, tailX);
         textY = writeLine("Coins", String.valueOf(PLAYER.coins), g2, textX, textY, tailX);
         textY = writeLineWithImg("Weapon", PLAYER.weapon.imageUri, g2, textX, textY, tailX);
         writeLineWithImg("Shield", PLAYER.shield.imageUri, g2, textX, textY, tailX);
     }
 
     private static int writeLine(String key, String value, Graphics2D g2, int textX, int textY, int tailX) {
+        g2.drawString(key, textX, textY);
+        g2.drawString(value, getXForAlignToRightText(g2, value, tailX), textY);
+        return nextLine(textY);
+    }
+
+    private static int writeSkillLine(String key, String value, Graphics2D g2, int textX, int textY, int tailX) {
+        if (PLAYER.skillPoints > 0) {
+            value = "+ " + value;
+        }
         g2.drawString(key, textX, textY);
         g2.drawString(value, getXForAlignToRightText(g2, value, tailX), textY);
         return nextLine(textY);

@@ -17,6 +17,9 @@ public class MonsterManager {
         this.monsters[0] = new GreenSlime(11, 33);
         this.monsters[1] = new GreenSlime(15, 37);
         this.monsters[2] = new GreenSlime(13, 39);
+        this.monsters[3] = new GreenSlime(14, 39);
+        this.monsters[4] = new GreenSlime(15, 40);
+        this.monsters[5] = new GreenSlime(13, 40);
     }
 
     public void updateMonsters() {

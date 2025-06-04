@@ -41,6 +41,7 @@ public class Player extends Sprite {
     //   and some experience mechanism
     public int level = 1;
     public int expUntilNextLevel = 5;
+    public int skillPoints = 0;
     public int coins = 0;
     //todo  ## ATTRIBUTES ##
     //  - strength
@@ -48,9 +49,9 @@ public class Player extends Sprite {
     //  - defence
     //  - magic
     //  - ...
-    public int strength = 0;
-    public int dexterity = 0;
-    public int magic = 0;
+    public int strength = 1;
+    public int dexterity = 1;
+    public int magic = 1;
     public int exp = 0;
     //todo  ## GEAR ##
     //  no longer select a class
@@ -225,7 +226,7 @@ public class Player extends Sprite {
         return screenY;
     }
 
-    public void receiveDamage(int damage) {
+    public void hurtPlayer(int damage) {
         if (!isTemporarilyInvincible) {
             healthPoints -= damage;
             isTemporarilyInvincible = true;
@@ -244,7 +245,18 @@ public class Player extends Sprite {
 
     public void hit(Monster monster) {
         if (isAttacking) {
-            monster.doDamage();
+            monster.hurtMonster(getAttack());
+        }
+    }
+
+    public void gainExp(int exp) {
+        this.exp += exp;
+        if (this.exp >= expUntilNextLevel) {
+            level++;
+            skillPoints++;
+            this.exp -= expUntilNextLevel;
+            this.expUntilNextLevel *= level;
+            SOUND_HANDLER.playSoundEffect(SoundEffect.POWERUP);
         }
     }
 }

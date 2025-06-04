@@ -9,7 +9,7 @@ import static nl.rrx.config.DependencyManager.PLAYER;
 public class GreenSlime extends Monster {
 
     public GreenSlime(int startWorldX, int startWorldY) {
-        super(startWorldX, startWorldY);
+        super(4, 1, 1, startWorldX, startWorldY);
         slowerActionInterval(2);
         imageTypeAny = true;
         speed = 1;
@@ -38,12 +38,15 @@ public class GreenSlime extends Monster {
 
     @Override
     public void attackPlayer() {
-        PLAYER.receiveDamage(1);
+        int damage = this.attack - PLAYER.getDefence();
+        if (damage > 0) {
+            PLAYER.hurtPlayer(damage);
+        }
     }
 
     @Override
-    public void doDamage() {
-        super.doDamage();
+    public void hurtMonster(int attack) {
+        super.hurtMonster(attack);
         runAwayFromPlayer();
     }
 

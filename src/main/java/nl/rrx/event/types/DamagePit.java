@@ -22,7 +22,7 @@ public class DamagePit extends Event {
         STATE_HANDLER.setState(GameState.DIALOGUE);
         UI.setDialogue("You fell into a pit!");
         SOUND_HANDLER.playSoundEffect(SoundEffect.UNLOCK);
-        PLAYER.receiveDamage(1);
+        PLAYER.hurtPlayer(1);
     }
 
     @Override

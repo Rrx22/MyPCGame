@@ -7,6 +7,7 @@ import nl.rrx.ui.TitleScreen;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.DependencyManager.STATE_HANDLER;
 
 public class KeyHandler implements KeyListener {
@@ -73,6 +74,20 @@ public class KeyHandler implements KeyListener {
     private void handleKeysForCharacterState(int code) {
         if (code == KeyEvent.VK_C) {
             STATE_HANDLER.toggleCharacterScreen();
+        }
+        if (PLAYER.skillPoints > 0) {
+            if (code == KeyEvent.VK_S) {
+                PLAYER.strength++;
+                PLAYER.skillPoints--;
+            }
+            if (code == KeyEvent.VK_D) {
+                PLAYER.dexterity++;
+                PLAYER.skillPoints--;
+            }
+            if (code == KeyEvent.VK_M) {
+                PLAYER.magic++;
+                PLAYER.skillPoints--;
+            }
         }
     }
 
