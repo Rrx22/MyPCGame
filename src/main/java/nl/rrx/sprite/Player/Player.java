@@ -1,6 +1,8 @@
 package nl.rrx.sprite.Player;
 
 import nl.rrx.config.settings.SpriteSettings;
+import nl.rrx.object.GameObject;
+import nl.rrx.object.GameObjectType;
 import nl.rrx.object.Shield;
 import nl.rrx.object.Weapon;
 import nl.rrx.sound.SoundEffect;
@@ -25,6 +27,7 @@ import static nl.rrx.config.DependencyManager.MONSTER_MGR;
 import static nl.rrx.config.DependencyManager.NPC_MGR;
 import static nl.rrx.config.DependencyManager.OBJECT_MGR;
 import static nl.rrx.config.DependencyManager.SOUND_HANDLER;
+import static nl.rrx.config.DependencyManager.STASH;
 import static nl.rrx.config.DependencyManager.UI;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
@@ -41,7 +44,6 @@ public class Player extends Sprite {
     private final int screenX;
     private final int screenY;
     private boolean isAttacking = false;
-
 
     //todo  ## LEVEL ##
     //   and some experience mechanism
@@ -90,6 +92,26 @@ public class Player extends Sprite {
         collisionArea.height = SpriteSettings.PLAYER_RECT_WIDTH_HEIGHT;
 
         loadPlayerImages("hero");
+        STASH.addToStash(weapon);
+        STASH.addToStash(shield);
+        STASH.addToStash(new GameObject(GameObjectType.KEY));
+        STASH.addToStash(new GameObject(GameObjectType.BOOTS));
+        STASH.addToStash(new GameObject(GameObjectType.KEY));
+        STASH.addToStash(new GameObject(GameObjectType.KEY));
+        STASH.addToStash(new GameObject(GameObjectType.KEY));
+        STASH.addToStash(new GameObject(GameObjectType.KEY));
+        STASH.addToStash(new GameObject(GameObjectType.KEY));
+        STASH.addToStash(new GameObject(GameObjectType.KEY));
+        STASH.addToStash(new GameObject(GameObjectType.KEY));
+        STASH.addToStash(new GameObject(GameObjectType.KEY));
+        STASH.addToStash(new GameObject(GameObjectType.KEY));
+        STASH.addToStash(new GameObject(GameObjectType.KEY));
+        STASH.addToStash(new GameObject(GameObjectType.KEY));
+        STASH.addToStash(new GameObject(GameObjectType.KEY));
+        STASH.addToStash(new GameObject(GameObjectType.KEY));
+        STASH.addToStash(new GameObject(GameObjectType.KEY));
+        STASH.addToStash(new GameObject(GameObjectType.KEY));
+        STASH.addToStash(new GameObject(GameObjectType.KEY));
     }
 
     @Override
@@ -274,9 +296,9 @@ public class Player extends Sprite {
             this.exp -= expUntilNextLevel;
             this.expUntilNextLevel *= 2;
             SOUND_HANDLER.playSoundEffect(SoundEffect.POWERUP);
-            UI.setDialogue("You are level " + level + "now!\nYou feel stronger!\n(Press C to power up!)");
+            UI.setDialogue("You are level " + level + " now!\nYou feel stronger!\n(Press C to power up!)");
         }
-        FloatingBattleMessagesUI.add(this, exp + "xp", FloatingBattleMessagesUI.MessageType.EXP_GAINED);
+        FloatingBattleMessagesUI.add(this, exp + "xp", FloatingBattleMessagesUI.MessageType.PLAYER_INFO);
     }
 
     public void skillMaxHp() {

@@ -16,7 +16,7 @@ import static nl.rrx.util.ScreenUtil.getScreenX;
 import static nl.rrx.util.ScreenUtil.getScreenY;
 import static nl.rrx.util.ScreenUtil.isWithinScreenBoundary;
 
-public class GameObject implements SortedDrawable {
+public class GameObject implements SortedDrawable, Stashable {
 
     public final GameObjectType type;
     private final BufferedImage image;
@@ -25,10 +25,6 @@ public class GameObject implements SortedDrawable {
     private final int offsetX;
     private final int offsetY;
     public final Rectangle collisionArea;
-
-    public GameObject(GameObjectType type, int worldX, int worldY) {
-        this(type, worldX, worldY, 0, 0);
-    }
 
     /**
      * @param offsetX will widen the object (including the collision area)
@@ -42,6 +38,12 @@ public class GameObject implements SortedDrawable {
         this.worldY = worldY * TILE_SIZE;
         collisionArea = new Rectangle(this.worldX - this.offsetX, this.worldY, TILE_SIZE + offsetX, TILE_SIZE);
         image = PerformanceUtil.getScaledImage(type.imageUri, TILE_SIZE + offsetX, TILE_SIZE + offsetY);
+    }
+    public GameObject(GameObjectType type) {
+        this(type, 0, 0, 0, 0);
+    }
+    public GameObject(GameObjectType type, int worldX, int worldY) {
+        this(type, worldX, worldY, 0, 0);
     }
 
     @Override
@@ -65,5 +67,15 @@ public class GameObject implements SortedDrawable {
         g2.setColor(Color.CYAN);
         g2.drawRect(screenX, screenY + offsetY, TILE_SIZE + offsetX*2, TILE_SIZE);
         g2.setStroke(oldStroke);
+    }
+
+    @Override
+    public boolean canStash() {
+        return type.canStash;
+    }
+
+    @Override
+    public BufferedImage image() {
+        return image;
     }
 }

@@ -111,7 +111,7 @@ public class FloatingBattleMessagesUI {
     public enum MessageType {
         PLAYER_DMG(new Color(188, 172, 2)),
         MONSTER_DMG(Color.white),
-        EXP_GAINED(new Color(2, 132, 188)),
+        PLAYER_INFO(new Color(2, 132, 188)),
         ;
 
         public final Color color;
@@ -121,7 +121,7 @@ public class FloatingBattleMessagesUI {
         }
 
         boolean reverseSwerve() {
-            return this.equals(EXP_GAINED);
+            return this.equals(PLAYER_INFO);
         }
     }
 }

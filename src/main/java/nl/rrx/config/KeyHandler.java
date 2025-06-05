@@ -1,7 +1,9 @@
 package nl.rrx.config;
 
 import nl.rrx.config.settings.DebugSettings;
+import nl.rrx.sprite.Direction;
 import nl.rrx.state.GameState;
+import nl.rrx.ui.CharacterScreen;
 import nl.rrx.ui.TitleScreen;
 
 import java.awt.event.KeyEvent;
@@ -27,6 +29,7 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
+        if (DebugSettings.ENABLED && code == KeyEvent.VK_Q) System.exit(0);
         switch (STATE_HANDLER.currentState()) {
             case PLAY -> handleKeysForPlayState(code);
             case PAUSE -> handleKeysForPauseState(code);
@@ -37,8 +40,6 @@ public class KeyHandler implements KeyListener {
     }
 
     private void handleKeysForPlayState(int code) {
-        if (DebugSettings.ENABLED && code == KeyEvent.VK_Q) System.exit(0);
-
         if (code == KeyEvent.VK_P) {
             STATE_HANDLER.pressPause();
             return;
@@ -75,6 +76,7 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_C) {
             STATE_HANDLER.toggleCharacterScreen();
         }
+        // skill
         if (PLAYER.skillPoints > 0) {
             if (code == KeyEvent.VK_S) {
                 PLAYER.strength++;
@@ -88,6 +90,19 @@ public class KeyHandler implements KeyListener {
             } else if (code == KeyEvent.VK_H) {
                 PLAYER.skillMaxHp();
             }
+        }
+        // stash
+        if (code == KeyEvent.VK_UP) {
+            CharacterScreen.moveCursor(Direction.UP);
+        }
+        if (code == KeyEvent.VK_DOWN) {
+            CharacterScreen.moveCursor(Direction.DOWN);
+        }
+        if (code == KeyEvent.VK_LEFT) {
+            CharacterScreen.moveCursor(Direction.LEFT);
+        }
+        if (code == KeyEvent.VK_RIGHT) {
+            CharacterScreen.moveCursor(Direction.RIGHT);
         }
     }
 

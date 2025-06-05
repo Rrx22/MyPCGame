@@ -4,6 +4,7 @@ import nl.rrx.event.EventManager;
 import nl.rrx.object.ObjectManager;
 import nl.rrx.sound.SoundHandler;
 import nl.rrx.sprite.Player.Player;
+import nl.rrx.sprite.Player.Stash;
 import nl.rrx.sprite.nps.monster.MonsterManager;
 import nl.rrx.sprite.nps.npc.NPCManager;
 import nl.rrx.state.StateHandler;
@@ -13,6 +14,7 @@ import nl.rrx.util.CollisionUtil;
 
 public class DependencyManager {
 
+    public static final Stash STASH = new Stash();
     public static final Player PLAYER = new Player();
     public static final UI UI = new UI();
 
