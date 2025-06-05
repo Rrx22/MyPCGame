@@ -1,5 +1,7 @@
 package nl.rrx.sprite;
 
+import nl.rrx.sprite.Player.Player;
+import nl.rrx.sprite.nps.NonPlayerSprite;
 import nl.rrx.util.PerformanceUtil;
 
 import java.awt.Color;

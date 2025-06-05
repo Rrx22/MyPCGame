@@ -1,7 +1,7 @@
-package nl.rrx.sprite.npc;
+package nl.rrx.sprite.nps.npc;
 
 import nl.rrx.sprite.Direction;
-import nl.rrx.sprite.NonPlayerSprite;
+import nl.rrx.sprite.nps.NonPlayerSprite;
 
 import static nl.rrx.config.DependencyManager.COLLISION_UTIL;
 import static nl.rrx.config.DependencyManager.KEY_HANDLER;

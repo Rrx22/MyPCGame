@@ -1,10 +1,14 @@
-package nl.rrx.sprite;
+package nl.rrx.sprite.Player;
 
 import nl.rrx.config.settings.SpriteSettings;
 import nl.rrx.object.Shield;
 import nl.rrx.object.Weapon;
 import nl.rrx.sound.SoundEffect;
-import nl.rrx.sprite.monster.Monster;
+import nl.rrx.sprite.AttackType;
+import nl.rrx.sprite.AttackUtil;
+import nl.rrx.sprite.Direction;
+import nl.rrx.sprite.Sprite;
+import nl.rrx.sprite.nps.monster.Monster;
 import nl.rrx.ui.FloatingBattleMessagesUI;
 import nl.rrx.util.PerformanceUtil;
 

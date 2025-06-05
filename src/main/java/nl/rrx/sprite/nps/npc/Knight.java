@@ -1,18 +1,18 @@
-package nl.rrx.sprite.npc;
+package nl.rrx.sprite.nps.npc;
 
 import nl.rrx.sprite.Direction;
 
-public class Wizard extends NPC {
+public class Knight extends NPC {
 
-    protected Wizard(int startWorldX, int startWorldY) {
+    protected Knight(int startWorldX, int startWorldY) {
         super(startWorldX, startWorldY);
         speed = 1;
-        slowerActionInterval(2);
-        loadImages("wizard");
+        slowerActionInterval(3);
+        loadImages("knight");
         setDialogues(
-                "Hello, lad.",
-                "The treacherous are ever distrustful.",
-                "May the wind under your wings bear you\nwhere the sun sails and the moon walks."
+                "For honor and the realm!",
+                "I yield not to evil, nor to fear!",
+                "My blade bears the king’s justice!"
         );
     }
 
@@ -20,6 +20,7 @@ public class Wizard extends NPC {
     protected void doAction() {
         speed = 1;
         int rndVal = RND.nextInt(100) + 1;
+
         switch (rndVal) {
             case int i when i < 20 -> direction = Direction.DOWN;
             case int i when i < 40 -> direction = Direction.UP;

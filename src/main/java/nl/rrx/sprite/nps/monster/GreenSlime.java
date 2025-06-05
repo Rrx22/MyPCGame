@@ -1,4 +1,4 @@
-package nl.rrx.sprite.monster;
+package nl.rrx.sprite.nps.monster;
 
 import nl.rrx.sprite.Direction;
 

@@ -1,7 +1,8 @@
-package nl.rrx.sprite;
+package nl.rrx.sprite.nps;
 
 import nl.rrx.config.settings.ScreenSettings;
 import nl.rrx.config.settings.SpriteSettings;
+import nl.rrx.sprite.Sprite;
 import nl.rrx.util.PerformanceUtil;
 import nl.rrx.util.ScreenUtil;
 

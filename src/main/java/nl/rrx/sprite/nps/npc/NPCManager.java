@@ -1,4 +1,4 @@
-package nl.rrx.sprite.npc;
+package nl.rrx.sprite.nps.npc;
 
 import nl.rrx.config.settings.WorldSettings;
 

@@ -1,6 +1,6 @@
-package nl.rrx.sprite.monster;
+package nl.rrx.sprite.nps.monster;
 
-import nl.rrx.sprite.NonPlayerSprite;
+import nl.rrx.sprite.nps.NonPlayerSprite;
 import nl.rrx.ui.FloatingBattleMessagesUI;
 
 import java.awt.Color;
@@ -64,11 +64,11 @@ public abstract class Monster extends NonPlayerSprite {
         g2.fillRect(screenX, screenY - HPBAR_OFFSET, (int) hpBarValue, HPBAR_OFFSET);
     }
 
-    public abstract void attackPlayer();
-    public abstract int baseMaxHP();
-    public abstract int baseAttack();
-    public abstract int baseDefense();
-    public abstract int baseExp();
+    protected abstract void attackPlayer();
+    protected abstract int baseMaxHP();
+    protected abstract int baseAttack();
+    protected abstract int baseDefense();
+    protected abstract int baseExp();
 
     @Override
     protected void move() {

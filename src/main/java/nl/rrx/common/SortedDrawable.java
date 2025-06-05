@@ -1,8 +1,8 @@
 package nl.rrx.common;
 
 import nl.rrx.object.GameObject;
-import nl.rrx.sprite.monster.Monster;
-import nl.rrx.sprite.npc.NPC;
+import nl.rrx.sprite.nps.monster.Monster;
+import nl.rrx.sprite.nps.npc.NPC;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package nl.rrx.ui;
 
 import nl.rrx.sprite.Direction;
-import nl.rrx.sprite.Player;
+import nl.rrx.sprite.Player.Player;
 import nl.rrx.sprite.Sprite;
 import nl.rrx.util.ScreenUtil;
 

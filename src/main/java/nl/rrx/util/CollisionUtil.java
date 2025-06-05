@@ -4,9 +4,9 @@ import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.event.Event;
 import nl.rrx.object.GameObject;
 import nl.rrx.sprite.Direction;
-import nl.rrx.sprite.NonPlayerSprite;
-import nl.rrx.sprite.Player;
+import nl.rrx.sprite.Player.Player;
 import nl.rrx.sprite.Sprite;
+import nl.rrx.sprite.nps.NonPlayerSprite;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

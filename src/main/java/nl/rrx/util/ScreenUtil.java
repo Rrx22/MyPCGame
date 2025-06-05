@@ -1,6 +1,6 @@
 package nl.rrx.util;
 
-import nl.rrx.sprite.Player;
+import nl.rrx.sprite.Player.Player;
 
 import java.awt.Graphics2D;
 
