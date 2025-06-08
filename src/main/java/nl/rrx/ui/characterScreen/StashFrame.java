@@ -7,6 +7,7 @@ import nl.rrx.ui.UIUtil;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 
 import static nl.rrx.config.DependencyManager.STASH;
@@ -14,13 +15,13 @@ import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
 class StashFrame implements Interactable {
 
+    private final int maxCol = 4;
     private int cursorRow = 0;
     private int cursorCol = 0;
 
     @Override
     public boolean moveCursor(Direction direction) {
         int maxRow = 3;
-        int maxCol = 4;
         if ((Direction.UP.equals(direction) && cursorRow != 0)
                 || (Direction.DOWN.equals(direction) && cursorRow < maxRow)
                 || (Direction.LEFT.equals(direction) && cursorCol != 0)
@@ -73,5 +74,19 @@ class StashFrame implements Interactable {
         g2.setColor(Color.white);
         g2.setStroke(new BasicStroke(3));
         g2.drawRoundRect(cursorX, cursorY, cursorSize, cursorSize, 10, 10);
+
+        // description
+        int dFrameY = frameY + frameHeight;
+        UIUtil.drawSubWindow(g2, frameX, dFrameY, frameWidth, TILE_SIZE * 3);
+        int textX = frameX + 20;
+        int textY = dFrameY + TILE_SIZE;
+        int itemIdx = (maxCol+1) * cursorRow + cursorCol;
+        var item = STASH.items()[itemIdx];
+        if (item != null) {
+            g2.drawString(item.description(), textX, textY + TILE_SIZE / 2);
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD));
+            g2.drawString(item.title(), textX, textY);
+        }
+
     }
 }

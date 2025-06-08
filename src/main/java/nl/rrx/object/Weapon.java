@@ -8,7 +8,7 @@ import java.util.Random;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
 public enum Weapon implements Stashable {
-    COMMON_SWORD("sword-common.png", 1, 3),
+    COMMON_SWORD("sword-common.png", 1, 3, "Common Sword", "An old sword."),
     ;
 
     private static final Random RND = new Random();
@@ -16,11 +16,15 @@ public enum Weapon implements Stashable {
     public final BufferedImage image;
     public final int minAttack;
     public final int maxAttack;
+    private final String title;
+    private final String description;
 
-    Weapon(String fileName, int minAttack, int maxAttack) {
+    Weapon(String fileName, int minAttack, int maxAttack, String title, String description) {
         this.image = PerformanceUtil.getScaledImage("/images/weapon/" + fileName, TILE_SIZE, TILE_SIZE);
         this.minAttack = minAttack;
         this.maxAttack = maxAttack;
+        this.title = title;
+        this.description = description;
     }
 
     @Override
@@ -31,6 +35,16 @@ public enum Weapon implements Stashable {
     @Override
     public BufferedImage image() {
         return image;
+    }
+
+    @Override
+    public String title() {
+        return title;
+    }
+
+    @Override
+    public String description() {
+        return description;
     }
 
     public int attack() {

@@ -78,4 +78,14 @@ public class GameObject implements SortedDrawable, Stashable {
     public BufferedImage image() {
         return image;
     }
+
+    @Override
+    public String title() {
+        return type.title;
+    }
+
+    @Override
+    public String description() {
+        return type.description;
+    }
 }

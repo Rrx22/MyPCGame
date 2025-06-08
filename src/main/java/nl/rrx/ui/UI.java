@@ -20,8 +20,8 @@ public class UI {
     private String dialogue = "";
 
     public UI() {
-        fontBold = importFont(UIUtil.PURISA_BOLD_TTF).deriveFont(Font.BOLD, 80);
-        fontPlain = importFont(UIUtil.PURISA_MEDIUM_TTF).deriveFont(Font.PLAIN, 20F);
+        fontBold = importFont(UIUtil.LIBERTY_D_REGULAR_TTF).deriveFont(Font.BOLD, 80);
+        fontPlain = importFont(UIUtil.LIBERTY_D_REGULAR_TTF).deriveFont(Font.PLAIN, 20F);
     }
 
     public void draw(Graphics2D g2) {

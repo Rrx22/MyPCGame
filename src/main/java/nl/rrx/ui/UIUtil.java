@@ -11,8 +11,7 @@ import java.io.InputStream;
 public class UIUtil {
 
     // Credit for these fonts + find more/others at https://fontsgeek.com/
-    public static final String PURISA_BOLD_TTF = "Purisa Bold.ttf";
-    public static final String PURISA_MEDIUM_TTF = "Purisa Medium.ttf";
+    public static final String LIBERTY_D_REGULAR_TTF = "LibertyD Regular.ttf";
 
     private UIUtil() {}
 

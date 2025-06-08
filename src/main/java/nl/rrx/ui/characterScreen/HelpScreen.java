@@ -25,11 +25,11 @@ class HelpScreen {
         UIUtil.drawSubWindow(g2, x, y, width, height);
 
         String[] helpLineKeys = new String[] {
-                "[WASD/arrows]",
-                "[ENTER]",
-                "[C]",
-                "[Q]",
-                "[H]",
+                "[ WASD/arrows ]",
+                "[ ENTER ]",
+                "[ C ]",
+                "[ Q ]",
+                "[ H ]",
         };
         String[] helpLineValues = new String[] {
                 "Navigate inside window",
@@ -43,19 +43,18 @@ class HelpScreen {
         y += TILE_SIZE / 2;
         g2.setFont(font);
         for (int i = 0; i < helpLineKeys.length; i++) {
+            String key = helpLineKeys[i];
+            String instruction = helpLineValues[i];
             y += g2.getFontMetrics().getHeight();
-            g2.drawString(helpLineKeys[i], x, y);
-
-            var instruction = helpLineValues[i];
-            int alignRightX = ScreenUtil.getXForAlignToRightText(g2, instruction, x + width - TILE_SIZE - 15);
-            g2.drawString(instruction, alignRightX, y);
+            g2.drawString(key, x, y);
+            g2.drawString(instruction, x + ScreenUtil.getTextWidth(g2, key) + TILE_SIZE/3, y);
         }
     }
 
     public void drawHelpString(Graphics2D g2, Font font) {
         int x = TILE_SIZE * 3;
         int y = TILE_SIZE * 12 - TILE_SIZE / 2;
-        String text = "[H]elp";
+        String text = "[ H ]elp";
         g2.setFont(font.deriveFont(Font.BOLD));
         g2.drawString(text, x, y);
     }
