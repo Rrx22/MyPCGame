@@ -1,6 +1,6 @@
 package nl.rrx.common;
 
-import nl.rrx.object.GameObject;
+import nl.rrx.object.world.WorldObject;
 import nl.rrx.sprite.nps.monster.Monster;
 import nl.rrx.sprite.nps.npc.NPC;
 
@@ -16,6 +16,7 @@ import static nl.rrx.config.DependencyManager.PLAYER;
 
 public interface SortedDrawable {
     void draw(Graphics2D g2);
+    /**This is the compararing factor to determine drawing*/
     int getWorldY();
 
     static void drawSpritesAndObjectsInOrder(Graphics2D g2) {
@@ -24,7 +25,7 @@ public interface SortedDrawable {
         for (NPC npc : NPC_MGR.getNPCs()) {
             if (npc != null) objectsAndSprites.add(npc);
         }
-        for (GameObject obj : OBJECT_MGR.getGameObjects()) {
+        for (WorldObject obj : OBJECT_MGR.getWorldObjects()) {
             if (obj != null) objectsAndSprites.add(obj);
         }
         for (Monster monster : MONSTER_MGR.getMonsters()) {

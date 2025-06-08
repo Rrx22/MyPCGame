@@ -2,7 +2,8 @@ package nl.rrx.util;
 
 import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.event.Event;
-import nl.rrx.object.GameObject;
+import nl.rrx.object.world.PlacedObject;
+import nl.rrx.object.world.WorldObject;
 import nl.rrx.sprite.Direction;
 import nl.rrx.sprite.Player.Player;
 import nl.rrx.sprite.Sprite;
@@ -89,16 +90,17 @@ public class CollisionUtil {
      * @return the index of the collided object from the objects array. When no object was hit or !isPlayer, returns 999;
      */
     public int checkObject(Sprite sprite, boolean isPlayer) {
-        GameObject[] gameObjects = OBJECT_MGR.getGameObjects();
+        WorldObject[] gameObjects = OBJECT_MGR.getWorldObjects();
 
         for (int i = 0; i < gameObjects.length; i++) {
-            GameObject obj = gameObjects[i];
+            WorldObject obj = gameObjects[i];
             if (obj != null) {
 
                 var spriteCollisionArea = getSpriteCollisionAreaInWorld(sprite);
 
                 if (spriteCollisionArea.intersects(obj.collisionArea)) {
-                    sprite.setCollisionOn(obj.type.isCollision);
+                    boolean isCollision = obj instanceof PlacedObject po && po.isCollision;
+                    sprite.setCollisionOn(isCollision);
                     return isPlayer
                             ? i
                             : NO_OBJECT;

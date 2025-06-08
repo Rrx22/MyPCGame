@@ -1,6 +1,6 @@
 package nl.rrx.ui;
 
-import nl.rrx.object.GameObjectType;
+import nl.rrx.object.world.PlacedObjectFactory;
 import nl.rrx.util.PerformanceUtil;
 
 import java.awt.Graphics2D;
@@ -11,7 +11,7 @@ import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
 class PlayUI {
 
-    private static final BufferedImage heartFull = PerformanceUtil.getScaledImage(GameObjectType.HEART.imageUri, TILE_SIZE, TILE_SIZE);
+    private static final BufferedImage heartFull = PerformanceUtil.getScaledImage(PlacedObjectFactory.HEART.imageUri, TILE_SIZE, TILE_SIZE);
     private static final BufferedImage heartHalf = PerformanceUtil.getScaledImage("/images/objects/heart_half.png", TILE_SIZE, TILE_SIZE);
     private static final BufferedImage heartBlank = PerformanceUtil.getScaledImage("/images/objects/heart_blank.png", TILE_SIZE, TILE_SIZE);
 

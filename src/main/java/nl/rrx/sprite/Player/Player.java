@@ -1,8 +1,10 @@
 package nl.rrx.sprite.Player;
 
 import nl.rrx.config.settings.SpriteSettings;
-import nl.rrx.object.Shield;
-import nl.rrx.object.Weapon;
+import nl.rrx.object.item.Shield;
+import nl.rrx.object.item.ShieldFactory;
+import nl.rrx.object.item.Weapon;
+import nl.rrx.object.item.WeaponFactory;
 import nl.rrx.sound.SoundEffect;
 import nl.rrx.sprite.AttackType;
 import nl.rrx.sprite.AttackUtil;
@@ -61,8 +63,8 @@ public class Player extends Sprite {
     //todo  ## GEAR ##
     //  no longer select a class
     //  instead, let player gather weapons and gear with stats and different looks
-    public Weapon weapon = Weapon.COMMON_SWORD;
-    public Shield shield = Shield.COMMON;
+    public Weapon weapon = WeaponFactory.COMMON_SWORD.create();
+    public Shield shield = ShieldFactory.SHIELD_COMMON.create();
 
     public int getAttack() {
         return strength + weapon.attack();
@@ -205,7 +207,7 @@ public class Player extends Sprite {
     // should probably also move this to the GamePanel, to improve interacting with keypress easier
     //  - not yet a problem, since objects not yet interactable with keypresses
     private void interactWithObject(int index) {
-        OBJECT_MGR.handlePlayerInteraction(index);
+        OBJECT_MGR.interact(index);
     }
 
     public void loadPlayerImages(String imageTypeName) {

@@ -1,6 +1,6 @@
 package nl.rrx.ui.characterScreen;
 
-import nl.rrx.object.Stashable;
+import nl.rrx.object.item.Item;
 import nl.rrx.sprite.Direction;
 import nl.rrx.sprite.Player.Stash;
 import nl.rrx.ui.UIUtil;
@@ -56,9 +56,9 @@ class StashFrame implements Interactable {
         // player's stashed items
         var items = STASH.items();
         for (int i = 0; i < Stash.MAX; i++) {
-            Stashable item = items[i];
+            Item item = items[i];
             if (item != null) {
-                g2.drawImage(item.image(), slotX, slotY, null);
+                g2.drawImage(item.image, slotX, slotY, null);
                 slotX += slotSize;
                 if (i == 4 || i == 9 || i == 14) {
                     slotX = startSlotX;
@@ -83,9 +83,9 @@ class StashFrame implements Interactable {
             UIUtil.drawSubWindow(g2, frameX, dFrameY, frameWidth, TILE_SIZE * 3);
             int textX = frameX + 20;
             int textY = dFrameY + TILE_SIZE;
-            g2.drawString(item.description(), textX, textY + TILE_SIZE / 2);
+            g2.drawString(item.description, textX, textY + TILE_SIZE / 2);
             g2.setFont(g2.getFont().deriveFont(Font.BOLD));
-            g2.drawString(item.title(), textX, textY);
+            g2.drawString(item.title + " " + item.subtitle, textX, textY);
         }
     }
 }

@@ -1,5 +1,12 @@
 package nl.rrx.object;
 
+import nl.rrx.object.item.ShieldFactory;
+import nl.rrx.object.item.WeaponFactory;
+import nl.rrx.object.item.otherItems.ItemFactory;
+import nl.rrx.object.world.LootObject;
+import nl.rrx.object.world.PlacedObject;
+import nl.rrx.object.world.WorldObject;
+
 import java.util.Arrays;
 
 import static nl.rrx.config.DependencyManager.STASH;
@@ -7,42 +14,46 @@ import static nl.rrx.config.settings.WorldSettings.MAX_OBJECTS;
 
 public class ObjectManager {
 
-    private final GameObject[] gameObjects;
+    private final WorldObject[] worldObjects;
 
     public ObjectManager() {
-        gameObjects = new GameObject[MAX_OBJECTS];
+        worldObjects = new WorldObject[MAX_OBJECTS];
         loadObjects();
     }
 
     private void loadObjects() {
-//        gameObjects[0] = new GameObject(DOOR, 30, 17, 0, TILE_SIZE / 3);
-//        gameObjects[1] = new GameObject(DOOR, 31, 15, TILE_SIZE / 2, 0);
-//        gameObjects[2] = new GameObject(CHEST, 30, 40, TILE_SIZE, TILE_SIZE);
-//        gameObjects[3] = new GameObject(BOOTS, 26, 12);
+        add(new LootObject(WeaponFactory.COMMON_AXE.create(), 27, 24));
+        add(new LootObject(ShieldFactory.SHIELD_UNCOMMON.create(), 28, 24));
+        add(new LootObject(ItemFactory.KEY.create(), 29, 24));
     }
 
-    private void add(GameObject gameObject) {
-        for (int i = 0; i < gameObjects.length; i++) {
-            if (gameObjects[i] == null) {
-                gameObjects[i] = gameObject;
+    private void add(WorldObject gameObject) {
+        for (int i = 0; i < worldObjects.length; i++) {
+            if (worldObjects[i] == null) {
+                worldObjects[i] = gameObject;
                 return;
             }
         }
     }
 
-    public GameObject[] getGameObjects() {
-        return Arrays.copyOf(gameObjects, MAX_OBJECTS);
+    public WorldObject[] getWorldObjects() {
+        return Arrays.copyOf(worldObjects, MAX_OBJECTS);
     }
 
-    public void handlePlayerInteraction(int index) {
-        var item = gameObjects[index];
-        switch (item.type) {
-            case KEY -> {
-                if (STASH.addToStash(item)) {
-                    gameObjects[index] = null;
-                } else {
+    public void interact(int index) {
+        var item = worldObjects[index];
+        switch (item) {
+            case null -> {
+            }
+            case LootObject loot -> {
+                if (STASH.addToStash(loot.lootItem)) {
+                    worldObjects[index] = null;
                 }
             }
+            case PlacedObject obj -> {
+                // todo implement
+            }
+            default -> throw new RuntimeException("Unsupported world object type: " + item.getClass());
         }
     }
 }

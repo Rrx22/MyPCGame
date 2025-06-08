@@ -1,0 +1,21 @@
+package nl.rrx.object.item;
+
+import java.awt.image.BufferedImage;
+import java.util.Random;
+
+public class Weapon extends Item {
+    private static final Random RND = new Random();
+
+    public final int minAttack;
+    public final int maxAttack;
+
+    Weapon(BufferedImage image, int minAttack, int maxAttack, String title, String description) {
+        super(image, title, "(" + minAttack + "-" + maxAttack + ")", description);
+        this.minAttack = minAttack;
+        this.maxAttack = maxAttack;
+    }
+
+    public int attack() {
+        return RND.nextInt(minAttack, maxAttack + 1);
+    }
+}
