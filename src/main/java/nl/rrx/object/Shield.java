@@ -8,6 +8,7 @@ import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
 public enum Shield implements Stashable {
     COMMON("shield-common.png", 1, "Common Shield", "A worn out shield."),
+    UNCOMMON("shield-uncommon.png", 2, "Uncommon Shield", "A decent shield."),
     ;
 
     public final BufferedImage image;

@@ -2,6 +2,7 @@ package nl.rrx.object;
 
 import java.util.Arrays;
 
+import static nl.rrx.config.DependencyManager.STASH;
 import static nl.rrx.config.settings.WorldSettings.MAX_OBJECTS;
 
 public class ObjectManager {
@@ -20,15 +21,28 @@ public class ObjectManager {
 //        gameObjects[3] = new GameObject(BOOTS, 26, 12);
     }
 
+    private void add(GameObject gameObject) {
+        for (int i = 0; i < gameObjects.length; i++) {
+            if (gameObjects[i] == null) {
+                gameObjects[i] = gameObject;
+                return;
+            }
+        }
+    }
+
     public GameObject[] getGameObjects() {
         return Arrays.copyOf(gameObjects, MAX_OBJECTS);
     }
 
-    public void removeObject(int index) {
-        gameObjects[index] = null;
-    }
-
-    public GameObjectType getTypeFor(int index) {
-        return gameObjects[index].type;
+    public void handlePlayerInteraction(int index) {
+        var item = gameObjects[index];
+        switch (item.type) {
+            case KEY -> {
+                if (STASH.addToStash(item)) {
+                    gameObjects[index] = null;
+                } else {
+                }
+            }
+        }
     }
 }

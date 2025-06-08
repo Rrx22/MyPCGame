@@ -29,7 +29,6 @@ import static nl.rrx.config.DependencyManager.STASH;
 import static nl.rrx.config.DependencyManager.UI;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
-import static nl.rrx.config.settings.WorldSettings.SPEED_BOOST;
 import static nl.rrx.sprite.Direction.DOWN;
 import static nl.rrx.sprite.Direction.LEFT;
 import static nl.rrx.sprite.Direction.RIGHT;
@@ -95,8 +94,8 @@ public class Player extends Sprite {
         collisionArea.height = SpriteSettings.PLAYER_RECT_WIDTH_HEIGHT;
 
         loadPlayerImages("hero");
-        STASH.addToStash(weapon);
-        STASH.addToStash(shield);
+        STASH.items()[0] = weapon;
+        STASH.items()[1] = shield;
     }
 
     @Override
@@ -206,13 +205,7 @@ public class Player extends Sprite {
     // should probably also move this to the GamePanel, to improve interacting with keypress easier
     //  - not yet a problem, since objects not yet interactable with keypresses
     private void interactWithObject(int index) {
-        var type = OBJECT_MGR.getTypeFor(index);
-        switch (type) {
-            case BOOTS -> {
-                speed += SPEED_BOOST;
-                OBJECT_MGR.removeObject(index);
-            }
-        }
+        OBJECT_MGR.handlePlayerInteraction(index);
     }
 
     public void loadPlayerImages(String imageTypeName) {

@@ -8,7 +8,8 @@ import java.util.Random;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
 public enum Weapon implements Stashable {
-    COMMON_SWORD("sword-common.png", 1, 3, "Common Sword", "An old sword."),
+    COMMON_SWORD("sword-common.png", 1, 3, "Common Sword", "A rusty blade."),
+    COMMON_AXE("axe-common.png", 0, 4, "Common Axe", "An old axe."),
     ;
 
     private static final Random RND = new Random();

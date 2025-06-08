@@ -52,7 +52,7 @@ public class CharacterScreen {
         helpScreen = new HelpFrame();
         statsFrame = new StatsFrame();
         stashFrame = new StashFrame();
-        focusFrame = FocusFrame.STATS;
+        focusFrame = FocusFrame.STASH;
     }
 
     public static void clear() {
