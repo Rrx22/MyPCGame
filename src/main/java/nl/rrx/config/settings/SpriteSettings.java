@@ -26,7 +26,8 @@ public class SpriteSettings {
     public static final Direction PLAYER_START_DIRECTION = Direction.UP;
     public static final int PLAYER_BASE_SPEED = 3;
     public static final int PLAYER_BASE_HP = 10;
-    public static final int PLAYER_BASE_STRENGTH = 3;
-    public static final int PLAYER_BASE_DEXTERITY = 3;
-    public static final int PLAYER_BASE_MAGIC = 3;
+    public static final int PLAYER_BASE_STRENGTH = 2;
+    public static final int PLAYER_BASE_DEXTERITY = 2;
+    public static final int PLAYER_BASE_MAGIC = 2;
+    public static final int PLAYER_BASE_SKILLPOINTS = 2;
 }

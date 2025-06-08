@@ -12,27 +12,36 @@ public class StateHandler {
     }
 
     public void setState(GameState gameState) {
+        handleSwitchingCharacterScreen(gameState);
         currentState = gameState;
     }
 
     public void setStartState() {
-        currentState = DebugSettings.SKIP_TITLE_SCREEN
+        setState(DebugSettings.SKIP_TITLE_SCREEN
                 ? GameState.PLAY
-                : GameState.TITLE_SCREEN;
+                : GameState.TITLE_SCREEN);
     }
 
     public void pressPause() {
-        currentState = currentState.isPlayState()
+        setState(currentState.isPlayState()
                 ? GameState.PAUSE
-                : GameState.PLAY;
+                : GameState.PLAY);
     }
 
     public void toggleCharacterScreen() {
         if (currentState.isPlayState()) {
-            CharacterScreen.init();
-            currentState = GameState.CHARACTER_SCREEN;
+            setState(GameState.CHARACTER_SCREEN);
         } else {
-            currentState = GameState.PLAY;
+            setState(currentState = GameState.PLAY);
+        }
+    }
+
+    private void handleSwitchingCharacterScreen(GameState gameState) {
+        if (gameState == GameState.CHARACTER_SCREEN) {
+            CharacterScreen.init();
+        }
+        if (currentState == GameState.CHARACTER_SCREEN) {
+            CharacterScreen.clear();
         }
     }
 }

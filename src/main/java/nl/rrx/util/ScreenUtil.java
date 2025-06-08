@@ -20,13 +20,17 @@ public class ScreenUtil {
     }
 
     public static int getXForCenteredText(Graphics2D g2, String text) {
-        int textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        int textLength = getTextWidth(g2, text);
         return SCREEN_WIDTH / 2 - textLength /2;
     }
 
     public static int getXForAlignToRightText(Graphics2D g2, String text, int tailX) {
-        int textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        int textLength = getTextWidth(g2, text);
         return tailX - textLength;
+    }
+
+    public static int getTextWidth(Graphics2D g2, String text) {
+        return (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
     }
 
     public static int getScreenX(int worldX) {

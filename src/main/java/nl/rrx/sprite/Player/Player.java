@@ -48,7 +48,7 @@ public class Player extends Sprite {
     public int level = 1;
     public int exp;
     public int expUntilNextLevel = 4;
-    public int skillPoints = 0;
+    public int skillPoints;
     public int coins = 0;
     //todo  ## ATTRIBUTES ##
     //  - strength
@@ -85,6 +85,7 @@ public class Player extends Sprite {
         strength = SpriteSettings.PLAYER_BASE_STRENGTH;
         dexterity = SpriteSettings.PLAYER_BASE_DEXTERITY;
         magic = SpriteSettings.PLAYER_BASE_MAGIC;
+        skillPoints = SpriteSettings.PLAYER_BASE_SKILLPOINTS;
         exp = 0;
 
         collisionArea = new Rectangle();
@@ -280,7 +281,7 @@ public class Player extends Sprite {
             this.exp -= expUntilNextLevel;
             this.expUntilNextLevel *= 2;
             SOUND_HANDLER.playSoundEffect(SoundEffect.POWERUP);
-            UI.setDialogue("You are level " + level + " now!\nYou feel stronger!\n(Press C to power up!)");
+            UI.setDialogue("You are level " + level + " now!\nYou feel stronger!");
         }
         FloatingBattleMessagesUI.add(this, exp + "xp", FloatingBattleMessagesUI.MessageType.PLAYER_INFO);
     }

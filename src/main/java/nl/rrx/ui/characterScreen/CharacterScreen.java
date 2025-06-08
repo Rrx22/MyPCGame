@@ -1,13 +1,18 @@
 package nl.rrx.ui.characterScreen;
 
+import nl.rrx.sound.SoundEffect;
 import nl.rrx.sprite.Direction;
 
 import java.awt.Font;
 import java.awt.Graphics2D;
 
+import static nl.rrx.config.DependencyManager.SOUND_HANDLER;
+
 public class CharacterScreen {
 
     private static FocusFrame focusFrame = FocusFrame.STATS;
+
+    private static HelpScreen helpScreen;
     private static StatsFrame statsFrame;
     private static StashFrame stashFrame;
 
@@ -15,8 +20,13 @@ public class CharacterScreen {
     }
 
     public static void draw(Graphics2D g2, Font font) {
-        statsFrame.draw(g2, font);
-        stashFrame.draw(g2);
+        if (helpScreen.show()) {
+            helpScreen.draw(g2, font);
+            return;
+        }
+        statsFrame.draw(g2, font, focusFrame == FocusFrame.STATS);
+        stashFrame.draw(g2, focusFrame == FocusFrame.STASH);
+        helpScreen.drawHelpString(g2, font);
     }
 
     public static void changeFocus() {
@@ -24,20 +34,43 @@ public class CharacterScreen {
             case STATS -> FocusFrame.STASH;
             case STASH -> FocusFrame.STATS;
         };
+        SOUND_HANDLER.playSoundEffect(SoundEffect.CURSOR);
     }
 
     public static void moveCursor(Direction direction) {
-        Interactable interactable = switch (focusFrame) {
-            case STATS -> statsFrame;
-            case STASH -> stashFrame;
-        };
-        interactable.moveCursor(direction);
+        if (polymorph().moveCursor(direction)) {
+            SOUND_HANDLER.playSoundEffect(SoundEffect.CURSOR);
+        }
+    }
+
+    public static void doAction() {
+        polymorph().doAction();
+        SOUND_HANDLER.playSoundEffect(SoundEffect.CURSOR);
     }
 
     public static void init() {
+        helpScreen = new HelpScreen();
         statsFrame = new StatsFrame();
         stashFrame = new StashFrame();
         focusFrame = FocusFrame.STATS;
+    }
+
+    public static void clear() {
+        helpScreen = null;
+        statsFrame = null;
+        stashFrame = null;
+        focusFrame = null;
+    }
+
+    public static void toggleHelp() {
+        helpScreen.toggleHelp();
+    }
+
+    private static Interactable polymorph() {
+        return switch (focusFrame) {
+            case STATS -> statsFrame;
+            case STASH -> stashFrame;
+        };
     }
 
     private enum FocusFrame {

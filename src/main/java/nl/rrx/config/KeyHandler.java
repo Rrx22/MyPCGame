@@ -9,7 +9,6 @@ import nl.rrx.ui.characterScreen.CharacterScreen;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.DependencyManager.STATE_HANDLER;
 
 public class KeyHandler implements KeyListener {
@@ -67,44 +66,35 @@ public class KeyHandler implements KeyListener {
     }
 
     private void handleKeysForPauseState(int code) {
-        if (code == KeyEvent.VK_P) {
+        if (code == KeyEvent.VK_P || code == KeyEvent.VK_Q) {
             STATE_HANDLER.pressPause();
         }
     }
 
     private void handleKeysForCharacterState(int code) {
-        if (code == KeyEvent.VK_C) {
-            CharacterScreen.changeFocus();
-        }
         if (code == KeyEvent.VK_Q) {
             STATE_HANDLER.toggleCharacterScreen();
         }
-        // skill
-        if (PLAYER.skillPoints > 0) {
-            if (code == KeyEvent.VK_S) {
-                PLAYER.strength++;
-                PLAYER.skillPoints--;
-            } else if (code == KeyEvent.VK_D) {
-                PLAYER.dexterity++;
-                PLAYER.skillPoints--;
-            } else if (code == KeyEvent.VK_M) {
-                PLAYER.magic++;
-                PLAYER.skillPoints--;
-            } else if (code == KeyEvent.VK_H) {
-                PLAYER.skillMaxHp();
-            }
+        if (code == KeyEvent.VK_H) {
+            CharacterScreen.toggleHelp();
+        }
+        if (code == KeyEvent.VK_C) {
+            CharacterScreen.changeFocus();
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            CharacterScreen.doAction();
         }
         // stash
-        if (code == KeyEvent.VK_UP) {
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             CharacterScreen.moveCursor(Direction.UP);
         }
-        if (code == KeyEvent.VK_DOWN) {
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
             CharacterScreen.moveCursor(Direction.DOWN);
         }
-        if (code == KeyEvent.VK_LEFT) {
+        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
             CharacterScreen.moveCursor(Direction.LEFT);
         }
-        if (code == KeyEvent.VK_RIGHT) {
+        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
             CharacterScreen.moveCursor(Direction.RIGHT);
         }
     }

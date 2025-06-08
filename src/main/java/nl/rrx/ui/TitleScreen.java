@@ -18,6 +18,10 @@ import static nl.rrx.util.ScreenUtil.getXForCenteredText;
 
 public class TitleScreen {
 
+    // todo refactor to use Interactable interface like the Character Screen
+    //  also get rid of class selection, since this is no longer the way to go
+    //  in fact - need to completely rethink the title page
+
     private static final BufferedImage KNIGHT_IMAGE = PerformanceUtil.getScaledImage("/images/sprite/knight/down-2.png", TILE_SIZE, TILE_SIZE);
     private static final BufferedImage WIZARD_IMAGE = PerformanceUtil.getScaledImage("/images/sprite/wizard/down-2.png", TILE_SIZE, TILE_SIZE);
     private static final BufferedImage ROGUE_IMAGE = PerformanceUtil.getScaledImage("/images/sprite/rogue/down-2.png", TILE_SIZE, TILE_SIZE);
