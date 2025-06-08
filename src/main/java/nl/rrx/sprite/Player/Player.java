@@ -1,8 +1,6 @@
 package nl.rrx.sprite.Player;
 
 import nl.rrx.config.settings.SpriteSettings;
-import nl.rrx.object.GameObject;
-import nl.rrx.object.GameObjectType;
 import nl.rrx.object.Shield;
 import nl.rrx.object.Weapon;
 import nl.rrx.sound.SoundEffect;
@@ -48,7 +46,8 @@ public class Player extends Sprite {
     //todo  ## LEVEL ##
     //   and some experience mechanism
     public int level = 1;
-    public int expUntilNextLevel = 5;
+    public int exp;
+    public int expUntilNextLevel = 4;
     public int skillPoints = 0;
     public int coins = 0;
     //todo  ## ATTRIBUTES ##
@@ -57,10 +56,9 @@ public class Player extends Sprite {
     //  - defence
     //  - magic
     //  - ...
-    public int strength = 1;
-    public int dexterity = 1;
-    public int magic = 1;
-    public int exp = 0;
+    public int strength;
+    public int dexterity;
+    public int magic;
     //todo  ## GEAR ##
     //  no longer select a class
     //  instead, let player gather weapons and gear with stats and different looks
@@ -68,7 +66,7 @@ public class Player extends Sprite {
     public Shield shield = Shield.COMMON;
 
     public int getAttack() {
-        return strength + weapon.attack;
+        return strength + weapon.attack();
     }
 
     public int getDefence() {
@@ -80,10 +78,14 @@ public class Player extends Sprite {
         screenX = SpriteSettings.INIT_SCREEN_X;
         screenY = SpriteSettings.INIT_SCREEN_Y;
 
-        maxHP = SpriteSettings.INIT_PLAYER_HP;
+        direction = SpriteSettings.PLAYER_START_DIRECTION;
+        maxHP = SpriteSettings.PLAYER_BASE_HP;
         healthPoints = maxHP;
-        speed = SpriteSettings.INIT_SPEED;
-        direction = SpriteSettings.INIT_DIRECTION;
+        speed = SpriteSettings.PLAYER_BASE_SPEED;
+        strength = SpriteSettings.PLAYER_BASE_STRENGTH;
+        dexterity = SpriteSettings.PLAYER_BASE_DEXTERITY;
+        magic = SpriteSettings.PLAYER_BASE_MAGIC;
+        exp = 0;
 
         collisionArea = new Rectangle();
         collisionArea.x = SpriteSettings.PLAYER_RECT_X;
@@ -94,24 +96,6 @@ public class Player extends Sprite {
         loadPlayerImages("hero");
         STASH.addToStash(weapon);
         STASH.addToStash(shield);
-        STASH.addToStash(new GameObject(GameObjectType.KEY));
-        STASH.addToStash(new GameObject(GameObjectType.BOOTS));
-        STASH.addToStash(new GameObject(GameObjectType.KEY));
-        STASH.addToStash(new GameObject(GameObjectType.KEY));
-        STASH.addToStash(new GameObject(GameObjectType.KEY));
-        STASH.addToStash(new GameObject(GameObjectType.KEY));
-        STASH.addToStash(new GameObject(GameObjectType.KEY));
-        STASH.addToStash(new GameObject(GameObjectType.KEY));
-        STASH.addToStash(new GameObject(GameObjectType.KEY));
-        STASH.addToStash(new GameObject(GameObjectType.KEY));
-        STASH.addToStash(new GameObject(GameObjectType.KEY));
-        STASH.addToStash(new GameObject(GameObjectType.KEY));
-        STASH.addToStash(new GameObject(GameObjectType.KEY));
-        STASH.addToStash(new GameObject(GameObjectType.KEY));
-        STASH.addToStash(new GameObject(GameObjectType.KEY));
-        STASH.addToStash(new GameObject(GameObjectType.KEY));
-        STASH.addToStash(new GameObject(GameObjectType.KEY));
-        STASH.addToStash(new GameObject(GameObjectType.KEY));
     }
 
     @Override

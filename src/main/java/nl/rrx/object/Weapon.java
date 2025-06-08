@@ -3,19 +3,24 @@ package nl.rrx.object;
 import nl.rrx.util.PerformanceUtil;
 
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
 public enum Weapon implements Stashable {
-    COMMON_SWORD("sword-common.png", 1),
+    COMMON_SWORD("sword-common.png", 1, 3),
     ;
 
-    public final BufferedImage image;
-    public final int attack;
+    private static final Random RND = new Random();
 
-    Weapon(String fileName, int attack) {
+    public final BufferedImage image;
+    public final int minAttack;
+    public final int maxAttack;
+
+    Weapon(String fileName, int minAttack, int maxAttack) {
         this.image = PerformanceUtil.getScaledImage("/images/weapon/" + fileName, TILE_SIZE, TILE_SIZE);
-        this.attack = attack;
+        this.minAttack = minAttack;
+        this.maxAttack = maxAttack;
     }
 
     @Override
@@ -26,5 +31,9 @@ public enum Weapon implements Stashable {
     @Override
     public BufferedImage image() {
         return image;
+    }
+
+    public int attack() {
+        return RND.nextInt(minAttack, maxAttack + 1);
     }
 }

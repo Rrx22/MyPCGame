@@ -8,14 +8,19 @@ import static nl.rrx.config.DependencyManager.PLAYER;
 
 public class GreenSlime extends Monster {
 
-    public int baseMaxHP() { return 3; }
-    public int baseAttack() { return 3; }
-    public int baseDefense() { return 0; }
+    @Override
+    public int baseMaxHP() { return 10; }
+    @Override
+    public int baseMinAttack() { return 2; }
+    @Override
+    public int baseMaxAttack() { return 4; }
+    @Override
+    public int baseDefense() { return 2; }
+    @Override
     public int baseExp() { return 0; }
 
     public GreenSlime(int level, int startWorldX, int startWorldY) {
         super(level, startWorldX, startWorldY);
-        slowerActionInterval(2);
         imageTypeAny = true;
         speed = 1;
         healthPoints = maxHP;
@@ -42,7 +47,7 @@ public class GreenSlime extends Monster {
 
     @Override
     public void attackPlayer() {
-        PLAYER.hurtPlayer(attack);
+        PLAYER.hurtPlayer(attack());
     }
 
     @Override
@@ -53,6 +58,6 @@ public class GreenSlime extends Monster {
 
     private void runAwayFromPlayer() {
         resetActionLockCounter();
-        this.direction = PLAYER.getDirection();
+        this.direction = PLAYER.getDirection().opposite();
     }
 }

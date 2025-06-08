@@ -19,7 +19,8 @@ public abstract class Monster extends NonPlayerSprite {
     private static final String MONSTER_IMG_ROOT = "/images/monster/";
     private static final int HPBAR_OFFSET = TILE_SIZE / 5;
 
-    protected int attack;
+    protected int minAttack;
+    protected int maxAttack;
     protected int defense;
     protected int exp;
     private boolean showHpBar = false;
@@ -27,7 +28,8 @@ public abstract class Monster extends NonPlayerSprite {
 
     protected Monster(int level, int startWorldX, int startWorldY) {
         super(startWorldX, startWorldY);
-        this.attack = baseAttack() + level;
+        this.minAttack = baseMinAttack() + level;
+        this.maxAttack = baseMaxAttack() + level;
         this.defense = baseDefense() + level;
         this.exp = baseExp() + level;
         this.maxHP = baseMaxHP() + level;
@@ -66,7 +68,8 @@ public abstract class Monster extends NonPlayerSprite {
 
     protected abstract void attackPlayer();
     protected abstract int baseMaxHP();
-    protected abstract int baseAttack();
+    protected abstract int baseMinAttack();
+    protected abstract int baseMaxAttack();
     protected abstract int baseDefense();
     protected abstract int baseExp();
 
@@ -111,5 +114,9 @@ public abstract class Monster extends NonPlayerSprite {
             this.isDying = true;
             PLAYER.gainExp(this.exp);
         }
+    }
+
+    protected int attack() {
+        return RND.nextInt(minAttack, maxAttack + 1);
     }
 }
