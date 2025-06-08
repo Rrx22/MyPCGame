@@ -13,10 +13,6 @@ class HelpFrame {
 
     private boolean showHelp;
 
-    void toggleHelp() {
-        showHelp = !showHelp;
-    }
-
     void draw(Graphics2D g2, Font font) {
         int x = TILE_SIZE * 2;
         int y = TILE_SIZE * 2;
@@ -61,5 +57,9 @@ class HelpFrame {
 
     public boolean show() {
         return showHelp;
+    }
+
+    void toggleHelp() {
+        showHelp = !showHelp;
     }
 }

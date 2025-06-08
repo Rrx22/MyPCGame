@@ -76,17 +76,16 @@ class StashFrame implements Interactable {
         g2.drawRoundRect(cursorX, cursorY, cursorSize, cursorSize, 10, 10);
 
         // description
-        int dFrameY = frameY + frameHeight;
-        UIUtil.drawSubWindow(g2, frameX, dFrameY, frameWidth, TILE_SIZE * 3);
-        int textX = frameX + 20;
-        int textY = dFrameY + TILE_SIZE;
-        int itemIdx = (maxCol+1) * cursorRow + cursorCol;
+        int itemIdx = (maxCol + 1) * cursorRow + cursorCol;
         var item = STASH.items()[itemIdx];
-        if (item != null) {
+        if (hasFocus && item != null) {
+            int dFrameY = frameY + frameHeight;
+            UIUtil.drawSubWindow(g2, frameX, dFrameY, frameWidth, TILE_SIZE * 3);
+            int textX = frameX + 20;
+            int textY = dFrameY + TILE_SIZE;
             g2.drawString(item.description(), textX, textY + TILE_SIZE / 2);
             g2.setFont(g2.getFont().deriveFont(Font.BOLD));
             g2.drawString(item.title(), textX, textY);
         }
-
     }
 }

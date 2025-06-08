@@ -34,7 +34,7 @@ public enum Shield implements Stashable {
 
     @Override
     public String title() {
-        return title;
+        return String.format("%s (%d)", title, defence);
     }
 
     @Override

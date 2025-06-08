@@ -39,7 +39,7 @@ public enum Weapon implements Stashable {
 
     @Override
     public String title() {
-        return title;
+        return String.format("%s (%d-%d)", title, minAttack, maxAttack);
     }
 
     @Override
