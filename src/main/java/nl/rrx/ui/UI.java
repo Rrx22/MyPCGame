@@ -2,6 +2,7 @@ package nl.rrx.ui;
 
 import nl.rrx.sprite.Sprite;
 import nl.rrx.state.GameState;
+import nl.rrx.ui.characterScreen.CharacterScreen;
 
 import java.awt.Color;
 import java.awt.Font;

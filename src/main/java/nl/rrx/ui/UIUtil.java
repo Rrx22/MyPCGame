@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 import java.io.IOException;
 import java.io.InputStream;
 
-class UIUtil {
+public class UIUtil {
 
     // Credit for these fonts + find more/others at https://fontsgeek.com/
     public static final String PURISA_BOLD_TTF = "Purisa Bold.ttf";
@@ -17,8 +17,7 @@ class UIUtil {
     private UIUtil() {}
 
     public static Font importFont(String fileName) {
-        try {
-            InputStream is = UIUtil.class.getResourceAsStream("/font/" + fileName);
+        try(InputStream is = UIUtil.class.getResourceAsStream("/font/" + fileName)) {
             return Font.createFont(Font.TRUETYPE_FONT, is);
         } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);

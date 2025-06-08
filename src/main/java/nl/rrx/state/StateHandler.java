@@ -1,6 +1,7 @@
 package nl.rrx.state;
 
 import nl.rrx.config.settings.DebugSettings;
+import nl.rrx.ui.characterScreen.CharacterScreen;
 
 public class StateHandler {
 
@@ -27,8 +28,11 @@ public class StateHandler {
     }
 
     public void toggleCharacterScreen() {
-        currentState = currentState.isPlayState()
-                ? GameState.CHARACTER_SCREEN
-                : GameState.PLAY;
+        if (currentState.isPlayState()) {
+            CharacterScreen.init();
+            currentState = GameState.CHARACTER_SCREEN;
+        } else {
+            currentState = GameState.PLAY;
+        }
     }
 }

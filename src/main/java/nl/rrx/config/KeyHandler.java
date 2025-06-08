@@ -3,8 +3,8 @@ package nl.rrx.config;
 import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.sprite.Direction;
 import nl.rrx.state.GameState;
-import nl.rrx.ui.CharacterScreen;
 import nl.rrx.ui.TitleScreen;
+import nl.rrx.ui.characterScreen.CharacterScreen;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -29,7 +29,6 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if (DebugSettings.ENABLED && code == KeyEvent.VK_Q) System.exit(0);
         switch (STATE_HANDLER.currentState()) {
             case PLAY -> handleKeysForPlayState(code);
             case PAUSE -> handleKeysForPauseState(code);
@@ -40,6 +39,7 @@ public class KeyHandler implements KeyListener {
     }
 
     private void handleKeysForPlayState(int code) {
+        if (DebugSettings.ENABLED && code == KeyEvent.VK_Q) System.exit(0);
         if (code == KeyEvent.VK_P) {
             STATE_HANDLER.pressPause();
             return;
@@ -74,6 +74,9 @@ public class KeyHandler implements KeyListener {
 
     private void handleKeysForCharacterState(int code) {
         if (code == KeyEvent.VK_C) {
+            CharacterScreen.changeFocus();
+        }
+        if (code == KeyEvent.VK_Q) {
             STATE_HANDLER.toggleCharacterScreen();
         }
         // skill
