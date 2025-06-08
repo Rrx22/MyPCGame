@@ -12,7 +12,7 @@ public class CharacterScreen {
 
     private static FocusFrame focusFrame = FocusFrame.STATS;
 
-    private static HelpScreen helpScreen;
+    private static HelpFrame helpScreen;
     private static StatsFrame statsFrame;
     private static StashFrame stashFrame;
 
@@ -49,7 +49,7 @@ public class CharacterScreen {
     }
 
     public static void init() {
-        helpScreen = new HelpScreen();
+        helpScreen = new HelpFrame();
         statsFrame = new StatsFrame();
         stashFrame = new StashFrame();
         focusFrame = FocusFrame.STATS;
