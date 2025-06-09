@@ -59,8 +59,6 @@ public class GamePanel extends JPanel implements Runnable {
             NPC_MGR.updateNPCs();
             MONSTER_MGR.updateMonsters();
             EVENT_MGR.checkEvent();
-        } else if (STATE_HANDLER.currentState() == GameState.PAUSE) {
-            // add options such as LOAD GAME
         }
     }
 

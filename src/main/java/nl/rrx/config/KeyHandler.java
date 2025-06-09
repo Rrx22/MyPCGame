@@ -4,7 +4,7 @@ import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.sprite.Direction;
 import nl.rrx.state.GameState;
 import nl.rrx.ui.UI_Title;
-import nl.rrx.ui.characterScreen.UI_Character;
+import nl.rrx.ui.character.UI_Character;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

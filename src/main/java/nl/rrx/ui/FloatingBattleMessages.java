@@ -24,11 +24,9 @@ public class FloatingBattleMessages {
     private static final int MAX_FRAMES = 150;
 
     public static void draw(Graphics2D g2) {
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 16f));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, TILE_SIZE / 3));
         for (int i = 0; i < FLOATING_BATTLE_MESSAGES.size(); i++) {
             BattleMessage bm = FLOATING_BATTLE_MESSAGES.get(i);
-            bm.counter++;
-            bm.screenY--;
             bm.swerve();
 
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, bm.transparency()));
@@ -97,6 +95,8 @@ public class FloatingBattleMessages {
         }
 
         void swerve() {
+            counter++;
+            screenY--;
             if (swerveLeft) {
                 screenX--;
             } else {

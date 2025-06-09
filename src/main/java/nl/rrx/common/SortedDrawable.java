@@ -16,7 +16,7 @@ import static nl.rrx.config.DependencyManager.PLAYER;
 
 public interface SortedDrawable {
     void draw(Graphics2D g2);
-    /**This is the compararing factor to determine drawing*/
+    /**This is the compararing factor to determine drawing order*/
     int getWorldY();
 
     static void drawSpritesAndObjectsInOrder(Graphics2D g2) {

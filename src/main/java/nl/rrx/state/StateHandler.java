@@ -1,7 +1,7 @@
 package nl.rrx.state;
 
 import nl.rrx.config.settings.DebugSettings;
-import nl.rrx.ui.characterScreen.UI_Character;
+import nl.rrx.ui.character.UI_Character;
 
 public class StateHandler {
 

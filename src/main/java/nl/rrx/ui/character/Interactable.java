@@ -1,4 +1,4 @@
-package nl.rrx.ui.characterScreen;
+package nl.rrx.ui.character;
 
 import nl.rrx.sprite.Direction;
 
