@@ -8,7 +8,6 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.DependencyManager.SOUND_HANDLER;
 import static nl.rrx.config.DependencyManager.STATE_HANDLER;
 import static nl.rrx.config.settings.ScreenSettings.SCREEN_HEIGHT;
@@ -95,7 +94,7 @@ public class UI_Title {
                 case 2 -> "rogue";
                 default -> "boy";
             };
-            PLAYER.loadPlayerImages(playerClass);
+//            PLAYER.loadPlayerImages(playerClass);
             SOUND_HANDLER.playMusic();
             STATE_HANDLER.setState(GameState.PLAY);
         }

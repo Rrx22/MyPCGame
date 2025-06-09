@@ -6,7 +6,6 @@ import nl.rrx.object.loot.shield.ShieldFactory;
 import nl.rrx.object.loot.weapon.Weapon;
 import nl.rrx.object.loot.weapon.WeaponFactory;
 import nl.rrx.sound.SoundEffect;
-import nl.rrx.sprite.AttackType;
 import nl.rrx.sprite.AttackUtil;
 import nl.rrx.sprite.Direction;
 import nl.rrx.sprite.Sprite;
@@ -39,7 +38,7 @@ import static nl.rrx.util.CollisionUtil.NO_HIT;
 
 public class Player extends Sprite {
 
-    public static final String IMG_ROOT = "/images/sprite/";
+    public static final String IMG_ROOT = "/images/sprite/hero";
     private final int screenX;
     private final int screenY;
     private boolean isAttacking = false;
@@ -95,7 +94,8 @@ public class Player extends Sprite {
         collisionArea.width = SpriteSettings.PLAYER_RECT_WIDTH_HEIGHT;
         collisionArea.height = SpriteSettings.PLAYER_RECT_WIDTH_HEIGHT;
 
-        loadPlayerImages("hero");
+        loadPlayerImages();
+        loadPlayerAttackImages();
         STASH.items()[0] = weapon;
         STASH.items()[1] = shield;
     }
@@ -210,21 +210,19 @@ public class Player extends Sprite {
         OBJECT_MGR.interact(index);
     }
 
-    public void loadPlayerImages(String imageTypeName) {
-        up1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/up-1.png", TILE_SIZE, TILE_SIZE);
-        up2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/up-2.png", TILE_SIZE, TILE_SIZE);
-        down1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/down-1.png", TILE_SIZE, TILE_SIZE);
-        down2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/down-2.png", TILE_SIZE, TILE_SIZE);
-        left1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/left-1.png", TILE_SIZE, TILE_SIZE);
-        left2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/left-2.png", TILE_SIZE, TILE_SIZE);
-        right1 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/right-1.png", TILE_SIZE, TILE_SIZE);
-        right2 = PerformanceUtil.getScaledImage(IMG_ROOT + imageTypeName + "/right-2.png", TILE_SIZE, TILE_SIZE);
-        loadPlayerAttackImages(imageTypeName);
+    public void loadPlayerImages() {
+        up1 = PerformanceUtil.getScaledImage(IMG_ROOT + "/up-1.png", TILE_SIZE, TILE_SIZE);
+        up2 = PerformanceUtil.getScaledImage(IMG_ROOT + "/up-2.png", TILE_SIZE, TILE_SIZE);
+        down1 = PerformanceUtil.getScaledImage(IMG_ROOT + "/down-1.png", TILE_SIZE, TILE_SIZE);
+        down2 = PerformanceUtil.getScaledImage(IMG_ROOT + "/down-2.png", TILE_SIZE, TILE_SIZE);
+        left1 = PerformanceUtil.getScaledImage(IMG_ROOT + "/left-1.png", TILE_SIZE, TILE_SIZE);
+        left2 = PerformanceUtil.getScaledImage(IMG_ROOT + "/left-2.png", TILE_SIZE, TILE_SIZE);
+        right1 = PerformanceUtil.getScaledImage(IMG_ROOT + "/right-1.png", TILE_SIZE, TILE_SIZE);
+        right2 = PerformanceUtil.getScaledImage(IMG_ROOT + "/right-2.png", TILE_SIZE, TILE_SIZE);
     }
 
-    private void loadPlayerAttackImages(String imageTypeName) {
-        AttackType attackType = "wizard".equals(imageTypeName) ? AttackType.MAGIC : AttackType.SWORD;
-        attackUtil = AttackUtil.buildAndLoadImages(attackType, 24, 24, IMG_ROOT + imageTypeName);
+    private void loadPlayerAttackImages() {
+        attackUtil = AttackUtil.buildAndLoadImages(weapon, 24, 24, IMG_ROOT);
     }
 
     public int getScreenX() {
@@ -285,5 +283,13 @@ public class Player extends Sprite {
         maxHP += 2;
         healthPoints = maxHP;
         skillPoints--;
+    }
+
+    public void equip(Weapon weapon) {
+        boolean isDifferentAttackType = !this.weapon.attackType().equals(weapon.attackType());
+        this.weapon = weapon;
+        if (isDifferentAttackType) {
+            loadPlayerAttackImages();
+        }
     }
 }

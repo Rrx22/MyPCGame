@@ -1,6 +1,8 @@
 package nl.rrx.ui.character;
 
 import nl.rrx.object.loot.Item;
+import nl.rrx.object.loot.shield.Shield;
+import nl.rrx.object.loot.weapon.Weapon;
 import nl.rrx.sprite.Direction;
 import nl.rrx.sprite.Player.Stash;
 import nl.rrx.ui.UIUtil;
@@ -10,6 +12,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
+import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.DependencyManager.STASH;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
@@ -35,7 +38,10 @@ class StashFrame implements Interactable {
 
     @Override
     public void doAction() {
-
+        var item = selectedItem();
+        if (item instanceof Weapon weapon) {
+            PLAYER.equip(weapon);
+        }
     }
 
     void draw(Graphics2D g2, boolean hasFocus) {
@@ -58,6 +64,10 @@ class StashFrame implements Interactable {
         for (int i = 0; i < Stash.MAX; i++) {
             Item item = items[i];
             if (item != null) {
+                if ((item instanceof Weapon w && w.equals(PLAYER.weapon)) || (item instanceof Shield s && s.equals(PLAYER.shield))) {
+                    g2.setColor(new Color(255, 166, 0));
+                    g2.fillRoundRect(slotX, slotY, TILE_SIZE, TILE_SIZE, 10, 10);
+                }
                 g2.drawImage(item.image, slotX, slotY, null);
                 slotX += slotSize;
                 if (i == 4 || i == 9 || i == 14) {
@@ -76,8 +86,7 @@ class StashFrame implements Interactable {
         g2.drawRoundRect(cursorX, cursorY, cursorSize, cursorSize, 10, 10);
 
         // description
-        int itemIdx = (maxCol + 1) * cursorRow + cursorCol;
-        var item = STASH.items()[itemIdx];
+        var item = selectedItem();
         if (hasFocus && item != null) {
             int dFrameY = frameY + frameHeight;
             UIUtil.drawSubWindow(g2, frameX, dFrameY, frameWidth, TILE_SIZE * 3);
@@ -87,5 +96,9 @@ class StashFrame implements Interactable {
             g2.setFont(g2.getFont().deriveFont(Font.BOLD));
             g2.drawString(item.title + " " + item.subtitle, textX, textY);
         }
+    }
+
+    private Item selectedItem() {
+        return STASH.items()[(maxCol + 1) * cursorRow + cursorCol];
     }
 }
