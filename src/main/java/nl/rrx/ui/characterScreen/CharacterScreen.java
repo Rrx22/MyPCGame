@@ -6,6 +6,7 @@ import nl.rrx.sprite.Direction;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
+import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.DependencyManager.SOUND_HANDLER;
 
 public class CharacterScreen {
@@ -52,7 +53,7 @@ public class CharacterScreen {
         helpScreen = new HelpFrame();
         statsFrame = new StatsFrame();
         stashFrame = new StashFrame();
-        focusFrame = FocusFrame.STASH;
+        focusFrame = PLAYER.skillPoints > 0 ? FocusFrame.STATS : FocusFrame.STASH;
     }
 
     public static void clear() {

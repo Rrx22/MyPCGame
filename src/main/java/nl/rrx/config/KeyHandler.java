@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import static nl.rrx.config.DependencyManager.STATE_HANDLER;
+import static nl.rrx.config.DependencyManager.TILE_HANDLER;
 
 public class KeyHandler implements KeyListener {
 
@@ -39,6 +40,7 @@ public class KeyHandler implements KeyListener {
 
     private void handleKeysForPlayState(int code) {
         if (DebugSettings.ENABLED && code == KeyEvent.VK_Q) System.exit(0);
+        if (DebugSettings.ENABLED && code == KeyEvent.VK_R) TILE_HANDLER.loadMap();
         if (code == KeyEvent.VK_P) {
             STATE_HANDLER.pressPause();
             return;

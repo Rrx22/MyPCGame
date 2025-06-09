@@ -39,7 +39,7 @@ public class TileHandler {
         }
     }
 
-    private void loadMap() {
+    public void loadMap() {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(MAP_TXT_FILE)))) {
             for (int row = 0; row < MAX_WORLD_ROW; row++) {
                 String[] parsedTileNumbers = reader.readLine().split(" ");
