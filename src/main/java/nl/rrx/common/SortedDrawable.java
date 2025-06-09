@@ -1,6 +1,6 @@
 package nl.rrx.common;
 
-import nl.rrx.object.world.WorldObject;
+import nl.rrx.object.WorldObject;
 import nl.rrx.sprite.nps.monster.Monster;
 import nl.rrx.sprite.nps.npc.NPC;
 

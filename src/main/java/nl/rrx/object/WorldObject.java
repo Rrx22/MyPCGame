@@ -1,4 +1,4 @@
-package nl.rrx.object.world;
+package nl.rrx.object;
 
 import nl.rrx.common.SortedDrawable;
 import nl.rrx.config.settings.DebugSettings;

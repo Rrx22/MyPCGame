@@ -1,4 +1,4 @@
-package nl.rrx.object.world;
+package nl.rrx.object.placed;
 
 public class OBJ_Door extends PlacedObject {
 

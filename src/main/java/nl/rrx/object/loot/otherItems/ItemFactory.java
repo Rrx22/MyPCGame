@@ -1,6 +1,6 @@
-package nl.rrx.object.item.otherItems;
+package nl.rrx.object.loot.otherItems;
 
-import nl.rrx.object.item.Item;
+import nl.rrx.object.loot.Item;
 import nl.rrx.util.PerformanceUtil;
 
 import java.awt.image.BufferedImage;

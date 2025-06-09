@@ -1,6 +1,6 @@
 package nl.rrx.ui.characterScreen;
 
-import nl.rrx.object.item.Item;
+import nl.rrx.object.loot.Item;
 import nl.rrx.sprite.Direction;
 import nl.rrx.sprite.Player.Stash;
 import nl.rrx.ui.UIUtil;

@@ -1,6 +1,6 @@
-package nl.rrx.object.world;
+package nl.rrx.object.loot;
 
-import nl.rrx.object.item.Item;
+import nl.rrx.object.WorldObject;
 
 import java.awt.image.BufferedImage;
 

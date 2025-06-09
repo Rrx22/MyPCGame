@@ -1,4 +1,4 @@
-package nl.rrx.object.item;
+package nl.rrx.object.loot.shield;
 
 import nl.rrx.util.PerformanceUtil;
 

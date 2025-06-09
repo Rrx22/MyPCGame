@@ -1,4 +1,6 @@
-package nl.rrx.object.item;
+package nl.rrx.object.loot.weapon;
+
+import nl.rrx.object.loot.Item;
 
 import java.awt.image.BufferedImage;
 import java.util.Random;

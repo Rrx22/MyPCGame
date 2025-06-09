@@ -1,11 +1,10 @@
 package nl.rrx.object;
 
-import nl.rrx.object.item.ShieldFactory;
-import nl.rrx.object.item.WeaponFactory;
-import nl.rrx.object.item.otherItems.ItemFactory;
-import nl.rrx.object.world.LootObject;
-import nl.rrx.object.world.PlacedObject;
-import nl.rrx.object.world.WorldObject;
+import nl.rrx.object.loot.LootObject;
+import nl.rrx.object.loot.shield.ShieldFactory;
+import nl.rrx.object.loot.weapon.WeaponFactory;
+import nl.rrx.object.loot.otherItems.ItemFactory;
+import nl.rrx.object.placed.PlacedObject;
 
 import java.util.Arrays;
 

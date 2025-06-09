@@ -1,4 +1,6 @@
-package nl.rrx.object.item;
+package nl.rrx.object.loot.shield;
+
+import nl.rrx.object.loot.Item;
 
 import java.awt.image.BufferedImage;
 

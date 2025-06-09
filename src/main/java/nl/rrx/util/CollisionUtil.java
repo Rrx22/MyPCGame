@@ -2,8 +2,8 @@ package nl.rrx.util;
 
 import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.event.Event;
-import nl.rrx.object.world.PlacedObject;
-import nl.rrx.object.world.WorldObject;
+import nl.rrx.object.placed.PlacedObject;
+import nl.rrx.object.WorldObject;
 import nl.rrx.sprite.Direction;
 import nl.rrx.sprite.Player.Player;
 import nl.rrx.sprite.Sprite;

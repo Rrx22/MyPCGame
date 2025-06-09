@@ -1,4 +1,4 @@
-package nl.rrx.object.world;
+package nl.rrx.object.placed;
 
 public enum PlacedObjectFactory {
     DOOR("door.png", true),

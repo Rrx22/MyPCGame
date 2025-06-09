@@ -1,6 +1,6 @@
 package nl.rrx.ui;
 
-import nl.rrx.object.world.PlacedObjectFactory;
+import nl.rrx.object.placed.PlacedObjectFactory;
 import nl.rrx.util.PerformanceUtil;
 
 import java.awt.Graphics2D;

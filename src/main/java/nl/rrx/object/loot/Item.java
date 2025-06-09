@@ -1,4 +1,4 @@
-package nl.rrx.object.item;
+package nl.rrx.object.loot;
 
 
 import java.awt.image.BufferedImage;

@@ -1,5 +1,6 @@
-package nl.rrx.object.world;
+package nl.rrx.object.placed;
 
+import nl.rrx.object.WorldObject;
 import nl.rrx.util.PerformanceUtil;
 
 import java.awt.image.BufferedImage;

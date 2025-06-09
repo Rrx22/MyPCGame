@@ -1,7 +1,7 @@
 package nl.rrx.sprite.Player;
 
 import nl.rrx.config.settings.ScreenSettings;
-import nl.rrx.object.item.Item;
+import nl.rrx.object.loot.Item;
 import nl.rrx.sound.SoundEffect;
 import nl.rrx.ui.FloatingBattleMessagesUI;
 

@@ -1,10 +1,10 @@
 package nl.rrx.sprite.Player;
 
 import nl.rrx.config.settings.SpriteSettings;
-import nl.rrx.object.item.Shield;
-import nl.rrx.object.item.ShieldFactory;
-import nl.rrx.object.item.Weapon;
-import nl.rrx.object.item.WeaponFactory;
+import nl.rrx.object.loot.shield.Shield;
+import nl.rrx.object.loot.shield.ShieldFactory;
+import nl.rrx.object.loot.weapon.Weapon;
+import nl.rrx.object.loot.weapon.WeaponFactory;
 import nl.rrx.sound.SoundEffect;
 import nl.rrx.sprite.AttackType;
 import nl.rrx.sprite.AttackUtil;
