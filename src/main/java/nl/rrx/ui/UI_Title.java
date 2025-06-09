@@ -16,7 +16,7 @@ import static nl.rrx.config.settings.ScreenSettings.SCREEN_WIDTH;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.util.ScreenUtil.getXForCenteredText;
 
-public class TitleScreen {
+public class UI_Title {
 
     // todo refactor to use Interactable interface like the Character Screen
     //  also get rid of class selection, since this is no longer the way to go
@@ -32,7 +32,7 @@ public class TitleScreen {
     private static int selectedItemNum;
     private static int titleScreenFlowNum;
 
-    private TitleScreen() {
+    private UI_Title() {
     }
 
     static void draw(Graphics2D g2, Font fontBold) {
@@ -55,14 +55,14 @@ public class TitleScreen {
     }
 
     public static void pressUp() {
-        if (TitleScreen.selectedItemNum > 0) TitleScreen.selectedItemNum--;
+        if (UI_Title.selectedItemNum > 0) UI_Title.selectedItemNum--;
     }
 
     public static void pressDown() {
         int lastIndex = titleScreenFlowNum == 0
                 ? INDEX_LAST_MENU_ITEM
                 : LAST_INDEX_CLASS_SELECTION;
-        if (TitleScreen.selectedItemNum < lastIndex) TitleScreen.selectedItemNum++;
+        if (UI_Title.selectedItemNum < lastIndex) UI_Title.selectedItemNum++;
     }
 
     public static void pressMenu() {

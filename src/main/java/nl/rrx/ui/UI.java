@@ -2,7 +2,7 @@ package nl.rrx.ui;
 
 import nl.rrx.sprite.Sprite;
 import nl.rrx.state.GameState;
-import nl.rrx.ui.characterScreen.CharacterScreen;
+import nl.rrx.ui.characterScreen.UI_Character;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -28,18 +28,18 @@ public class UI {
         g2.setColor(Color.white);
 
         switch (STATE_HANDLER.currentState()) {
-            case PLAY -> PlayUI.draw(g2);
-            case PAUSE -> PauseUI.draw(g2, fontBold);
-            case DIALOGUE -> DialogueUI.draw(g2, fontPlain, dialogue);
-            case TITLE_SCREEN -> TitleScreen.draw(g2, fontBold);
-            case CHARACTER_SCREEN -> CharacterScreen.draw(g2, fontPlain);
+            case PLAY -> UI_Play.draw(g2);
+            case PAUSE -> UI_Pause.draw(g2, fontBold);
+            case DIALOGUE -> UI_Dialogue.draw(g2, fontPlain, dialogue);
+            case TITLE_SCREEN -> UI_Title.draw(g2, fontBold);
+            case CHARACTER_SCREEN -> UI_Character.draw(g2, fontPlain);
         }
     }
 
     public void drawDebugStats(Graphics2D g2, long drawStart) {
         Sprite sprite = PLAYER;
 //        Sprite sprite = MONSTER_MGR.get(0);
-        DebugUI.draw(g2, sprite, drawStart, fontPlain);
+        DebugUIUtil.draw(g2, sprite, drawStart, fontPlain);
     }
 
     public void setDialogue(String dialogue) {

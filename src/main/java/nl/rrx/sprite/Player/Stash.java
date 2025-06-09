@@ -3,7 +3,7 @@ package nl.rrx.sprite.Player;
 import nl.rrx.config.settings.ScreenSettings;
 import nl.rrx.object.loot.Item;
 import nl.rrx.sound.SoundEffect;
-import nl.rrx.ui.FloatingBattleMessagesUI;
+import nl.rrx.ui.FloatingBattleMessages;
 
 import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.DependencyManager.SOUND_HANDLER;
@@ -23,13 +23,13 @@ public class Stash {
             if (items[i] == null) {
                 warningMessageCounter = 0;
                 items[i] = item;
-                FloatingBattleMessagesUI.add(PLAYER, "Got a " + item.title + "!", FloatingBattleMessagesUI.MessageType.PLAYER_INFO);
+                FloatingBattleMessages.add(PLAYER, "Got a " + item.title + "!", FloatingBattleMessages.MessageType.PLAYER_INFO);
                 SOUND_HANDLER.playSoundEffect(SoundEffect.COIN);
                 return true;
             }
         }
         if (warningMessageCounter == 0) {
-            FloatingBattleMessagesUI.add(PLAYER, "Stash is full", FloatingBattleMessagesUI.MessageType.PLAYER_INFO);
+            FloatingBattleMessages.add(PLAYER, "Stash is full", FloatingBattleMessages.MessageType.PLAYER_INFO);
             SOUND_HANDLER.playSoundEffect(SoundEffect.CURSOR);
         }
         warningMessageCounter ++;

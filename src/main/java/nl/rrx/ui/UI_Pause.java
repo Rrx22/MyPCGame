@@ -6,9 +6,9 @@ import java.awt.Graphics2D;
 import static nl.rrx.config.settings.ScreenSettings.SCREEN_HEIGHT;
 import static nl.rrx.util.ScreenUtil.getXForCenteredText;
 
-class PauseUI {
+class UI_Pause {
 
-    private PauseUI() {}
+    private UI_Pause() {}
 
     static void draw(Graphics2D g2, Font font) {
         String text = "PAUSED";

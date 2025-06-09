@@ -15,9 +15,9 @@ import java.util.List;
 import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
-public class FloatingBattleMessagesUI {
+public class FloatingBattleMessages {
 
-    private FloatingBattleMessagesUI() {
+    private FloatingBattleMessages() {
     }
 
     private static final List<BattleMessage> FLOATING_BATTLE_MESSAGES = new ArrayList<>();

@@ -6,9 +6,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
-class DebugUI {
+class DebugUIUtil {
 
-    private DebugUI() {}
+    private DebugUIUtil() {}
 
     static void draw(Graphics2D g2, Sprite sprite, long drawStart, Font font) {
         g2.setFont(font);

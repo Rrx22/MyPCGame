@@ -1,7 +1,7 @@
 package nl.rrx.state;
 
 import nl.rrx.config.settings.DebugSettings;
-import nl.rrx.ui.characterScreen.CharacterScreen;
+import nl.rrx.ui.characterScreen.UI_Character;
 
 public class StateHandler {
 
@@ -38,10 +38,10 @@ public class StateHandler {
 
     private void handleSwitchingCharacterScreen(GameState gameState) {
         if (gameState == GameState.CHARACTER_SCREEN) {
-            CharacterScreen.init();
+            UI_Character.init();
         }
         if (currentState == GameState.CHARACTER_SCREEN) {
-            CharacterScreen.clear();
+            UI_Character.clear();
         }
     }
 }

@@ -11,7 +11,7 @@ import nl.rrx.sprite.AttackUtil;
 import nl.rrx.sprite.Direction;
 import nl.rrx.sprite.Sprite;
 import nl.rrx.sprite.nps.monster.Monster;
-import nl.rrx.ui.FloatingBattleMessagesUI;
+import nl.rrx.ui.FloatingBattleMessages;
 import nl.rrx.util.PerformanceUtil;
 
 import java.awt.AlphaComposite;
@@ -247,7 +247,7 @@ public class Player extends Sprite {
         if (!isTemporarilyInvincible) {
             healthPoints -= damage;
             isTemporarilyInvincible = true;
-            FloatingBattleMessagesUI.add(this, String.valueOf(damage), FloatingBattleMessagesUI.MessageType.PLAYER_DMG);
+            FloatingBattleMessages.add(this, String.valueOf(damage), FloatingBattleMessages.MessageType.PLAYER_DMG);
             SOUND_HANDLER.playSoundEffect(SoundEffect.RECEIVE_DMG);
         }
     }
@@ -278,7 +278,7 @@ public class Player extends Sprite {
             SOUND_HANDLER.playSoundEffect(SoundEffect.POWERUP);
             UI.setDialogue("You are level " + level + " now!\nYou feel stronger!");
         }
-        FloatingBattleMessagesUI.add(this, exp + "xp", FloatingBattleMessagesUI.MessageType.PLAYER_INFO);
+        FloatingBattleMessages.add(this, exp + "xp", FloatingBattleMessages.MessageType.PLAYER_INFO);
     }
 
     public void skillMaxHp() {

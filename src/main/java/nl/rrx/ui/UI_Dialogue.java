@@ -6,9 +6,9 @@ import java.awt.Graphics2D;
 import static nl.rrx.config.settings.ScreenSettings.SCREEN_WIDTH;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
-class DialogueUI {
+class UI_Dialogue {
 
-    private DialogueUI() {}
+    private UI_Dialogue() {}
 
     static void draw(Graphics2D g2, Font font, String dialogue) {
         int x = TILE_SIZE * 2;

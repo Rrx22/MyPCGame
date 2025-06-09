@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
 import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.DependencyManager.SOUND_HANDLER;
 
-public class CharacterScreen {
+public class UI_Character {
 
     private static FocusFrame focusFrame = FocusFrame.STATS;
 
@@ -17,7 +17,7 @@ public class CharacterScreen {
     private static StatsFrame statsFrame;
     private static StashFrame stashFrame;
 
-    private CharacterScreen() {
+    private UI_Character() {
     }
 
     public static void draw(Graphics2D g2, Font font) {

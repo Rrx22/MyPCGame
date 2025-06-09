@@ -1,7 +1,7 @@
 package nl.rrx.sprite.nps.monster;
 
 import nl.rrx.sprite.nps.NonPlayerSprite;
-import nl.rrx.ui.FloatingBattleMessagesUI;
+import nl.rrx.ui.FloatingBattleMessages;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -107,7 +107,7 @@ public abstract class Monster extends NonPlayerSprite {
             return;
         }
 
-        FloatingBattleMessagesUI.add(this, String.valueOf(damage), FloatingBattleMessagesUI.MessageType.MONSTER_DMG);
+        FloatingBattleMessages.add(this, String.valueOf(damage), FloatingBattleMessages.MessageType.MONSTER_DMG);
         healthPoints -= damage;
         isTemporarilyInvincible = true;
         if (healthPoints <= 0) {

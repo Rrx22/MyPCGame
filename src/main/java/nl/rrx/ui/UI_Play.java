@@ -9,13 +9,13 @@ import java.awt.image.BufferedImage;
 import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 
-class PlayUI {
+class UI_Play {
 
     private static final BufferedImage heartFull = PerformanceUtil.getScaledImage(PlacedObjectFactory.HEART.imageUri, TILE_SIZE, TILE_SIZE);
     private static final BufferedImage heartHalf = PerformanceUtil.getScaledImage("/images/objects/heart_half.png", TILE_SIZE, TILE_SIZE);
     private static final BufferedImage heartBlank = PerformanceUtil.getScaledImage("/images/objects/heart_blank.png", TILE_SIZE, TILE_SIZE);
 
-    private PlayUI() {
+    private UI_Play() {
     }
 
     static void draw(Graphics2D g2) {

@@ -3,8 +3,8 @@ package nl.rrx.config;
 import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.sprite.Direction;
 import nl.rrx.state.GameState;
-import nl.rrx.ui.TitleScreen;
-import nl.rrx.ui.characterScreen.CharacterScreen;
+import nl.rrx.ui.UI_Title;
+import nl.rrx.ui.characterScreen.UI_Character;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -78,26 +78,26 @@ public class KeyHandler implements KeyListener {
             STATE_HANDLER.toggleCharacterScreen();
         }
         if (code == KeyEvent.VK_H) {
-            CharacterScreen.toggleHelp();
+            UI_Character.toggleHelp();
         }
         if (code == KeyEvent.VK_C) {
-            CharacterScreen.changeFocus();
+            UI_Character.changeFocus();
         }
         if (code == KeyEvent.VK_ENTER) {
-            CharacterScreen.doAction();
+            UI_Character.doAction();
         }
         // stash
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
-            CharacterScreen.moveCursor(Direction.UP);
+            UI_Character.moveCursor(Direction.UP);
         }
         if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
-            CharacterScreen.moveCursor(Direction.DOWN);
+            UI_Character.moveCursor(Direction.DOWN);
         }
         if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
-            CharacterScreen.moveCursor(Direction.LEFT);
+            UI_Character.moveCursor(Direction.LEFT);
         }
         if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
-            CharacterScreen.moveCursor(Direction.RIGHT);
+            UI_Character.moveCursor(Direction.RIGHT);
         }
     }
 
@@ -111,13 +111,13 @@ public class KeyHandler implements KeyListener {
 
     private void handleKeysForTitleScreen(int code) {
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
-            TitleScreen.pressUp();
+            UI_Title.pressUp();
         }
         if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
-            TitleScreen.pressDown();
+            UI_Title.pressDown();
         }
         if (code == KeyEvent.VK_ENTER) {
-            TitleScreen.pressMenu();
+            UI_Title.pressMenu();
         }
     }
 
