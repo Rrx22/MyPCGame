@@ -286,7 +286,7 @@ public class Player extends Sprite {
     }
 
     public void equip(Weapon weapon) {
-        boolean isDifferentAttackType = !this.weapon.attackType().equals(weapon.attackType());
+        boolean isDifferentAttackType = !this.weapon.type().equals(weapon.type());
         this.weapon = weapon;
         if (isDifferentAttackType) {
             loadPlayerAttackImages();

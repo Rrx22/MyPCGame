@@ -33,16 +33,16 @@ public record AttackUtil(
 ) {
     public static AttackUtil buildAndLoadImages(Weapon weapon, int width, int height, String fileStart) {
         return new AttackUtil(
-                weapon.attackType(),
+                AttackType.MELEE, // todo hardcoded for now
                 new Rectangle(0, 0, width, height),
-                PerformanceUtil.getScaledImage(fileStart + "/" + weapon.attackType() + "/atk-up-1.png", TILE_SIZE, TILE_SIZE * 2),
-                PerformanceUtil.getScaledImage(fileStart + "/" + weapon.attackType() + "/atk-up-2.png", TILE_SIZE, TILE_SIZE * 2),
-                PerformanceUtil.getScaledImage(fileStart + "/" + weapon.attackType() + "/atk-down-1.png", TILE_SIZE, TILE_SIZE * 2),
-                PerformanceUtil.getScaledImage(fileStart + "/" + weapon.attackType() + "/atk-down-2.png", TILE_SIZE, TILE_SIZE * 2),
-                PerformanceUtil.getScaledImage(fileStart + "/" + weapon.attackType() + "/atk-left-1.png", TILE_SIZE * 2, TILE_SIZE),
-                PerformanceUtil.getScaledImage(fileStart + "/" + weapon.attackType() + "/atk-left-2.png", TILE_SIZE * 2, TILE_SIZE),
-                PerformanceUtil.getScaledImage(fileStart + "/" + weapon.attackType() + "/atk-right-1.png", TILE_SIZE * 2, TILE_SIZE),
-                PerformanceUtil.getScaledImage(fileStart + "/" + weapon.attackType() + "/atk-right-2.png", TILE_SIZE * 2, TILE_SIZE)
+                PerformanceUtil.getScaledImage(fileStart + "/" + weapon.type() + "/atk-up-1.png", TILE_SIZE, TILE_SIZE * 2),
+                PerformanceUtil.getScaledImage(fileStart + "/" + weapon.type() + "/atk-up-2.png", TILE_SIZE, TILE_SIZE * 2),
+                PerformanceUtil.getScaledImage(fileStart + "/" + weapon.type() + "/atk-down-1.png", TILE_SIZE, TILE_SIZE * 2),
+                PerformanceUtil.getScaledImage(fileStart + "/" + weapon.type() + "/atk-down-2.png", TILE_SIZE, TILE_SIZE * 2),
+                PerformanceUtil.getScaledImage(fileStart + "/" + weapon.type() + "/atk-left-1.png", TILE_SIZE * 2, TILE_SIZE),
+                PerformanceUtil.getScaledImage(fileStart + "/" + weapon.type() + "/atk-left-2.png", TILE_SIZE * 2, TILE_SIZE),
+                PerformanceUtil.getScaledImage(fileStart + "/" + weapon.type() + "/atk-right-1.png", TILE_SIZE * 2, TILE_SIZE),
+                PerformanceUtil.getScaledImage(fileStart + "/" + weapon.type() + "/atk-right-2.png", TILE_SIZE * 2, TILE_SIZE)
         );
     }
 

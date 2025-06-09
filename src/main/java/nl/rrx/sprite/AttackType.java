@@ -3,8 +3,7 @@ package nl.rrx.sprite;
 import nl.rrx.sound.SoundEffect;
 
 public enum AttackType {
-    SWORD(SoundEffect.HIT_MONSTER, SoundEffect.SWING_WEAPON),
-    AXE(SoundEffect.HIT_MONSTER, SoundEffect.SWING_WEAPON),
+    MELEE(SoundEffect.HIT_MONSTER, SoundEffect.SWING_WEAPON),
     MAGIC(SoundEffect.FIRE_SPELL);
 
     public final SoundEffect hitSound;
@@ -20,7 +19,7 @@ public enum AttackType {
     }
 
     public boolean isCloseRange() {
-        return this.equals(SWORD)
+        return this.equals(MELEE)
                 || this.equals(MAGIC);
     }
 }
