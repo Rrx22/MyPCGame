@@ -253,6 +253,12 @@ public class Player extends Sprite {
     public void recoverHP() {
         healthPoints = maxHP;
     }
+    public void recoverHP(int heal) {
+        healthPoints += heal;
+        if (healthPoints > maxHP) {
+            healthPoints = maxHP;
+        }
+    }
 
     public void teleport(int x, int y) {
         worldX = x * TILE_SIZE;
@@ -274,14 +280,14 @@ public class Player extends Sprite {
             this.exp -= expUntilNextLevel;
             this.expUntilNextLevel *= 2;
             SOUND_HANDLER.playSoundEffect(SoundEffect.POWERUP);
-            UI.setDialogue("You are level " + level + " now!\nYou feel stronger!");
+            UI.showDialogue("You are level " + level + " now!", "You feel stronger!");
         }
         FloatingBattleMessages.add(this, exp + "xp", FloatingBattleMessages.MessageType.PLAYER_INFO);
     }
 
     public void skillMaxHp() {
-        maxHP += 2;
-        healthPoints = maxHP;
+        maxHP++;
+        healthPoints++;
         skillPoints--;
     }
 
@@ -291,5 +297,9 @@ public class Player extends Sprite {
         if (isDifferentAttackType) {
             loadPlayerAttackImages();
         }
+    }
+
+    public void equip(Shield shield) {
+        this.shield = shield;
     }
 }

@@ -9,11 +9,9 @@ public class Wizard extends NPC {
         speed = 1;
         slowerActionInterval(2);
         loadImages("wizard");
-        setDialogues(
-                "Hello, lad.",
-                "The treacherous are ever distrustful.",
-                "May the wind under your wings bear you\nwhere the sun sails and the moon walks."
-        );
+        addDialogue("Hello, lad.");
+        addDialogue("The treacherous are ever distrustful.");
+        addDialogue("May the wind under your wings bear you", "where the sun sails and the moon walks.");
     }
 
     @Override

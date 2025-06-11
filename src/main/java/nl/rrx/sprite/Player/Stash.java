@@ -36,8 +36,16 @@ public class Stash {
         return false;
     }
 
+    public void remove(Item item) {
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] == item) {
+                items[i] = null;
+                return;
+            }
+        }
+    }
+
     public Item[] items() {
         return items;
     }
-
 }

@@ -10,11 +10,9 @@ public class Giant extends NPC {
         direction = Direction.RIGHT;
         slowerActionInterval(3);
         loadImages("giant");
-        setDialogues(
-                "I was guardin' this bridge for…\nuh… since lunch, I think!?",
-                "Oh! Hello tiny peoples. Wait..\nWhat was I here for again?",
-                "I saw a dragon once! Or... \nwas it a cow with wings? Hmm."
-        );
+        addDialogue("I was guardin' this bridge for…", "uh… since lunch, I think!?");
+        addDialogue("Oh! Hello tiny peoples. Wait..", "What was I here for again?");
+        addDialogue("I saw a dragon once! Or... ", "was it a cow with wings? Hmm.");
     }
 
     @Override

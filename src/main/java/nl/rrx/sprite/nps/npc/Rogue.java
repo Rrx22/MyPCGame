@@ -12,12 +12,10 @@ public class Rogue extends NPC {
         super(startWorldX, startWorldY);
         speed = 2;
         loadImages("rogue");
-        setDialogues(
-                "What d'you want from me?",
-                "Leave me alone...",
-                "Seriously, you're drawing too much attention!",
-                "Gotta go. See you around, kid."
-        );
+        addDialogue("What d'you want from me?");
+        addDialogue("Leave me alone...");
+        addDialogue("Seriously, you're drawing too much attention!");
+        addDialogue("Gotta go. See you around, kid.");
     }
 
     @Override
@@ -41,7 +39,7 @@ public class Rogue extends NPC {
     public void speak() {
         super.speak();
         disappearCounter++;
-        if (disappearCounter >= dialogues.length) {
+        if (disappearCounter >= dialogues.size()) {
             for (int i = 0; i < NPC_MGR.getNPCs().length; i++) {
                 NPC npc = NPC_MGR.get(i);
                 if (npc == this) {

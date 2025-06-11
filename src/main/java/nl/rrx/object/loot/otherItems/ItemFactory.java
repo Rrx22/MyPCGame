@@ -10,6 +10,8 @@ import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 public enum ItemFactory {
     KEY("key.png", "Key", "Unlocks a door."),
     BOOTS("boots.png", "Boots", "To wear on your feet."),
+    HEALTH_POTION("health_potion.png", "Health potion", "Consume this potion to restore some health."),
+    MANA_POTION("mana_potion.png", "Mana potion", "Consume this potion to restore some mana."),
     ;
 
     private final BufferedImage image;
@@ -26,6 +28,8 @@ public enum ItemFactory {
         return switch (this) {
             case KEY -> new OBJ_Key(image, title, description);
             case BOOTS -> new OBJ_Boots(image, title, description);
+            case HEALTH_POTION -> new OBJ_HealthPotion(image, title, description);
+            case MANA_POTION -> null;
         };
     }
 }

@@ -1,9 +1,9 @@
 package nl.rrx.object;
 
 import nl.rrx.object.loot.LootObject;
+import nl.rrx.object.loot.otherItems.ItemFactory;
 import nl.rrx.object.loot.shield.ShieldFactory;
 import nl.rrx.object.loot.weapon.WeaponFactory;
-import nl.rrx.object.loot.otherItems.ItemFactory;
 import nl.rrx.object.placed.PlacedObject;
 
 import java.util.Arrays;
@@ -24,6 +24,7 @@ public class ObjectManager {
         add(new LootObject(WeaponFactory.COMMON_AXE.create(), 27, 24));
         add(new LootObject(ShieldFactory.SHIELD_UNCOMMON.create(), 28, 24));
         add(new LootObject(ItemFactory.KEY.create(), 29, 24));
+        add(new LootObject(ItemFactory.HEALTH_POTION.create(), 28, 25));
     }
 
     private void add(WorldObject gameObject) {

@@ -17,7 +17,7 @@ public class UI {
     private final Font fontBold;
     private final Font fontPlain;
 
-    private String dialogue = "";
+    private String[] dialogue = {};
 
     public UI() {
         fontBold = importFont(UIUtil.LIBERTY_D_REGULAR_TTF).deriveFont(Font.BOLD, 80);
@@ -42,7 +42,7 @@ public class UI {
         DebugUIUtil.draw(g2, sprite, drawStart, fontPlain);
     }
 
-    public void setDialogue(String dialogue) {
+    public void showDialogue(String ... dialogue) {
         STATE_HANDLER.setState(GameState.DIALOGUE);
         this.dialogue = dialogue;
     }

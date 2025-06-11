@@ -24,11 +24,11 @@ public class HealingPool extends Event {
         super.interact();
         STATE_HANDLER.setState(GameState.DIALOGUE);
         if (interactCount <= MAX_HEALING_INTERACTIONS) {
-            UI.setDialogue("You drank some water.\nYour life has been recovered!");
+            UI.showDialogue("You drank some water.", "Your life has been recovered!");
             SOUND_HANDLER.playSoundEffect(SoundEffect.COIN);
             PLAYER.recoverHP();
         } else {
-            UI.setDialogue("This healing pool is depleted.");
+            UI.showDialogue("This healing pool is depleted.");
         }
     }
 

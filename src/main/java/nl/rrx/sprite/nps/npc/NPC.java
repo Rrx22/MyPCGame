@@ -3,6 +3,9 @@ package nl.rrx.sprite.nps.npc;
 import nl.rrx.sprite.Direction;
 import nl.rrx.sprite.nps.NonPlayerSprite;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static nl.rrx.config.DependencyManager.COLLISION_UTIL;
 import static nl.rrx.config.DependencyManager.KEY_HANDLER;
 import static nl.rrx.config.DependencyManager.MONSTER_MGR;
@@ -14,7 +17,7 @@ public abstract class NPC extends NonPlayerSprite {
 
     private static final String NPC_IMG_ROOT = "/images/sprite/";
 
-    protected String[] dialogues = new String[20];
+    protected List<String[]> dialogues = new ArrayList<>();
     protected int dialogueIndex;
 
     protected NPC(int startWorldX, int startWorldY) {
@@ -45,9 +48,9 @@ public abstract class NPC extends NonPlayerSprite {
     }
 
     public void speak() {
-        UI.setDialogue(dialogues[dialogueIndex]);
+        UI.showDialogue(dialogues.get(dialogueIndex));
         dialogueIndex++;
-        if (dialogueIndex > dialogues.length - 1) {
+        if (dialogueIndex > dialogues.size() - 1) {
             dialogueIndex = 0;
         }
 
@@ -59,8 +62,8 @@ public abstract class NPC extends NonPlayerSprite {
         };
     }
 
-    protected void setDialogues(String... dialogues) {
-        this.dialogues = dialogues;
+    protected void addDialogue(String... dialogue) {
+        this.dialogues.add(dialogue);
     }
 
     @Override

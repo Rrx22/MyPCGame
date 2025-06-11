@@ -9,11 +9,9 @@ public class Knight extends NPC {
         speed = 1;
         slowerActionInterval(3);
         loadImages("knight");
-        setDialogues(
-                "For honor and the realm!",
-                "I yield not to evil, nor to fear!",
-                "My blade bears the king’s justice!"
-        );
+        addDialogue("For honor and the realm!");
+        addDialogue("I yield not to evil, nor to fear!");
+        addDialogue("My blade bears the king’s justice!");
     }
 
     @Override

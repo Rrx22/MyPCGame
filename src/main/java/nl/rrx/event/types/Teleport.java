@@ -24,7 +24,7 @@ public class Teleport extends Event {
     public void interact() {
         super.interact();
         STATE_HANDLER.setState(GameState.DIALOGUE);
-        UI.setDialogue("Teleport!");
+        UI.showDialogue("Teleport!");
         SOUND_HANDLER.playSoundEffect(SoundEffect.POWERUP);
         PLAYER.teleport(destinationX, destinationY);
     }

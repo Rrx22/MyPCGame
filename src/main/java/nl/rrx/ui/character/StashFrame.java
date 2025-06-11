@@ -1,6 +1,7 @@
 package nl.rrx.ui.character;
 
 import nl.rrx.object.loot.Item;
+import nl.rrx.object.loot.otherItems.Consumable;
 import nl.rrx.object.loot.shield.Shield;
 import nl.rrx.object.loot.weapon.Weapon;
 import nl.rrx.sprite.Direction;
@@ -41,6 +42,10 @@ class StashFrame implements Interactable {
         var item = selectedItem();
         if (item instanceof Weapon weapon) {
             PLAYER.equip(weapon);
+        } else if (item instanceof Shield shield) {
+            PLAYER.equip(shield);
+        } else if (item instanceof Consumable consumable) {
+            consumable.consume();
         }
     }
 
@@ -69,11 +74,11 @@ class StashFrame implements Interactable {
                     g2.fillRoundRect(slotX, slotY, TILE_SIZE, TILE_SIZE, 10, 10);
                 }
                 g2.drawImage(item.image, slotX, slotY, null);
-                slotX += slotSize;
-                if (i == 4 || i == 9 || i == 14) {
-                    slotX = startSlotX;
-                    slotY += slotSize;
-                }
+            }
+            slotX += slotSize;
+            if (i == 4 || i == 9 || i == 14) {
+                slotX = startSlotX;
+                slotY += slotSize;
             }
         }
 

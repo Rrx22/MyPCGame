@@ -10,7 +10,7 @@ class UI_Dialogue {
 
     private UI_Dialogue() {}
 
-    static void draw(Graphics2D g2, Font font, String dialogue) {
+    static void draw(Graphics2D g2, Font font, String ... dialogue) {
         int x = TILE_SIZE * 2;
         int y = TILE_SIZE / 2;
         int width = SCREEN_WIDTH - (TILE_SIZE * 4);
@@ -20,7 +20,7 @@ class UI_Dialogue {
         x += TILE_SIZE;
         y += TILE_SIZE / 2;
         g2.setFont(font);
-        for (String line : dialogue.split("\n")) {
+        for (String line : dialogue) {
             y += g2.getFontMetrics().getHeight();
             g2.drawString(line, x, y);
         }
