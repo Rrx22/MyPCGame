@@ -97,9 +97,13 @@ class StashFrame implements Interactable {
             UIUtil.drawSubWindow(g2, frameX, dFrameY, frameWidth, TILE_SIZE * 3);
             int textX = frameX + 20;
             int textY = dFrameY + TILE_SIZE;
-            g2.drawString(item.description, textX, textY + TILE_SIZE / 2);
             g2.setFont(g2.getFont().deriveFont(Font.BOLD));
-            g2.drawString(item.title + " " + item.subtitle, textX, textY);
+            g2.drawString(item.stashTitle(), textX, textY);
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN));
+            for (String line : item.description) {
+                g2.drawString(line, textX, textY + TILE_SIZE / 2);
+                textY += TILE_SIZE / 2;
+            }
         }
     }
 

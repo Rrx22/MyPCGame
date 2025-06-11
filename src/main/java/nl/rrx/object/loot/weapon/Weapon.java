@@ -11,8 +11,8 @@ public abstract class Weapon extends Item {
     public final int minAttack;
     public final int maxAttack;
 
-    Weapon(BufferedImage image, int minAttack, int maxAttack, String title, String description) {
-        super(image, title, "(" + minAttack + "-" + maxAttack + ")", description);
+    Weapon(BufferedImage image, int minAttack, int maxAttack, String title, String... description) {
+        super(image, title, description);
         this.minAttack = minAttack;
         this.maxAttack = maxAttack;
     }
@@ -23,5 +23,10 @@ public abstract class Weapon extends Item {
 
     public String type() {
         return getClass().getSimpleName().toUpperCase();
+    }
+
+    @Override
+    public String stashTitle() {
+        return title + " ( " + minAttack + " - " + maxAttack + " )";
     }
 }

@@ -10,15 +10,15 @@ import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 public enum ItemFactory {
     KEY("key.png", "Key", "Unlocks a door."),
     BOOTS("boots.png", "Boots", "To wear on your feet."),
-    HEALTH_POTION("health_potion.png", "Health potion", "Consume this potion to restore some health."),
-    MANA_POTION("mana_potion.png", "Mana potion", "Consume this potion to restore some mana."),
+    HEALTH_POTION("health_potion.png", "Health potion", "Consume this potion to", "restore some health."),
+    MANA_POTION("mana_potion.png", "Mana potion", "Consume this potion to", "restore some mana."),
     ;
 
     private final BufferedImage image;
     private final String title;
-    private final String description;
+    private final String[] description;
 
-    ItemFactory(String imageUri, String title, String description) {
+    ItemFactory(String imageUri, String title, String... description) {
         this.image = PerformanceUtil.getScaledImage("/images/objects/" + imageUri, TILE_SIZE, TILE_SIZE);
         this.title = title;
         this.description = description;

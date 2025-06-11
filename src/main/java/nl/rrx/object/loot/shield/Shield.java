@@ -8,8 +8,13 @@ public class Shield extends Item {
 
     public final int defence;
 
-    Shield(BufferedImage image, int defence, String title, String description) {
-        super(image, title, "(" + defence + ")", description);
+    Shield(BufferedImage image, int defence, String title, String... description) {
+        super(image, title, description);
         this.defence = defence;
+    }
+
+    @Override
+    public String stashTitle() {
+        return title + " ( " + defence + " )";
     }
 }

@@ -11,7 +11,7 @@ import static nl.rrx.config.DependencyManager.STASH;
 import static nl.rrx.config.DependencyManager.UI;
 
 public class OBJ_HealthPotion extends Item implements Consumable {
-    public OBJ_HealthPotion(BufferedImage image, String title, String description) {
+    public OBJ_HealthPotion(BufferedImage image, String title, String... description) {
         super(image, title, description);
     }
 
