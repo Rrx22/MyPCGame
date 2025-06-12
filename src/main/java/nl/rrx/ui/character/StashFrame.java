@@ -1,7 +1,6 @@
 package nl.rrx.ui.character;
 
 import nl.rrx.object.loot.Item;
-import nl.rrx.object.loot.otherItems.Consumable;
 import nl.rrx.object.loot.shield.Shield;
 import nl.rrx.object.loot.weapon.Weapon;
 import nl.rrx.sprite.Direction;
@@ -39,14 +38,7 @@ class StashFrame implements Interactable {
 
     @Override
     public void doAction() {
-        var item = selectedItem();
-        if (item instanceof Weapon weapon) {
-            PLAYER.equip(weapon);
-        } else if (item instanceof Shield shield) {
-            PLAYER.equip(shield);
-        } else if (item instanceof Consumable consumable) {
-            consumable.consume();
-        }
+        selectedItem().use();
     }
 
     void draw(Graphics2D g2, boolean hasFocus) {

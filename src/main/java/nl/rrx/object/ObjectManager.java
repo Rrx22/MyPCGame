@@ -13,6 +13,7 @@ import static nl.rrx.config.settings.WorldSettings.MAX_OBJECTS;
 
 public class ObjectManager {
 
+    // todo refactor to list / map / ...
     private final WorldObject[] worldObjects;
 
     public ObjectManager() {
@@ -43,17 +44,21 @@ public class ObjectManager {
     public void interact(int index) {
         var item = worldObjects[index];
         switch (item) {
-            case null -> {
-            }
             case LootObject loot -> {
                 if (STASH.addToStash(loot.lootItem)) {
                     worldObjects[index] = null;
                 }
             }
-            case PlacedObject obj -> {
-                // todo implement
-            }
+            case PlacedObject placedObject -> placedObject.interact();
             default -> throw new RuntimeException("Unsupported world object type: " + item.getClass());
+        }
+    }
+
+    public void remove(WorldObject worldObject) {
+        for (int i = 0; i < worldObjects.length; i++) {
+            if (worldObjects[i] == worldObject) {
+                worldObjects[i] = null;
+            }
         }
     }
 }

@@ -22,4 +22,8 @@ public class PlacedObject extends WorldObject {
     protected BufferedImage image() {
         return image;
     }
+
+    public void interact() {
+        // Default no-op
+    }
 }

@@ -2,8 +2,8 @@ package nl.rrx.util;
 
 import nl.rrx.config.settings.DebugSettings;
 import nl.rrx.event.Event;
-import nl.rrx.object.placed.PlacedObject;
 import nl.rrx.object.WorldObject;
+import nl.rrx.object.placed.PlacedObject;
 import nl.rrx.sprite.Direction;
 import nl.rrx.sprite.Player.Player;
 import nl.rrx.sprite.Sprite;
@@ -94,17 +94,15 @@ public class CollisionUtil {
 
         for (int i = 0; i < gameObjects.length; i++) {
             WorldObject obj = gameObjects[i];
-            if (obj != null) {
-
-                var spriteCollisionArea = getSpriteCollisionAreaInWorld(sprite);
-
-                if (spriteCollisionArea.intersects(obj.collisionArea)) {
-                    boolean isCollision = obj instanceof PlacedObject po && po.isCollision;
-                    sprite.setCollisionOn(isCollision);
-                    return isPlayer
-                            ? i
-                            : NO_OBJECT;
-                }
+            if (obj == null) {
+                continue;
+            }
+            if (obj.collisionArea.intersects(getSpriteCollisionAreaInWorld(sprite))) {
+                boolean isCollision = obj instanceof PlacedObject po && po.isCollision;
+                sprite.setCollisionOn(isCollision);
+                return isPlayer
+                        ? i
+                        : NO_OBJECT;
             }
         }
         return NO_OBJECT;

@@ -5,6 +5,9 @@ import nl.rrx.object.loot.Item;
 import nl.rrx.sound.SoundEffect;
 import nl.rrx.ui.FloatingBattleMessages;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 import static nl.rrx.config.DependencyManager.PLAYER;
 import static nl.rrx.config.DependencyManager.SOUND_HANDLER;
 
@@ -32,7 +35,7 @@ public class Stash {
             FloatingBattleMessages.add(PLAYER, "Stash is full", FloatingBattleMessages.MessageType.PLAYER_INFO);
             SOUND_HANDLER.playSoundEffect(SoundEffect.CURSOR);
         }
-        warningMessageCounter ++;
+        warningMessageCounter++;
         return false;
     }
 
@@ -47,5 +50,12 @@ public class Stash {
 
     public Item[] items() {
         return items;
+    }
+
+    public <T extends Item> Optional<T> findFirst(Class<T> clazz) {
+        return Arrays.stream(items)
+                .filter(clazz::isInstance)
+                .map(clazz::cast)
+                .findFirst();
     }
 }
