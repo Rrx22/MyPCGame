@@ -20,7 +20,6 @@ public enum PlacedObjectFactory {
      * @param offsetX will widen the object (including the collision area)
      * @param offsetY will make the object taller (NOT including the collision area)
      */
-
     public PlacedObjectFactory withOffset(int offsetX, int offsetY) {
         this.offsetX = offsetX;
         this.offsetY = offsetY;
@@ -30,8 +29,7 @@ public enum PlacedObjectFactory {
     public PlacedObject create(int worldX, int worldY) {
         return switch (this) {
             case DOOR -> new OBJ_Door(imageUri, isCollision, worldX, worldY, offsetX, offsetY);
-            case CHEST -> null; // todo implement
-            case HEART -> null; // todo implement
+            case CHEST, HEART -> throw new RuntimeException("Not implemented for: " + this.getClass().getSimpleName());
         };
     }
 }

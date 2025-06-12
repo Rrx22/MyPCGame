@@ -29,7 +29,6 @@ import static nl.rrx.config.DependencyManager.SOUND_HANDLER;
 import static nl.rrx.config.DependencyManager.STASH;
 import static nl.rrx.config.DependencyManager.UI;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
-import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 import static nl.rrx.sprite.Direction.DOWN;
 import static nl.rrx.sprite.Direction.LEFT;
 import static nl.rrx.sprite.Direction.RIGHT;
@@ -187,10 +186,8 @@ public class Player extends Sprite {
         COLLISION_UTIL.checkTile(this);
 
         // CHECK OBJECT COLLISION
-        int objIndex = COLLISION_UTIL.checkObject(this, true);
-        if (objIndex != NO_OBJECT) {
-            interactWithObject(objIndex);
-        }
+        COLLISION_UTIL.checkObject(this)
+                .ifPresent(OBJECT_MGR::interact);
 
         // CHECK NPC/MONSTER COLLISION
         COLLISION_UTIL.checkSprite(this, NPC_MGR.getNPCs());
@@ -202,12 +199,6 @@ public class Player extends Sprite {
         }
 
         spriteUtil.updateSprite();
-    }
-
-    // should probably also move this to the GamePanel, to improve interacting with keypress easier
-    //  - not yet a problem, since objects not yet interactable with keypresses
-    private void interactWithObject(int index) {
-        OBJECT_MGR.interact(index);
     }
 
     public void loadPlayerImages() {
@@ -253,6 +244,7 @@ public class Player extends Sprite {
     public void recoverHP() {
         healthPoints = maxHP;
     }
+
     public void recoverHP(int heal) {
         healthPoints += heal;
         if (healthPoints > maxHP) {

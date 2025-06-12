@@ -5,15 +5,15 @@ import nl.rrx.object.WorldObject;
 import java.awt.image.BufferedImage;
 
 public class LootObject extends WorldObject {
-    public final Item lootItem;
+    public final Item item;
 
-    public LootObject(Item lootItem, int worldX, int worldY) {
+    public LootObject(Item item, int worldX, int worldY) {
         super(worldX, worldY, 0, 0);
-        this.lootItem = lootItem;
+        this.item = item;
     }
 
     @Override
     protected BufferedImage image() {
-        return lootItem.image;
+        return item.image;
     }
 }

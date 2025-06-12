@@ -27,7 +27,7 @@ public abstract class NPC extends NonPlayerSprite {
     @Override
     protected void move() {
         COLLISION_UTIL.checkTile(this);
-        COLLISION_UTIL.checkObject(this, false);
+        COLLISION_UTIL.checkObject(this);
         boolean playerHit = COLLISION_UTIL.checkPlayer(this);
         COLLISION_UTIL.checkSprite(this, NPC_MGR.getNPCs());
         COLLISION_UTIL.checkSprite(this, MONSTER_MGR.getMonsters());

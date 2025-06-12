@@ -13,6 +13,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.Optional;
 
 import static nl.rrx.config.DependencyManager.OBJECT_MGR;
 import static nl.rrx.config.DependencyManager.PLAYER;
@@ -20,7 +21,6 @@ import static nl.rrx.config.DependencyManager.TILE_HANDLER;
 import static nl.rrx.config.settings.ScreenSettings.TILE_SIZE;
 import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_OUTLINER;
 import static nl.rrx.config.settings.WorldSettings.DEFAULT_EVENT_SIZE;
-import static nl.rrx.config.settings.WorldSettings.NO_OBJECT;
 
 public class CollisionUtil {
 
@@ -86,26 +86,16 @@ public class CollisionUtil {
      * Sets sprite's collisionOn to true if a collision is met
      *
      * @param sprite   player, npc etc.
-     * @param isPlayer Only players can interact with objects
-     * @return the index of the collided object from the objects array. When no object was hit or !isPlayer, returns 999;
      */
-    public int checkObject(Sprite sprite, boolean isPlayer) {
-        WorldObject[] gameObjects = OBJECT_MGR.getWorldObjects();
-
-        for (int i = 0; i < gameObjects.length; i++) {
-            WorldObject obj = gameObjects[i];
-            if (obj == null) {
-                continue;
-            }
+    public Optional<WorldObject> checkObject(Sprite sprite) {
+        for (WorldObject obj : OBJECT_MGR.getWorldObjects()) {
             if (obj.collisionArea.intersects(getSpriteCollisionAreaInWorld(sprite))) {
                 boolean isCollision = obj instanceof PlacedObject po && po.isCollision;
                 sprite.setCollisionOn(isCollision);
-                return isPlayer
-                        ? i
-                        : NO_OBJECT;
+                return Optional.of(obj);
             }
         }
-        return NO_OBJECT;
+        return Optional.empty();
     }
 
     /**
