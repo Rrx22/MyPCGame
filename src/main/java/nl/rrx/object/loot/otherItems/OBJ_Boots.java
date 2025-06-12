@@ -5,7 +5,7 @@ import nl.rrx.object.loot.Item;
 import java.awt.image.BufferedImage;
 
 public class OBJ_Boots extends Item {
-    public OBJ_Boots(BufferedImage image, String title, String... description) {
-        super(image, title, description);
+    public OBJ_Boots(BufferedImage image) {
+        super(image, "Boots", "To wear on your feet.");
     }
 }
