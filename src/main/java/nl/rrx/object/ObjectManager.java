@@ -24,7 +24,9 @@ public class ObjectManager {
         worldObjects.add(new LootObject(WeaponFactory.COMMON_AXE.create(), 27, 24));
         worldObjects.add(new LootObject(ShieldFactory.SHIELD_UNCOMMON.create(), 28, 24));
         worldObjects.add(new LootObject(ItemFactory.KEY.create(), 29, 24));
-        worldObjects.add(new LootObject(ItemFactory.HEALTH_POTION.create(), 28, 25));
+        worldObjects.add(new LootObject(ItemFactory.HEALTH_POTION_S.create(), 32, 25));
+        worldObjects.add(new LootObject(ItemFactory.HEALTH_POTION_M.create(), 33, 25));
+        worldObjects.add(new LootObject(ItemFactory.HEALTH_POTION_L.create(), 34, 25));
         worldObjects.add(PlacedObjectFactory.DOOR.create(12, 16));
     }
 

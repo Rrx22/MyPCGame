@@ -10,9 +10,13 @@ import static nl.rrx.config.DependencyManager.SOUND_HANDLER;
 import static nl.rrx.config.DependencyManager.STASH;
 import static nl.rrx.config.DependencyManager.UI;
 
-public class OBJ_HealthPotion extends Item implements Consumable {
-    public OBJ_HealthPotion(BufferedImage image) {
-        super(image, "Health potion", "Consume this potion to", "restore some health.");
+public abstract class HealthPotion extends Item implements Consumable {
+
+    private final int heal;
+
+    public HealthPotion(BufferedImage image, String title, int heal) {
+        super(image, title, "Restores " + heal + " HP.");
+        this.heal = heal;
     }
 
     @Override
@@ -22,7 +26,7 @@ public class OBJ_HealthPotion extends Item implements Consumable {
             SOUND_HANDLER.playSoundEffect(SoundEffect.CURSOR);
             return;
         }
-        PLAYER.recoverHP(2);
+        PLAYER.recoverHP(heal);
         STASH.remove(this);
         SOUND_HANDLER.playSoundEffect(SoundEffect.POWERUP);
         UI.showDialogue("You've used your potion.", "It restored 2 HP!");
