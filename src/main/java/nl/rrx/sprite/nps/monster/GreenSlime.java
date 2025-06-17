@@ -53,10 +53,10 @@ public class GreenSlime extends Monster {
     @Override
     public void hurtMonster(int attack) {
         super.hurtMonster(attack);
-        runAwayFromPlayer();
+        runTowardsPlayer();
     }
 
-    private void runAwayFromPlayer() {
+    private void runTowardsPlayer() {
         resetActionLockCounter();
         this.direction = PLAYER.getDirection().opposite();
     }
