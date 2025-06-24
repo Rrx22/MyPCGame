@@ -9,7 +9,7 @@ import static nl.rrx.config.DependencyManager.PLAYER;
 public class GreenSlime extends Monster {
 
     @Override
-    public int baseMaxHP() { return 10; }
+    public int baseMaxHP() { return 8; }
     @Override
     public int baseMinAttack() { return 2; }
     @Override
@@ -53,11 +53,11 @@ public class GreenSlime extends Monster {
     @Override
     public void hurtMonster(int attack) {
         super.hurtMonster(attack);
-        runTowardsPlayer();
+        runFromPlayer();
     }
 
-    private void runTowardsPlayer() {
+    private void runFromPlayer() {
         resetActionLockCounter();
-        this.direction = PLAYER.getDirection().opposite();
+        this.direction = PLAYER.getDirection();
     }
 }

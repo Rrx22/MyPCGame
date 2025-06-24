@@ -3,7 +3,7 @@ package nl.rrx.object.loot;
 
 import nl.rrx.object.loot.otherItems.Consumable;
 import nl.rrx.object.loot.shield.Shield;
-import nl.rrx.object.loot.weapon.Sword;
+import nl.rrx.object.loot.weapon.Weapon;
 
 import java.awt.image.BufferedImage;
 
@@ -27,7 +27,7 @@ public abstract class Item {
 
     public void use() {
         switch (this) {
-            case Sword sword -> PLAYER.equip(sword);
+            case Weapon weapon -> PLAYER.equip(weapon);
             case Shield shield -> PLAYER.equip(shield);
             case Consumable consumable -> consumable.consume();
             default -> {} // todo implement
